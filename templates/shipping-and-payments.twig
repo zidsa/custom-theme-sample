@@ -1,0 +1,295 @@
+{% extends "layout.twig" %}
+
+{% block header %} {{ include('header.twig') }} {% endblock %}
+
+{% block top_links %}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'account-pages.css?v=1.69' }}" />
+    <link rel="stylesheet" href="{{ assetUrl('shipping-section.css') }}" />
+{% endblock %}
+
+
+{% block main_content %}
+
+    <div class="container-parent">
+        <div class="profile-pages-bg d-none d-lg-flex flex-grow-1">
+            <div class="section-colored"></div>
+        </div>
+
+        <div class="container">
+            {% include 'shipping-payment-tabs-mobile.twig' %}
+            <div class="d-flex">
+                {% include 'shipping-payment-vertical-menu.twig' %}
+                <div class="flex-grow-1">
+                    <div class="profile-title d-none d-lg-block theme-text-primary" style="background: #D9D9D9;">
+                        <div class="container py-4 page-breadcurmb">{{ locals.shipping_option }}</div>
+                    </div>
+                    <div class="account-content account-content-lg">
+                        <div class="tab-content " id="v-pills-tabContent">
+
+                            <!-- tab 1 -->
+                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                <div class="mt-5 mb-5 tab-content-shipping">
+
+                                    <div class="card-table d-none d-lg-block">
+                                        <div class="card">
+                                            <div class="card-body card-table-header">
+                                                <div class="row align-items-center">
+                                                    <div class="col col-lg-2 shipping-col-1">{{ locals.shipping_option }}</div>
+                                                    <div class="col col-lg-3 shipping-col-2">{{ locals.covered_cities }}</div>
+                                                    <div class="col col-lg-5 shipping-col-3">{{ locals.shipping_charges }}</div>
+                                                    <div class="col shipping-col-4">{{ locals.payment_upon_receipt }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% for shipping_method in store_shipping_methods %}
+                                        <div  class="card-table options-table">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row flex-column flex-lg-row align-items-start align-items-lg-center">
+
+
+
+
+                                                        <div class="col col-lg-2 m-col shipping-col-1">
+                                                            <span>
+                                                                         <img style="display: inline-block; width: 46px; height: auto"
+                                                                              src="{{ shipping_method.image }}"
+                                                                              alt="{{ shipping_method.name }}"
+                                                                         />
+
+                                                                {{ shipping_method.name }}
+                                                                    </span>
+                                                        </div>
+
+                                                        <div class="col col-lg-3 m-col shipping-col-2">
+                                                            <span class="variant-name-sm d-inline-block d-lg-none">{{ locals.covered_cities }}:&nbsp;</span>
+                                                            <span>
+                                                                    {% for city in shipping_method.delivery_option_cities | slice(0, 3) %}
+                                                                        {{city.name}} {% if loop.last == false %}<span >,</span>{% endif %}
+                                                                    {% endfor %}
+
+                                                                {% if shipping_method.delivery_option_cities | length > 3 %}
+                                                                    <span onclick="showModal()"
+                                                                          class="color-success cursor-pointer text-decoration-underline"
+                                                                          role="button"  href="#" data-toggle="modal"
+                                                                          data-target="#shipping-cities-{{ shipping_method.id }}">
+                                                                        {{ locals.and }} {{ (shipping_method.delivery_option_cities | length) - 3 }} {{ locals.cities }}
+                                                                    </span>
+                                                                {% endif %}
+
+                                                                </span>
+                                                        </div>
+
+                                                        <div class="col col-lg-5 m-col shipping-col-3">
+                                                            <span class="variant-name-sm d-inline-block d-lg-none">{{ locals.shipping_charges }}:&nbsp;</span>
+                                                            <span>
+                                                                    {% for cost in shipping_method.cost %}
+                                                                        <div v-for="cost in shippingMethodData.cost" class="d-flex flex-wrap s-row">
+                                                                        <span class="s-title" style="width: 120px">{{ cost.title }}: </span>
+                                                                        <span class="color-primary s-content">{{ cost.cost_string }} </span>
+                                                                    </div>
+                                                                    {% endfor %}
+
+                                                                </span>
+                                                        </div>
+
+                                                        <div class="col m-col shipping-col-4">
+                                                            <span class="variant-name-sm d-inline-block d-lg-none">{{ locals.payment_upon_receipt }}:&nbsp;</span>
+                                                            <span>
+                                                                    {% if shipping_method.cod_enabled %}
+                                                                        {% for cod_fee in shipping_method.cod_fee %}
+                                                                            <div class="d-flex flex-wrap s-row">
+                                                                                {% if cod_fee.title is not empty %}<span class="s-title">{{ cod_fee.title }}: </span>{% endif %}
+                                                                                <span class="color-primary s-content">{{ cod_fee.cod_fee_string }} </span>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    {% else %}
+                                                                        <i v-else class="icon-clear"></i>
+                                                                    {% endif %}
+                                                                </span>
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        {% if shipping_method.delivery_option_cities | length > 3 %}
+                                            <div class="modal fade shipping-cities-modal" id="shipping-cities-{{ shipping_method.id }}"
+                                                 tabindex="-1" role="dialog"
+                                                 aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" style="position: absolute"
+                                                                    aria-label="Close"><span
+                                                                        aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel">{{ locals.covered_cities }}</h4>
+                                                        </div>
+                                                        <div class="modal-body" style="overflow: scroll">
+
+                                                            <div class="form-element" style="position: relative">
+                                                                <i class="icon-search"></i>
+                                                                <input type="text" class="form-control" placeholder="{{ locals.shipping_payments_th_shipping_cities_search }}"
+                                                                       id=""
+                                                                       name="citiesFilter"
+                                                                       v-model="filterCities"
+                                                                >
+                                                            </div>
+
+                                                            <ul id="shipping-cities-ul-{{ shipping_method.id }}" style="max-height: 320px; overflow: scroll">
+
+                                                                {% for city in shipping_method.delivery_option_cities %}
+                                                                    <li>
+                                                                        {{city.name}}
+                                                                    </li>
+                                                                {% endfor %}
+
+                                                            </ul>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">{{ locals.close }}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+
+                                    {% endfor %}
+
+
+                                </div>
+                            </div>
+
+                            <!-- tab 2 -->
+                            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                <div class="mt-5 mb-5">
+                                    <div class="d-flex flex-wrap">
+                                        {% for payment_method in store_payment_methods %}
+                                            {% if payment_method.icon %}
+                                                <div class="d-flex align-items-center justify-content-center payment-method-card">
+                                                    <img src="{{ payment_method.icon }}">
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <!-- tab 3 -->
+                            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+
+                                {% for store_bank in store_banks %}
+                                    <div class="mt-5 mb-5">
+                                        <div class="shipping-payment-card">
+                                                <div class="card-body-shipping">
+                                                    <h5 class="card-title-shipping mb-2">{{ store_bank.bank.name }}</h5>
+                                                    <div class="d-flex flex-column flex-lg-row align-items-lg-center">
+                                                        <div class="bank-image" style="width: 90px;">
+                                                            <img src="{{ store_bank.bank.logo }}" style="width: 100%; height: auto">
+                                                        </div>
+                                                        <div class="card-account-details">
+                                                            <div class="d-flex shipping-text">
+                                                                <p>{{ locals.shipping_payments_th_banks_account_owner }}</p>
+                                                                <span class="d-block"> <span class="d-inline-block">{{ store_bank.beneficiary_name }}</span></span>
+                                                            </div>
+                                                            <div class="d-flex shipping-text">
+                                                                <p>{{ locals.shipping_payments_th_banks_account_iban }}</p>
+                                                                <span class="d-block">
+                                                                <span class="d-inline-block">{{ store_bank.iban }}</span>
+                                                                <span class="icon-content_copy d-inline-block"></span>
+                                                            </span>
+                                                            </div>
+                                                            <div class="d-flex shipping-text">
+                                                                <p>{{ locals.shipping_payments_th_banks_account_number }}</p>
+                                                                <span class="d-block">
+                                                                <span class="d-inline-block">{{ store_bank.account_number }}</span>
+                                                                <span class="icon-content_copy d-inline-block"></span>
+                                                            </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer_scripts %}
+
+    <script>
+        function setTab(tabId, target){
+            $('.tab-content > div').removeClass('show active')
+            $(tabId).addClass('show active');
+
+            $('.profile-item > a').removeClass('active');
+            $(target).addClass('active');
+
+            if(tabId === '#v-pills-home'){
+                $('.account-content').addClass('account-content-lg')
+            }else{
+                $('.account-content').removeClass('account-content-lg')
+            }
+
+            if(tabId === '#v-pills-profile'){
+                $('.account-content').addClass('account-content-sm')
+            }else{
+                $('.account-content').removeClass('account-content-sm')
+            }
+
+            $('.shipping-payment-icon').addClass('d-none');
+
+            if(tabId === '#v-pills-home'){
+                $('.page-breadcurmb').html('{{locals.shipping_option}}')
+                $('.profile-item-title-top').html('{{locals.shipping_option}}')
+                $('.shipping-payment-icon.icon-local_shipping').removeClass('d-none')
+                $('.li-pills-home').addClass('d-none')
+                $('.li-pills-profile').removeClass('d-none')
+                $('.li-pills-message').removeClass('d-none')
+            }
+
+            if(tabId === '#v-pills-profile'){
+                $('.page-breadcurmb').html('{{ locals.payment_options }}')
+                $('.profile-item-title-top').html('{{ locals.payment_options }}')
+                $('.shipping-payment-icon.icon-payments_black').removeClass('d-none')
+                $('.li-pills-profile').addClass('d-none')
+                $('.li-pills-home').removeClass('d-none')
+                $('.li-pills-message').removeClass('d-none')
+            }
+
+            if(tabId === '#v-pills-messages'){
+                $('.page-breadcurmb').html('{{locals.bank_accounts}}')
+                $('.profile-item-title-top').html('{{locals.bank_accounts}}')
+                $('.shipping-payment-icon.icon-account_balance').removeClass('d-none')
+                $('.li-pills-message').addClass('d-none')
+                $('.li-pills-home').removeClass('d-none')
+                $('.li-pills-profile').removeClass('d-none')
+            }
+
+        }
+    </script>
+
+{% endblock %}
+
+{% block footer %} {{ include('footer.twig') }} {% endblock %}

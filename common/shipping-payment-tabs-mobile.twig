@@ -1,0 +1,49 @@
+<div class="profile-section-dropdown d-block d-lg-none">
+
+
+    <ul class="nav navbar-nav">
+        <li class="dropdown">
+            <a href="#" style="color: #ffffff" data-toggle="dropdown" class="d-flex flex-grow-1 align-items-center dropdown-toggle">
+                <span class="profile-item-image shipping-payment-icon icon-local_shipping theme-text-for-primary-bg"></span>
+                <span class="profile-item-image shipping-payment-icon icon-payments_black theme-text-for-primary-bg d-none"></span>
+                <span class="profile-item-image shipping-payment-icon icon-account_balance theme-text-for-primary-bg d-none"></span>
+                <h2 class=" m-0 profile-item-title theme-text-for-primary-bg profile-item-title-top">
+                    {{locals.shipping_option}}
+                </h2>
+                <span class="icon-arrow_drop_down1 theme-icon-primary"></span>
+            </a>
+            <ul class="dropdown-menu">
+
+                    <li class="li-pills-home d-none">
+                        <a onclick="setTab('#v-pills-home', this)"  data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true" class="d-flex flex-grow-1 align-items-center">
+                            <span class="profile-item-image icon-local_shipping theme-icon-primary"></span>
+                            <h2 class=" m-0 profile-item-title theme-text-for-primary-bg">
+                                {{locals.shipping_option}}
+                            </h2>
+                        </a>
+                    </li>
+
+                    <li class="divider li-pills-home d-none"></li>
+                    <li class="li-pills-profile">
+                        <a onclick="setTab('#v-pills-profile', this)"  data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" class="d-flex flex-grow-1 align-items-center">
+                            <span class="profile-item-image icon-payments_black theme-icon-primary"></span>
+                            <h2 class=" m-0 profile-item-title theme-text-for-primary-bg">
+                                {{ locals.payment_options }}
+                            </h2>
+                        </a>
+                    </li>
+
+                    <li class="divider li-pills-profile"></li>
+                    <li class="li-pills-message">
+                        <a onclick="setTab('#v-pills-messages', this)"  data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" class="d-flex flex-grow-1 align-items-center">
+                            <span class="profile-item-image icon-account_balance theme-icon-primary"></span>
+                            <h2 class=" m-0 profile-item-title theme-text-for-primary-bg">
+                                {{locals.bank_accounts}}
+                            </h2>
+                        </a>
+                    </li>
+
+            </ul>
+        </li>
+    </ul>
+</div>

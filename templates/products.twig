@@ -1,0 +1,36 @@
+{% extends "layout.twig" %}
+
+{% block header %} {{ include('header.twig') }} {% endblock %}
+
+{% block main_content %}
+
+    {% embed 'breadcrumb.twig' %}
+        {% block breadcrumb_items %}
+            <li class="breadcrumb-item" aria-current="page"><a href="/">{{ locals.home_title }}</a></li>
+            <li class="breadcrumb-item active " aria-current="page">{{ locals.products_title }}</li>
+        {% endblock %}
+    {% endembed %}
+
+
+     <div class="container">
+        <div class="products-container pt-4">
+            <div>
+                {% include 'products-filter.twig' with { 'count' : products.total } %}
+            </div>
+            <div class="row products-list">
+                {% for product in products.data %}
+
+                    <div class="prod-col prod-col-tb">
+                        {% include 'product-card.twig' with {'product' : product, 'index': key} %}
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% include 'pagination.twig' with { 'totalPages' : products.last_page , 'currentPage' : products.current_page } %}
+
+{% endblock %}
+
+{% block footer %} {{ include('footer.twig') }} {% endblock %}

@@ -1,0 +1,145 @@
+<section section-id="{{ sectionId }}"
+         data-lg-scroll-offset="130"
+         data-md-scroll-offset="130"
+         data-sm-scroll-offset="94">
+    <div class="container section-slider-padding-space slider-container">
+        <h1 class="section-title theme-text-primary">{{ settings.title }}</h1>
+
+        <div class="testimonials-slider-wrapper" style="position: relative">
+
+
+            <div class="testimonials-slider s-slider">
+
+                {% for key, testimonial in settings.testimonials %}
+
+                <div class="testimonials-customer-card" >
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <span class="icon-account_circle_black_24dp testimonials-customer-icon"></span>
+                            <h2 class="testimonials-customer-name">{{ testimonial.name }}</h2>
+                            <p class="testimonials-customer-date">{{ testimonial.date }}</p>
+                        </div>
+                        <p class="testimonials-customer-text">{{ testimonial.text }}</p>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function(){
+        var arrowNextClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_right': 'icon-keyboard_arrow_left';
+        var arrowPrevClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_left' : 'icon-keyboard_arrow_right';
+
+        var screenWidth = window.screen.width;
+
+        var editingMode = {% if store.editing_mode %}true{% else %}false{% endif %};
+
+        if(screenWidth >= 768 || editingMode){
+            $('[section-id={{ sectionId }}] .testimonials-slider').slick({
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                infinite: false,
+                autoplay: false,
+                arrows: true,
+                dots: {% if (settings.hide_dots or (settings.testimonials | length <= 3)) %}false{% else %}true{% endif %},
+                rtl: !(window.appDirection === 'ltr'),
+                nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><span class="'+arrowNextClass+'"></span></button>',
+                prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><span class="'+arrowPrevClass+'"></span></button>',
+                responsive: [
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: "unslick"
+                    }
+                ]
+            });
+        }
+    });
+</script>
+
+
+
+{% schema %}
+{
+  "name": {
+    "ar": "أراء العملاء",
+    "en": "Testimonials"
+  },
+  "icon": "fal fa-user",
+  "display": true,
+  "settings": {
+    "title": {
+      "type": "text",
+      "label": {
+        "ar": "العنوان",
+        "en": "text"
+      }
+    },
+    "testimonials": {
+      "type": "list",
+      "noLabel": true,
+      "maxItems": 12,
+      "info": {
+        "ar": "",
+        "en": ""
+      },
+      "settings_label":{
+        "ar": "رأي العميل",
+        "en": "Testimonial"
+      },
+      "settings": {
+        "name": {
+          "type": "text",
+          "label": {
+            "ar": "الإسم",
+            "en": "name"
+          }
+        },
+        "date": {
+          "type": "text",
+          "label": {
+            "ar": "التاريخ",
+            "en": "date"
+          }
+        },
+        "text": {
+          "type": "textarea",
+          "label": {
+            "ar": "النص",
+            "en": "text"
+          }
+        }
+      }
+    },
+    "hide_dots": {
+      "type": "checkbox",
+      "label": {
+        "ar": " ",
+        "en": " "
+      },
+      "option": {
+        "ar": "إخفاء النقاط",
+        "en": "Hide dots"
+      },
+      "noLabel": true
+    }
+  }
+}
+{% endschema %}
+

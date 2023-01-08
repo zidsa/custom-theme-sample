@@ -1,0 +1,52 @@
+<div class="profile-section d-none d-lg-block flex-shrink-0" style="background: var( --primary-color); min-height: 550px; padding-top: 20px">
+
+    <div>
+        <div class="profile-item">
+            <a href="/account-profile" class="d-flex flex-column profile-row {% if section == 'profile' %}active{% endif %}">
+                <div class="d-flex align-items-center">
+                    <span class="profile-item-image icon-badge_black"></span>
+                    <h2 class="m-0  profile-item-title">
+                        {{ locals.profile.personal_info }}
+                    </h2>
+                </div>
+                <div class="profile-item-description">
+                    <p>{{ locals.profile.personal_info_description }}</p>
+                </div>
+
+            </a>
+        </div>
+
+        <div class="profile-item">
+            <a href="/account-addresses" class="d-flex flex-column profile-row {% if section == 'addresses' %}active{% endif %}">
+                <div class="d-flex align-items-center">
+                    <span class="profile-item-image icon-import_contacts"></span>
+                    <h2 class=" m-0 profile-item-title">
+                        {{ locals.profile.addresses }}
+                    </h2>
+                </div>
+                <div class="profile-item-description">
+                    <p>{{ locals.profile.addresses_description }}</p>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="profile-item">
+            <a href="/account-orders" class="d-flex flex-column profile-row {% if section == 'orders' %}active{% endif %}">
+                <div class="d-flex align-items-center">
+                    <span class="profile-item-image icon-local_mall"></span>
+                    <h2 class=" m-0 profile-item-title">
+                        {{ locals.profile.orders }}
+                    </h2>
+                </div>
+                <div class="profile-item-description">
+                    <p>{{ locals.profile.orders_description }}</p>
+                </div>
+
+            </a>
+        </div>
+
+
+    </div>
+
+</div>

@@ -1,0 +1,82 @@
+.slide-menu {
+    width: 70%;
+}
+.slide-menu, .slide-menu a {
+    font-size: 1.2rem;
+    color: inherit;
+}
+.slide-menu a {
+    padding: 15px;
+    text-decoration: none;
+}
+
+.slide-menu .controls {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.slide-menu ul {
+   padding-right: 0;
+}
+
+.slide-menu-ul-li {
+    border-top: 0.5px solid rgba(255, 255, 255, 0.08);
+}
+
+.slide-menu-ul-li:first-child, :not(.slide-menu-ul-li) + .slide-menu-ul-li {
+    border-top: 0px;
+}
+
+.slide-menu .slide-menu__backlink {
+    text-transform: uppercase;
+}
+
+.rtl .slide-menu ul ul{
+    left: unset;
+    right: 100%;
+}
+
+.slide-menu__decorator {
+    float: right;
+}
+
+.rtl .slide-menu__decorator {
+    float: left;
+}
+
+.slide-menu-arrow {
+    font-size: 20px;
+}
+
+.slide-menu-arrow-back {
+    position: relative;
+    top: 3px;
+    right: 5px;
+    font-size: 20px;
+}
+
+.rtl .slide-menu-arrow-back {
+    right: unset;
+    left: 5px;
+}
+
+#test-menu-left p {
+    font-size: 110%;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+
+#sidenav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: rgba(0, 0, 0, .45);
+    cursor: pointer;
+    z-index: 100;
+}
+
+.sidenav-open .sidenav { width: 250px; }
+.sidenav-open #sidenav-overlay { width: 100%; }

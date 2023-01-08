@@ -1,0 +1,210 @@
+
+.card-table-header{
+    background-color: var(--secondary-color-alt4);
+    color:var(--secondary-color-alt3);
+    font-size: 1.167rem;
+    font-weight: var(--font-weight-sizeOne);
+}
+
+.card-text-color{
+    color:var(--secondary-color-alt3);
+    font-size: 1.333rem;
+    font-weight: var(--font-weight-sizeOne);
+}
+
+.card-price{
+    color:var(--primary-color);
+    font-size: 1.333rem;
+    font-weight: var(--font-weight-sizeOne);
+}
+
+.card-rate-comment{
+    margin-right: 10px;
+}
+
+.card-mobile-title{
+    color:var(--secondary-color-alt3);
+    font-size: 1.167rem;
+    font-weight: var(--font-weight-sizeOne);
+}
+
+.shipping-currency{
+    color:var(--primary-color)
+}
+
+#mobile-profileCard{
+    display:none;
+    margin-right: 0px;
+}
+
+.payment-method-card {
+    width: 82px;
+    height: 82px;
+    margin: 0 15px 30px 15px;
+    border: 1px #cccccc solid;
+    border-radius: 3px;
+    padding: 20px;
+}
+
+.payment-method-card img {
+    width: 100%;
+    height: auto;
+}
+
+.card-body-shipping{
+    flex: 1 1 auto;
+    padding: 2rem 3rem;
+    margin: 0;
+}
+.card-body-mada{
+    flex: 1 1 auto;
+    padding: 2rem;
+    margin: auto;
+}
+
+.card-title-shipping{
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: var(--font-wieght-sizeTwo);
+}
+.payment-icon{
+    font-size: 82px;
+    margin-top: 5px;
+    color:var(--sucess-color)
+}
+
+.card-body-mada{
+    flex: 1 1 auto;
+    padding: 2rem;
+    margin: auto;
+}
+
+.shipping-payment-card {
+    width: 75%;
+    min-height: 180px;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    height: auto;
+}
+
+.card-title-shipping{
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: var(--font-wieght-sizeTwo);
+}
+.payment-icon{
+    font-size: 82px;
+    margin-top: 5px;
+    color:var(--sucess-color)
+}
+
+.shipping-text{
+    margin: 0px;
+}
+.shipping-text p{
+    font-size: 1.133rem;
+    color:var(--secondary-color-alt12);
+    font-weight: var(--font-wieght-sizeOne);
+    width: 100px;
+}
+
+.card-account-details {
+    margin-left: 20px;
+}
+
+.rtl .card-account-details {
+    margin-left: 0px;
+    margin-right: 20px;
+}
+
+.account-content-lg {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.s-row .s-content{
+    margin-left: 10px;
+}
+
+.rtl .s-row .s-content{
+    margin-left: 0px;
+    margin-right: 10px;
+}
+
+.tab-content-shipping .card-table {
+    margin-bottom: 10px;
+}
+
+.tab-content-shipping .card-table {
+    margin-bottom: 10px;
+}
+
+.tab-content-shipping .options-table .col {
+    flex-basis: 1;
+}
+
+.color-success{
+    color: #007bff;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.text-decoration-underline {
+    text-decoration: underline;
+}
+
+.shipping-cities-modal .icon-search {
+    position: absolute;
+    right: 15px;
+    top: 12px;
+    font-size: 18px;
+}
+
+.rtl .shipping-cities-modal .icon-search {
+    right: unset;
+    left: 15px;
+}
+
+@media only screen and (max-width: 768px) {
+    #desktop-profile-card{
+        display: none;
+    }
+    #mobile-profileCard{
+        display:block;
+    }
+
+    .tab-content-shipping .options-table .col {
+        flex-basis: unset;
+    }
+
+    .account-content-sm {
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+
+    .variant-name-sm{
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .card-body-shipping {
+        padding: 1rem;
+    }
+
+    .shipping-payment-card {
+        width: 100%;
+    }
+
+    .card-account-details {
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+        margin-top: 10px;
+    }
+
+    .bank-image {
+        margin-top: 10px;
+    }
+
+}

@@ -1,0 +1,17 @@
+{% if ab_settings.announcement_bar_display %}
+    {% if (ab_settings.announcement_bar_page_display is empty)
+        or (template == 'home' and ab_settings.announcement_bar_page_display == 'home')
+        or ab_settings.announcement_bar_page_display == 'all'
+    %}
+<div class="announcement-bar" style="z-index: 4; {% if ab_settings.announcement_bar_background_color %}background: {{ ab_settings.announcement_bar_background_color }} {% endif %}">
+    <div class="container d-flex justify-content-center position-relative">
+        <a href="{{ ab_settings.announcement_bar_url }}">
+            <h1 class="announcement-text mb-0 text-center" style="{% if ab_settings.announcement_bar_text_color %}color: {{ ab_settings.announcement_bar_text_color }}{% endif %}">
+                {{ ab_settings.announcement_bar_text }}
+            </h1>
+        </a>
+        <span class="icon-times-circle2 ab-close" style="{% if ab_settings.announcement_bar_text_color %}color: {{ ab_settings.announcement_bar_text_color }}{% endif %}" onclick="hideAnnouncementBar()"></span>
+    </div>
+</div>
+    {% endif %}
+{% endif %}

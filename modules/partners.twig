@@ -1,0 +1,110 @@
+<section section-id="{{ sectionId }}"
+         data-lg-scroll-offset="130"
+         data-md-scroll-offset="130"
+         data-sm-scroll-offset="94">
+  <div class="container section-slider-padding-space slider-container">
+
+    <h1 class="section-title theme-text-primary">{{ settings.title }}</h1>
+
+    <div class="partners-slider-wrapper" style="position: relative">
+
+      <div class="partners-slider s-slider">
+          {% for key, store_partner in settings.store_partners %}
+            <div class="partners-item">
+              <img src="{{ imageUrl(store_partner.image,{ w: 250, q: 85, f:'auto' }) }}" loading="lazy" alt="" style="max-width: 90px; max-height: 90px"  />
+            </div>
+          {% endfor %}
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function(){
+        var arrowNextClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_right': 'icon-keyboard_arrow_left';
+        var arrowPrevClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_left' : 'icon-keyboard_arrow_right';
+
+        var screenWidth = window.screen.width;
+
+        var editingMode = {% if store.editing_mode %}true{% else %}false{% endif %};
+
+        if(screenWidth >= 768 || editingMode){
+            $('[section-id={{ sectionId }}] .partners-slider').slick({
+                slidesToShow: 5,
+                slidesToScroll: 5,
+                infinite: false,
+                autoplay: false,
+                arrows: true,
+                dots: false,
+                rtl: !(window.appDirection === 'ltr'),
+                nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><span class="'+arrowNextClass+'"></span></button>',
+                prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><span class="'+arrowPrevClass+'"></span></button>',
+                responsive: [
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 5,
+                            slidesToScroll: 5
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: "unslick"
+                    }
+                ]
+            });
+        }
+    });
+</script>
+
+
+{% schema %}
+{
+  "name": {
+    "ar": "شركائنا",
+    "en": "Partners"
+  },
+  "icon": "fal fa-sparkles",
+  "display": true,
+  "settings": {
+    "title": {
+      "type": "text",
+      "label": {
+        "ar": "العنوان",
+        "en": "text"
+      }
+    },
+    "store_partners": {
+      "type": "list",
+      "noLabel": true,
+      "maxItems": 20,
+      "info": {
+        "ar": "",
+        "en": "This is an info text sample here"
+      },
+      "settings_label":{
+        "ar": "الصورة",
+        "en": "Picture"
+      },
+      "settings": {
+        "image": {
+          "type": "image",
+          "label": {
+            "ar": "الصورة",
+            "en": "Image"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم ٢٠٠ *٢٠٠ ",
+            "en": "This is an info text sample here"
+          }
+        }
+      }
+    }
+  }
+}
+{% endschema %}

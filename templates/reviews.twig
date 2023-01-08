@@ -1,0 +1,125 @@
+{% extends "layout.twig" %}
+
+{% block header %} {{ include('header.twig') }} {% endblock %}
+
+{% block top_links %}
+<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'product-details.css?v=1.100.29' }}" />
+{% endblock %}
+
+{% block main_content %}
+
+<section class="product products-details-page products-reviews-page">
+   <div class="container pb-5">
+      <section class="products-details mb-5">
+
+         <a href="/products/{{ product.slug }}">
+            <div class="d-flex">
+               <img src="{{ product.images[0].image.large }}" class="product-image" alt="{{ product.name }}" />
+               <h1 style="color: initial">{{ product.name }}</h1>
+            </div>
+         </a>
+
+   <section class="mt-5 review-details">
+      <div>
+         <div class="d-flex flex-wrap align-items-center" style="width: 100%">
+            <div class="description-icon">
+               <span class="icon-reviews_black"></span>
+            </div>
+            <div class="description-title">
+                {{ locals.product_reviews }}
+            </div>
+             {% if product.rating %}
+                <div class="rating-section">
+                   <div>
+                       {% include 'rating-stars.twig' with {'rating' : product.rating.average } %}
+                      <span class="product-card-rating-count">({{ product.rating.total_count }})</span>
+                   </div>
+                </div>
+             {% endif %}
+
+            &nbsp;
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary add-review-btn" data-toggle="modal" data-target="#exampleModalCenter"><span class="icon-add_circle"></span>{{ locals.add_product_review}} </button>
+         </div>
+         <div class="reviews-break-down-div description-paragrah">
+            <div class="d-flex align-items-center mt-3 mb-4">
+                {% if product.rating %}
+                   <h4 class="rating-average">{{ product.rating.average }}</h4>
+                   <div class="d-flex flex-column">
+
+
+                      <div class="row card-rate">
+                         <span class="rating_count_5">{{ product.rating['5_ratings'].count }}</span>
+                         <span class="icon-star1"></span>
+                         <span class="icon-star1"></span>
+                         <span class="icon-star1"></span>
+                         <span class="icon-star1"></span>
+                         <span class="icon-star1"></span> &nbsp;  &nbsp;
+                         <span>{{ locals.reviews_rating_5 }}</span>
+                      </div>
+                      <div class="row card-rate">
+                         <span class="rating_count_4">{{ product.rating['4_ratings'].count }}</span>
+                         <span class="icon-star1"></span>
+                         <span class="icon-star1"></span>
+                         <span class="icon-star1"></span>
+                         <span class="icon-star1"></span>
+                         <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
+                         <span>{{ locals.reviews_rating_4 }}</span>
+                      </div>
+                      <div class="row card-rate">
+                         <span class="rating_count_3">{{ product.rating['3_ratings'].count }}</span>
+                         <span class="icon-star1"></span>
+                         <span class="icon-star1"></span>
+                         <span class="icon-star1"></span>
+                         <span class="icon-star1 deactive"></span>
+                         <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
+                         <span>{{ locals.reviews_rating_3 }}</span>
+                      </div>
+                      <div class="row card-rate">
+                         <span class="rating_count_2">{{ product.rating['2_ratings'].count }}</span>
+                         <span class="icon-star1"></span>
+                         <span class="icon-star1"></span>
+                         <span class="icon-star1 deactive"></span>
+                         <span class="icon-star1 deactive"></span>
+                         <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
+                         <span>{{ locals.reviews_rating_2 }}</span>
+                      </div>
+                      <div class="row card-rate">
+                         <span class="rating_count_1">{{ product.rating['1_ratings'].count }}</span>
+                         <span class="icon-star1"></span>
+                         <span class="icon-star1 deactive"></span>
+                         <span class="icon-star1 deactive"></span>
+                         <span class="icon-star1 deactive"></span>
+                         <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
+                         <span>{{ locals.reviews_rating_1 }}</span>
+                      </div>
+                   </div>
+                {% endif %}
+            </div>
+         </div>
+         <div class="reviews-break-down-empty description-paragrah d-none">
+            <div style="border: 1px solid #ccc; margin: 10px 0px; padding: 10px; border-radius: 3px">
+               <span>{{ locals.product_no_reviews }}</span>
+            </div>
+         </div>
+
+         <div class="comment-section description-paragrah">
+             {% include 'customer-reviews.twig' with {'reviews' : product.reviews.data } %}
+         </div>
+
+      </div>
+   </section>
+
+    {% include 'pagination.twig' with { 'totalPages' : product.reviews.last_page , 'currentPage' : product.reviews.current_page } %}
+
+
+      </section>
+   </div>
+</section>
+
+   <!-- Modal -->
+    {% include 'customer-reviews-add.twig' with {'product' : product } %}
+
+{% endblock %}
+
+{% block footer %} {{ include('footer.twig') }} {% endblock %}

@@ -1,0 +1,205 @@
+{
+  "home_title": "الصفحة الرئيسية",
+  "products": "المنتجات",
+  "categories": "التصنيفات",
+  "login": "تسجيل الدخول",
+  "logout": "تسجيل خروج",
+  "hello": "اهلاً",
+  "product_is_not_taxable": "معفى من الضريبة",
+  "product_has_options": "متوفر بعدة خيارات",
+  "products_title": "جميع المنتجات",
+  "header_all_categories":"جميع التصنيفات",
+  "header_delivery_and_payment_options":"خيارات الدفع والتوصيل",
+  "customer_reviews": "آراء العملاء",
+
+
+  "search_placeholder": "ابحث",
+
+  "store_language" : "اللغة",
+  "store_currency_country" : "الدولة",
+
+  "or":"او",
+  "and":"و",
+  "ok":"موافق",
+
+  "sorry":"عفوا",
+  "search":"إبحث",
+  "close":"اغلاق",
+  "welcome":"مرحباً",
+  "city":"مدينة",
+  "cities":"مدن",
+  "save":"حفظ",
+  "cancel":"إلغاء",
+  "next":"التالي",
+  "prev":"السابق",
+  "edit":"تعديل",
+  "back":"الرجوع",
+  "language":"اللغة",
+  "before":"منذ",
+  "send":"إرسال",
+
+  "clear":"مسح",
+
+  "order":"طلب",
+  "details":"التفاصيل",
+
+  "each":"للواحد",
+
+  "choose":"اختر",
+
+  "products_search_result":"نتائج البحث عن",
+  "products_more":"المزيد من المنتجات",
+
+  "products_list_empty":"لا يوجد منتجات",
+
+
+  "products_page_show_sale_price":"عرض التخفيضات فقط",
+
+
+  "products_list_sort":"ترتيب حسب",
+  "products_list_filter_latest":"الأحدث",
+  "products_list_filter_popularity":"الأكثر شعبية",
+  "products_list_filter_price_low":"الأقل سعر",
+  "products_list_filter_price_high":"الأعلى سعر",
+  "products_list_filter": "تصفية النتائج",
+
+  "products_list_filter_price": "السعر",
+  "products_list_filter_price_from": "من",
+  "products_list_filter_price_to": "إلى",
+
+  "products_list_result": "تم ايجاد",
+
+  "products_list_result_products": "منتج",
+  "empty_cart": "سلة التسوق فارغة",
+  "cart_sidebar_title": "محتويات السلة",
+
+  "product_description_more":"المزيد من المعلومات",
+  "product_sku":"رمز المنتج",
+  "product_share":"شارك المنتج",
+  "product_description":"وصف المنتج",
+  "product_options": "خيارات المنتج",
+  "product_product_readmore":"المزيد",
+  "add_to_cart":"اضف للسلة",
+  "product_price":"السعر",
+  "product_all_available_options":"جميع الخيارات المتاحة",
+  "product_cart_quantity":"الكمية",
+  "product_cart_quantity_low_stock":"متبقي %s فقط",
+  "product_discount": "وفر",
+  "product_weight": "الوزن",
+  "error_item_unavailable":"هذا الخيار غير متوفر",
+  "variants_no_image":"لا يوجد صور",
+  "product_images":"صور المنتج",
+  "product_reviews_more":"سنعراض المزيد من التقيمات",
+  "product_no_reviews": "لا توجد تقييمات, اترك تقييمك",
+
+  "product_sold_more_than_x_times": "تم شراؤه أكثر من %s مرة",
+  "check_out_this_product": "اطَّلع على المنتج التالي",
+  "similar_products_title": "قد يعجبك أيضاً",
+
+  "product_reviews": "التقييمات",
+  "product_reviews_x_count": "تقييم",
+  "product_average_rating": "التقييم العام",
+  "product_price_vat_inclusive": "السعر شامل ضريبة القيمة المضافة",
+  "product_price_vat_exclusive":"السعر غير شامل ضريبة القيمة المضافة",
+
+  "product_reviews_form_title": "اترك تقييمك",
+  "product_reviews_is_anonymous_label": "لا تظهر اسمي في قائمة آراء العملاء",
+  "product_reviews_form_body_placeholder": "اكتب تعليقك هنا..",
+  "product_reviews_form_send": "إرسال التقييم",
+
+  "reviews_submit_success": "شكرًا لتقييمك، سيتم مراجعة التقييم ونشره على المتجر",
+  "reviews_submit_failed": "عذراً٬ حصل خطأ.. الرجاء المحاولة مرة أخرى",
+  "reviews_validate_comment_required": "الرجاء إضافة تعليق",
+  "reviews_validate_comment_max": "تعليقك تخطى الحد المطلوب من عدد الأحرف",
+  "reviews_validate_comment_min": "يجب أن يحتوي التعليق على 3 أحرف على الأقل",
+  "reviews_validate_rating": "الرجاء ترك تقييم",
+
+
+  "reviews_rating_1": "سيئ",
+  "reviews_rating_2": "لم يعجبني",
+  "reviews_rating_3": "جيد",
+  "reviews_rating_4": "ممتاز",
+  "reviews_rating_5": "رائع",
+
+
+  "profile": {
+    "title": "الملف الشخصي",
+    "personal_info": "المعلومات الشخصية",
+    "personal_info_description":"معلومات التواصل الخاصه بك",
+    "addresses": "دليل العناوين",
+    "addresses_description":"من خلال دليل العنواين يمكنك إضافة و تعديل عناوينك المفضلة",
+    "orders": "الطلبات" ,
+    "orders_description":"من خلال قائمة الطلبات يمكنك إستعراض الطلبات السابقة و الحالية"
+  },
+
+  "add_new_address": "إضافة عنوان جديد",
+
+  "location_on_map":"الموقع على الخريطة",
+
+  "navBar":{
+    "allProducts":"جميع المنتجات"
+  },
+
+  "footer_vat_number": "الرقم الضريبي:",
+  "footer_commercial_registration_number": "رقم السجل التجاري:",
+  "title_404":"لم يتم أيجاد الصفحة",
+  "order_id":"رقم الطلب",
+  "order_status":"حالة الطلب",
+  "order_date":"تاريخ الطلب",
+  "order_total":"المجموع",
+  "add_product_review":"اضف تقييمك",
+  "leave_comment":" اترك تقييمك",
+  "donot_leave_comment":"لا تظهر اسمى فى قائمة العملاء ",
+  "write_your_comment":" اكتب تعليقك هنا",
+  "send_evaluation":"ارسال تقييم",
+  "remaining_text":"عدد الحروف المتبقية :250",
+  "sent_successfully":"تم الإرسال بنجاح",
+  "bundle_offer_all_products":"عرض جميع المنتجات",
+  "lbl_error_product_not_exist":"هذا المنتج لم يعد متوفراً",
+  "lbl_error_product_out_of_stock":"نفدت الكمية",
+  "lbl_error_product_quantity_exceed":"لا توجد كمية إضافية كافية من هذا المنتج",
+  "notify_me_title":"نبهني عندما يكون المنتج متاح",
+  "notify_me_hint":"أدخل البريد الإلكتروني",
+  "notify_me_submit":"تفعيل الإشعار",
+  "notify_me_submit_done":"تم تفعيل الإشعار",
+  "notify_me_failed":"حدث خطأ! الرجاء اعادة الارسال.",
+
+  "cart_view_title":"سلة الشراء",
+  "cart_products_title": "المنتجات",
+  "cart_break_down_summary":"تفاصيل الفاتورة",
+  "cart_header_product":"المنتج",
+  "cart_header_quantity":"الكمية",
+  "cart_header_price":"السعر",
+  "cart_list_empty":"السلة فارغة",
+
+  "cart_totals_title":"الوصف",
+  "cart_totals_description":"القيمة",
+  "cart_continue_to_purchase":"متابعة الشراء",
+  "cart_back_to_store":"العودة للتسوق",
+
+  "coupon_discount":"كوبون الخصم",
+  "coupon_discount_enter": "ادخل كود الخصم",
+  "coupon_discount_submit": "إرسال",
+
+  "shipping_option":"خيارات الشحن",
+  "covered_cities": "المدن التى يتم تغطيتها",
+  "shipping_charges":"تكلفة الشحن",
+  "payment_upon_receipt":"الدفع عند الاستلام",
+  "package":"طرد",
+  "riyadh":"الرياض",
+  "inside_merchant_city":"داخل مدينة التاجر",
+  "outside_merchant_city":"خارج مدينة التاجر",
+  "list_of_shipping_options":"قائمة خيارات الشحن المدعومة",
+  "payment_options":"خيارات الدفع",
+  "list_of_payment_options":"قائمة خيارات الدفع المدعومة",
+  "bank_accounts":" الحسابات البنكية",
+  "bank_accounts_regular_transfers":" الحسابات البنكية للحولات العادية",
+  "shipping_payments_th_banks_account_owner":"اسم المحول له",
+  "shipping_payments_th_banks_account_iban":"رقم الآيبان",
+  "shipping_payments_th_banks_account_number":"رقم الحساب",
+  "business_location":"العنوان",
+  "social_media":"وسائل التواصل",
+  "active_payment_session_notification" : "يوجد لديك عملية دفع قائمة في صفحة أخرى للمتجر، لا يمكنك تعديل محتويات السلة",
+  "active_payment_session_cancel":"إلغاء السلة و متابعة الشراء",
+  "go_all_reviews":"جميع التقييمات"
+}

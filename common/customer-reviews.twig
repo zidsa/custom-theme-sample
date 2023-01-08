@@ -1,0 +1,21 @@
+{% if reviews %}
+    {% for key, review in reviews %}
+            <div class="card card-review mt-2 mb-5">
+                    <div class="card-body">
+                            <div class="d-flex">
+                                    <span class="icon-account_circle"></span>
+                                    <div class="card-name">
+                                            <p class="card-name-customer">{{ review.customer.name }}</p>
+                                            <div class="d-flex card-rate-comment">
+                                                {% include 'rating-stars.twig' with {'rating' : review.rating } %}
+                                            </div>
+                                    </div>
+                                    <div class="card-date user-review-date">
+                                        {{ datetimeFormat(review.created_at, 'd-m-Y g:i:s A', session.lang.code) }}
+                                    </div>
+                            </div>
+                            <div class="card-paragraph text-justify mt-2 user-review-text">{{ review.comment | raw }}</div>
+                    </div>
+            </div>
+    {% endfor %}
+{% endif %}

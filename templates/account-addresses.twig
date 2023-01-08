@@ -1,0 +1,89 @@
+{% extends "layout.twig" %}
+
+
+{% block header %} {{ include('header.twig') }} {% endblock %}
+
+{% block top_links %}
+    <link rel="stylesheet" href="{{ asset_url ~ 'profile-style.css?v=1.02' }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'account-pages.css?v=1.59' }}" />
+{% endblock %}
+
+{% block main_content %}
+    <div class="container-parent">
+        <div class="profile-pages-bg d-none d-lg-flex flex-grow-1">
+            <div class="section-colored"></div>
+        </div>
+
+        <div class="container">
+            {% include 'profile-section-dropdown.twig' with { 'title' : locals.profile.addresses , 'section' : 'addresses' } %}
+            <div class="d-flex">
+                {% include 'profile-section.twig' with { 'section' : 'addresses' } %}
+                <div class="flex-grow-1">
+                    {% include 'profile-title.twig' with { 'title' : locals.profile.addresses } %}
+                    <div class="account-content">
+                        <div>
+                            <a href="/account-addresses/add" class="btn aaddress-personal-btn"> {{ locals.add_new_address }} <span class="icon-add_black"></span></a>
+                            <div class="row mt-3 mb-5">
+                                {% for address in addresses %}
+                                    <div id="address-div-{{ address.id }}" class="col-lg-6">
+                                        <div>
+                                            <div class="card-personal">
+                                                <div class="card-body">
+                                                    <a class="delete-button" onclick="deleteAddress({{ address.id }})">
+                                                        <img class="delete-address-progress d-none" src="{{ asset_url }}spinner.gif" width="15" height="15"/>
+                                                        <span class="icon-trash-alt"></span>
+                                                    </a>
+                                                    <a href="/account-addresses/{{ address.id }}/edit">
+                                                        <h5 class="address-title">{{ address.name }}</h5>
+                                                        <p class="address-text">{{ address.address_street }}</p>
+                                                        <p class="address-text">{{ address.country.name }}, {{ address.city.name }}, {{ address.address_district }}</p>
+                                                    </a>
+
+                                                    {% if address.address_lat %}
+                                                    <a style="color: inherit; text-decoration: underline" target="_blank" href="https://maps.google.com/?q={{ address.address_lat }},{{ address.address_lng }}">
+                                                        <i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ locals.location_on_map }}
+                                                    </a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block footer_scripts %}
+    <script>
+        function deleteAddress(addressId) {
+            var element = $('#address-div-'+addressId);
+
+            if(!$('.delete-address-progress',element).hasClass('d-none'))
+                return;
+
+            $('.delete-button span',element).addClass('d-none');
+
+            $('.delete-address-progress',element).removeClass('d-none');
+
+            zid.store.customer.deleteAddress(addressId).then(function (response) {
+                if(response.status  === 'success'){
+                    $('.delete-address-progress',element).addClass('d-none');
+                    $( element ).remove();
+                }
+
+            })
+        }
+    </script>
+{% endblock %}
+
+
+{% block footer %} {{ include('footer.twig') }} {% endblock %}

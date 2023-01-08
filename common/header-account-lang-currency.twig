@@ -1,0 +1,48 @@
+<div class="account-lang-currency upper-bar header-theme-bg-primary header-theme-text-for-primary-bg">
+    <div class="container d-flex justify-content-between">
+        <div class="account-area">
+            {% if customer %}
+                <button type="button" onclick="window.location.href='/account-profile'" class="btn btn-dark account-btn">
+                    <span class="icon-account_circle_black_24dp header-theme-icon-primary" style="position: relative; top: 1px"></span>
+                    <span style="position: relative; bottom: 2px">{{ locals.hello }}&nbsp;{{ customer.name }}&nbsp;</span>
+                </button>
+            {% else %}
+                <button type="button" onclick="window.location.href='/auth/login'" class="btn btn-dark account-btn">
+                    <span class="icon-account_circle_black_24dp header-theme-icon-primary" style="position: relative; top: 1px"></span>
+                    <span style="position: relative; bottom: 2px">&nbsp;{{ locals.login }}&nbsp;</span>
+                </button>
+            {% endif %}
+        </div>
+
+        {% if not ('hide_country' in header_settings.header_options) or not ('hide_language' in header_settings.header_options)%}
+        <div class="language-currency d-flex justify-content-between" data-toggle="modal" data-target="#langCurrecyModal">
+
+            {% if session.lang.code == 'en' %}
+                {% set change_to_lang = 'ar' %}
+                {% set change_to_lang_name = 'العربية' %}
+            {% else %}
+                {% set change_to_lang = 'en' %}
+                {% set change_to_lang_name = 'English' %}
+            {% endif %}
+
+            {% if not ('hide_country' in header_settings.header_options) %}
+            <div class="currency-button-area d-flex justify-content-center">
+                <button class="c-btn currency-btn">{{ session.currency.country.name }}</button>
+            </div>
+            {% endif %}
+            {% if not ('hide_country' in header_settings.header_options) and not ('hide_language' in header_settings.header_options)%}
+            <div class="vertical-line"></div>
+            {% endif %}
+            {% if not ('hide_language' in header_settings.header_options) %}
+            <div class="language-button-area d-flex justify-content-between">
+                <button type="submit" class='c-btn language-btn d-flex justify-content-between align-items-center'>
+                    <span class="px-2">{{ change_to_lang_name }}</span>&nbsp;
+                    <span class="icon-language_white"></span>
+                </button>
+            </div>
+            {% endif %}
+
+        </div>
+        {% endif %}
+    </div>
+</div>

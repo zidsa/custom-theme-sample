@@ -1,0 +1,40 @@
+{% extends "layout.twig" %}
+
+{% block header %} {{ include('header.twig') }} {% endblock %}
+
+{% block main_content %}
+
+
+    <div class="container mt-5 mb-5">
+        <div id="accordion">
+
+            {% for key, faq in faqs %}
+                <div class="mt-5 mb-5">
+                    <hr>
+                    <div>
+                        <div id="heading{{ key }}">
+
+                            <h2 class="mb-0 faqs-title" data-toggle="collapse" data-target="#collapse{{ key }}" aria-expanded="{% if key == 0 %}true{% else %}false{% endif %}" aria-controls="collapse{{ key }}">
+                                {{ faq.question }}
+                                <span class="icon-expand_more1 accordion-icon"></span>
+                            </h2>
+
+                        </div>
+
+
+                        <div id="collapse{{ key }}" class="collapse {% if key == 0 %}show{% endif %}" aria-labelledby="heading{{ key }}" data-parent="#accordion">
+                            <div class="card-body text-justify">
+                                {{ faq.answer | raw }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block footer %} {{ include('footer.twig') }} {% endblock %}

@@ -1,0 +1,93 @@
+<section id="shippingAndPayment">
+<div class="row">
+    <div class="col-3 shipping-tabs theme-bg-primary">
+      <div class="nav flex-column nav-pills container mt-5 mb-5" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link shipping-payment active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+            
+            <div class="d-flex">
+                <span class="icon-local_shipping"></span>
+                <p class="bank-account-tab">  
+                  {{locals.shipping_option}} 
+                </p>  
+            </div> 
+                <span class="bank-account-sub-title">
+                  {{locals.list_of_shipping_options}}
+                </span>
+        </a>
+        <a class="nav-link shipping-payment" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+            <div class="d-flex">
+            <span class="icon-payments_black"></span>
+            <p class="bank-account-tab"> 
+{{locals.payment_options}}            
+            </p>  
+        </div>
+            <span class="bank-account-sub-title">
+              {{locals.list_of_payment_options}}
+            </span>
+        </a>
+        <a class="nav-link shipping-payment" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+            <div class="d-flex">
+            <span class="icon-account_balance"></span>
+            <p class="bank-account-tab">  
+              {{locals.bank_accounts}}
+            </p>  
+        </div> 
+            <span class="bank-account-sub-title">
+              {{locals.bank_accounts_regular_transfers}}
+            </span>
+      
+       
+        </a>
+
+      </div>
+    </div>
+    <div class="col-9 shipping-pillars mb-5">
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+               <!--nav Section-->
+         <div>
+           <p> {{locals.shipping_option}}</p>
+         </div>
+
+            <!--shipping Section-->
+<div class="mt-5 mb-5">
+    {% include 'shipping-section.twig' %}
+</div>
+        </div>
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+             <!--nav Section-->
+             <div>
+                <p> {{locals.shipping_option}}</p>
+              </div>
+     
+          
+<!--Payment Section-->
+<div class="mt-5 mb-5">
+    {% include 'payment-section.twig' %}
+</div>
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+             <!--nav Section-->
+             <div>
+                <p>{{locals.bank_accounts}} </p>
+              </div>
+     
+            <!--Bank account section-->
+            <div class="mt-5 mb-5">
+            {% include 'shipping-payment-cards.twig' %}
+        </div>
+        <div class="mt-5 mb-5">
+            {% include 'shipping-payment-cards.twig' %}
+        </div>
+      
+
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</section>
+
+ <!--Mobile View  section-->
+ {% include 'shipping-payment-tabs-mobile.twig' %}

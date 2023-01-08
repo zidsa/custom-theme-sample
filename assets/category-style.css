@@ -1,0 +1,132 @@
+/*category-nav*/
+.nav-categories{
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    background-color:var( --secondary-color-alt5);
+    font-size: 1.833rem;
+
+    font-weight: var(--font-weight-sizeOne);
+}
+.nav-categories a{
+    color:var(--secondary-color-alt3);
+}
+
+
+.btn-link-categories {
+    font-weight: 400;
+    color:var(--secondary-color-alt3);
+    font-size: 1.533rem;
+    padding: 10px 5px;
+}
+
+.btn:focus, .btn.focus {
+    outline: 0;
+}
+
+.category-icon{
+    color: var(--secondary-color-alt3);
+}
+
+.btn-link-categories:hover {
+    color: var(--secondary-color-alt10);
+    text-decoration: none;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+
+.categories-title{
+    margin-top: 20px;
+    margin-bottom: 2px;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color:var(--secondary-color-alt10);
+}
+
+.categories-title:first-child {
+    margin-top: 0px;
+}
+
+.categories-subTitle{
+    list-style-type: none;
+    text-decoration: none;
+
+}
+.categories-subTitle li a{
+    display: block;
+    padding-bottom: 7px;
+    font-size: 1.1rem;
+    color:var(--secondary-color-alt3);
+    font-weight:var(--font-wieght-sizeOne);
+}
+
+.category-second-card {
+
+}
+
+.categories-image{
+    vertical-align: middle;
+    border-style: none;
+}
+
+/*-- Category.tiwig ---*/
+.card-header-category {
+
+}
+
+.card-content {
+
+}
+
+.categories-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-categories {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    overflow: hidden;
+}
+
+.card-categories-wrapper {
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+}
+
+.categories-row {
+    margin-left: -15px !important;
+    margin-right: -15px !important;
+}
+
+.categories-row > div {
+    padding-right: 7.5px !important;
+    padding-left: 7.5px !important;
+}
+
+@media only screen and (max-width: 768px) {
+    .category-icon{
+
+        color: var(--secondary-color-alt3);
+    }
+
+    .categories-image{
+        vertical-align: middle;
+        border-style: none;
+    }
+    .category-icon-two{
+        margin-right: 180px;
+        color: var(--secondary-color-alt3);
+    }
+
+    .category-second-card{
+
+    }
+
+}

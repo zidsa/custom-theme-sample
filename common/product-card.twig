@@ -1,0 +1,77 @@
+{% if product %}
+<div class="product-item {% if product.is_infinite == false and product.quantity <= 0 %}product-item-out-of-stock{% endif %}">
+    <a href="/products/{{ product.slug }}" class="d-flex flex-column justify-content-start">
+
+
+
+        <div class="box-1-1">
+            <div class="content">
+                <div class="d-flex justify-content-center" style="width: 100%; height: 100%;">
+                    <img id="product-card-img-{{ product.id }}"
+                            {% if product.images %}
+                                    src="{{ imageUrl(product.images[0]['image']['small'],{ w: 235, q: 85, f:'auto' }) }}"
+                             {% else %}
+                                 src="{{ imageUrl(asset_url ~ 'product-img.svg',{ w: 235, q: 85, f:'auto' }) }}"
+                            {% endif %}
+                         alt="{{ product.name }}" loading="lazy" >
+                    <span class="product-card-bundle-offer" data-bundle-offer-product-id="{{ product.id }}"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-title" style="margin-top: 15px"><span>{{ product.name }}</span></div>
+        {% if store.is_product_reviews_enabled %}
+            <div class="product-card-rating-wrapper" style="height: 18px">
+                {% if product.rating %}
+                    {% include 'rating-stars.twig' with {'rating' : product.rating.average } %}
+                    <span class="product-card-rating-count">({{ product.rating.total_count }})</span>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="product-crd-spec">
+            {% if product.formatted_sale_price is not null %}
+                <div class="section-product-price">
+                    <div class="product-price theme-title-primary"><span>{{ product.formatted_sale_price }}</span></div>
+                    <div style="color: #494949"><span class="product-prev-price">{{ product.formatted_price }}</span>
+                        <span style="color:#f25f5f;">
+                        &nbsp;  &nbsp;{{ locals.product_discount }}&nbsp;{{ product.discount_percentage }}%
+                        </span>
+                    </div>
+                </div>
+            {% else %}
+                <div class="product-price section-product-price theme-title-primary" ><span>{{ product.formatted_price }}</span></div>
+            {% endif %}
+
+            {% if product.is_infinite or product.quantity > 0 %}
+
+                {% if (product.has_options or product.has_fields) %}
+                    <small style="font-size: 1.1rem">{{ locals.product_has_options }}</small>
+                {% endif %}
+
+                {% if not product.is_taxable %}
+                    <small style="font-size: 1.1rem">{{ locals.product_is_not_taxable }}</small>
+                {% endif %}
+
+            {% endif %}
+
+            {% if product.is_infinite == false and product.quantity <= 0 %}
+                <small style="font-size: 1.1rem">{{ locals.lbl_error_product_out_of_stock }}</small>
+            {% endif %}
+
+        </div>
+        <div style="text-align: center">
+            {% if product.is_infinite == false and product.quantity <= 0 %}
+            <a class="btn btn-primary btn-product-card-out-of-stock" disabled>{{ locals.lbl_error_product_out_of_stock }}</a>
+            {% elseif ( product.has_options or product.has_fields ) %}
+            <a class="btn btn-primary btn-product-card-select-variant" href="/products/{{ product.slug }}">{{ locals.add_to_cart }}</a>
+            {% else %}
+            <a href="javascript:void(0)" class="btn btn-primary product-card-add-to-cart" onclick="productCartAddToCart(this,'{{ product.id }}')">
+                <img style="display: inline" class="add-to-cart-progress d-none" src="{{ asset_url }}spinner.gif" width="20" height="20"/>
+                {{ locals.add_to_cart }}
+            </a>
+            {% endif %}
+        </div>
+
+    </a>
+</div>
+{% endif %}

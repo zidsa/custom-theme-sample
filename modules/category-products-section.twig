@@ -1,0 +1,110 @@
+<div section-id="{{ sectionId }}"
+     data-lg-scroll-offset="130"
+     data-md-scroll-offset="130"
+     data-sm-scroll-offset="94"
+     class="home-products-section section-padding-space">
+    <div class="container slider-container">
+        <h1 class="section-title theme-title-primary" >{{ settings.category.name }}</h1>
+        <div class="d-flex flex-column">
+
+            <div class="products-slider-wrapper" style="position: relative">
+
+
+                    <div class="products-slider s-slider">
+                        {% for product in settings.category.products %}
+                            <div class="prod-col">
+                                {% include 'product-card.twig' with {'product' : product, 'index': key} %}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+
+                {% if settings.display_more %}
+                    <div class="text-center mt-5 category-products-display-more-section">
+                        <a href="/categories/{{ settings.category.id }}/{{ settings.category.slug }}"
+                           class="more-button btn btn-outline-primary theme-text-primary theme-border-primary">{{ settings.more_text }}</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function(){
+            var arrowNextClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_right': 'icon-keyboard_arrow_left';
+            var arrowPrevClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_left' : 'icon-keyboard_arrow_right';
+
+            var screenWidth = window.screen.width;
+
+            var editingMode = {% if store.editing_mode %}true{% else %}false{% endif %};
+
+            if(screenWidth >= 768 || editingMode){
+                $('[section-id={{ sectionId }}] .products-slider').slick({
+                    slidesToShow: 5,
+                    slidesToScroll: 5,
+                    infinite: false,
+                    autoplay: false,
+                    arrows: true,
+                    dots: false,
+                    rtl: !(window.appDirection === 'ltr'),
+                    nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><span class="'+arrowNextClass+'"></span></button>',
+                    prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><span class="'+arrowPrevClass+'"></span></button>',
+                    responsive: [
+                        {
+                            breakpoint: 992,
+                            settings: {
+                                slidesToShow: 5,
+                                slidesToScroll: 5
+                            }
+                        },
+                        {
+                            breakpoint: 768,
+                            settings: "unslick"
+                        }
+                    ]
+                });
+            }
+        });
+    </script>
+
+
+    {% schema %}
+    {
+      "name": {
+        "ar": "منتجات التصنيف",
+        "en": "Category products"
+      },
+      "icon": "fal fa-box",
+      "display": true,
+      "settings": {
+        "category": {
+          "type": "category_products",
+          "label": {
+            "ar": "اختر منتجات التصنيف",
+            "en": "Select category products"
+          }
+        },
+        "display_more": {
+          "type": "checkbox",
+          "label": {
+            "ar": "",
+            "en": ""
+          },
+          "noLabel": true,
+          "option": {
+            "ar": "عرض زر جميع منتجات التصنيف",
+            "en": "Display button more products"
+          }
+        },
+        "more_text": {
+          "type": "text",
+          "label": {
+            "ar": "نص زر جميع منتجات التصنيف",
+            "en": "More text"
+          }
+        }
+      }
+    }
+    {% endschema %}

@@ -1,0 +1,20 @@
+<div class="availability-bar payment-session-bar d-none">
+    <div class="container d-flex justify-content-center position-relative">
+        <div class="announcement-text mb-0 text-center" data-nosnippet>
+            <span class="icon-locked_orders" style="font-size: 24px; position: relative; top: 2px;"></span>&nbsp;
+            {{ locals.active_payment_session_notification }}
+
+                <form class="d-inline-block"
+                      method="post"
+                      action="/cart/clone">
+                    <input type="hidden" name="_token" value="{{ csrf_token }}" />
+
+                    <button class="active-payment-session-action btn-confirm d-inline-block" type="submit" style="color: #007bff; cursor: pointer">
+                        {{ locals.active_payment_session_cancel }}
+                    </button>
+                </form>
+
+        </div>
+    </div>
+</div>
+

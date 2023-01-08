@@ -1,0 +1,59 @@
+<form method="get" action="{{ requestUri() }}">
+
+    {% for key, input in requestInputs() %}
+        <input type="hidden" name="{{ key }}" value="{{ input }}">
+    {% endfor %}
+
+    <div class="form-products-filter">
+            <span class="text-color-primary d-none d-block"
+                  style="font-weight: bold">{{locals.products_list_filter_price}}&nbsp;</span>
+        <div class="d-block filter-block-width">
+
+            <div class="row">
+                <div class="col">
+                    <label>{{locals.products_list_filter_price_from}}</label>
+                    <input name="from_price" type="number" class="form-control" placeholder="{{ session.currency.code }}">
+                </div>
+                <div class="col">
+                    <label>{{locals.products_list_filter_price_to}}</label>
+                    <input name="to_price" type="number" class="form-control" placeholder="{{ session.currency.code }}">
+                </div>
+            </div>
+
+        </div>
+
+        <div style="margin:30px 10px">
+            <div ref="slider-range" class="ui-widget-bar mt-3">
+
+            </div>
+        </div>
+
+        <div class="d-block filter-block-width mt-3">
+                <span>
+                    <label id="products-list-filter-form-checkbox-on-sale"
+                           class="btn btn-sale-price">
+                        <span class="checkbox-container checkbox-container-small">
+                            <input class="custom-checkbox-input"
+                                   type="checkbox"
+                                   name="on_sale"
+                            >
+                            <span class="custom-checkmark custom-checkmark-small" style="top:-2px; left:3px"></span>
+                        </span>
+                        <span class="custom-checkbox-label text">{{ locals.products_page_show_sale_price }}</span>
+                    </label>
+                </span>
+        </div>
+
+        <div class="form-group mt-3 d-flex justify-content-end">
+            <button id="products-list-filter-form-clear"
+                    type="button" class="btn round btn-white" onclick="clearFilters()">
+                <span style="padding: 0px 20px">{{ locals.clear }}</span>
+            </button>&nbsp;&nbsp;
+            <button id="products-list-filter-form-save"
+                    type="submit" class="btn round primary">
+                <span style="padding: 0px 20px">{{ locals.save }}</span>
+            </button>
+        </div>
+
+    </div>
+</form>

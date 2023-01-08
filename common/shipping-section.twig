@@ -1,0 +1,81 @@
+<div class="container mt-5 mb-5">
+   
+    <section class="product-selection mt-5 mb-5">
+        <div class="container">
+            <div id="desktop-profile-card" class="mt-5 mb-5 ">
+                <div class="card">
+                    <div class="card-body card-table-header">
+                     <div class="d-flex justify-content-between">
+                         <span>
+                            {{ locals.shipping_option }}                  
+                                </span>
+                         <span>
+                             {{locals.covered_cities}}                      
+                              </span>
+                        <span>
+                            {{locals.shipping_charges}}
+                        </span>
+                        <span>
+                            {{locals.payment_upon_receipt}}                   
+                             </span>
+                     </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="desktop-profileCard" class="mt-5 mb-5">
+                  <div class="card">
+                    <div class="card-body">
+                     <div class="d-flex justify-content-between">
+                    <div class="profile-orderNumber">
+                        <img src="{{ asset_url ~ 'tard-logo.png' }}" alt="">
+                        <span class="profile-orderNumber">{{locals.package}}</span>
+                    </div>
+  
+
+                      
+    <span  class="btn profile-order-btn ">{{locals.riyadh}}</span>
+                        <div class="profile-orderNumber">
+                            <p>{{locals.inside_merchant_city}}   	&nbsp;<span class="shipping-currency">35 SAR</span>  </p>
+                            <p> {{locals.outside_merchant_city}} 	&nbsp;<span class="shipping-currency">35 SAR</span>  </p>
+                        </div>
+                      
+                            <span class="profile-orderNumber"> 
+                                <span class="icon-close_icon"></span>
+                            </span>
+                       
+                      
+                         
+                           
+                        
+                     </div>
+                    </div>
+                  </div>
+                </div>
+               
+                <!--Mobile view-->
+    
+                <div id="mobile-profileCard" class="mt-5 mb-5 ">
+                    <div class="card-profileMobile">
+                      <div class="card-body">
+                       <div class="d-flex justify-content-between">
+                        <span class="profile-orderNumber">{{locals.package}}</span>
+                        <span  class="btn profile-order-btn ">{{locals.riyadh}}</span>
+                        
+                              <span class="profile-orderNumber">لم يتم
+                              </span>
+                         
+                              <div class="profile-orderNumber">
+                                <p>{{locals.inside_merchant_city}}  <span class="profile-currency">35 SAR</span>  </p>
+                                <p> {{locals.outside_merchant_city}}<span class="profile-currency">35 SAR</span>  </p>
+                            </div>
+                             
+                          
+                       </div>
+                      </div>
+                    </div>
+                  </div>
+           
+        </div>
+    </section>
+
+</div>

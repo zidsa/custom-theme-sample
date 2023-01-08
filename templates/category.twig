@@ -1,0 +1,115 @@
+{% extends "layout.twig" %}
+
+{% block header %} {{ include('header.twig') }} {% endblock %}
+
+{% block main_content %}
+
+    {% embed 'breadcrumb.twig' %}
+        {% block breadcrumb_items %}
+            <li class="breadcrumb-item" aria-current="page"><a href="/">{{ locals.home_title }}</a></li>
+
+            {% if category.parent_category.parent_category %}
+                <li class="breadcrumb-item" aria-current="page"><a href="{{ category.parent_category.parent_category.url }}">{{ category.parent_category.parent_category.name }}</a></li>
+            {% endif %}
+
+            {% if category.parent_category %}
+                <li class="breadcrumb-item" aria-current="page"><a href="{{ category.parent_category.url }}">{{ category.parent_category.name }}</a></li>
+            {% endif %}
+
+            <li class="breadcrumb-item active " aria-current="page">{{ category.name }}</li>
+        {% endblock %}
+    {% endembed %}
+
+    {% include 'breadcrumb-subTitle-detail.twig' with { 'title' : category.name, 'description': category.description } %}
+
+    {% if category.sub_categories | length > 0 %}
+    <div class="container pt-2 category-page-slider">
+        <div class="home-categories-section section-padding-space">
+            <div class="container slider-container">
+                <h2 class="section-title" style="font-weight: normal; font-size: 1.167rem;">{{ locals.categories }}</h2>
+                <div class="d-flex flex-column">
+                    <div class="categories-slider-wrapper" style="position: relative">
+
+                        <div class="categories-slider s-slider">
+                            {% for categoryItem in category.sub_categories %}
+                                <div class="cat-col">
+                                    <div class="category-item">
+                                        <a href="/categories/{{ categoryItem.id }}/{{ categoryItem.slug }}">
+
+                                            <img
+                                                    {% if categoryItem.image %}
+                                                        src="{{ imageUrl(categoryItem.image, { w: 235, q: 85, f:'auto' }) }}"
+                                                    {% else %}
+                                                        src="{{ imageUrl(asset_url ~ 'product-img.svg',{ w: 235, q: 85, f:'auto' }) }}"
+                                                    {% endif %}
+
+                                                    loading="lazy" alt="{{ categoryItem.name }}">
+                                            <h3>{{ categoryItem.name }}</h3>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            document.addEventListener("DOMContentLoaded", function(){
+                var arrowNextClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_right': 'icon-keyboard_arrow_left';
+                var arrowPrevClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_left' : 'icon-keyboard_arrow_right';
+
+                $('.categories-slider').slick({
+                    slidesToShow: 5,
+                    slidesToScroll: 5,
+                    infinite: false,
+                    autoplay: false,
+                    arrows: true,
+                    dots: false,
+                    rtl: !(window.appDirection === 'ltr'),
+                    nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><span class="'+arrowNextClass+'"></span></button>',
+                    prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><span class="'+arrowPrevClass+'"></span></button>',
+                    responsive: [
+                        {
+                            breakpoint: 992,
+                            settings: {
+                                slidesToShow: 5,
+                                slidesToScroll: 5
+                            }
+                        },
+                        {
+                            breakpoint: 768,
+                            settings: "unslick"
+                        }
+                    ]
+                });
+            });
+        </script>
+    </div>
+    {% endif %}
+
+    <div class="container">
+        <div class="products-container pt-2">
+            <div>
+                {% include 'products-filter.twig' with { 'count' : products.total } %}
+            </div>
+            <div class="row products-list">
+                {% for product in products.data %}
+
+                    <div class="prod-col prod-col-tb">
+                        {% include 'product-card.twig' with {'product' : product, 'index': key} %}
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% include 'pagination.twig' with { 'totalPages' : products.last_page , 'currentPage' : products.current_page } %}
+
+{% endblock %}
+
+{% block footer %} {{ include('footer.twig') }} {% endblock %}

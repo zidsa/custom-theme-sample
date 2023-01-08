@@ -1,0 +1,206 @@
+{
+    "home_title": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "login": "Login",
+    "logout": "Logout",
+    "hello": "Hello",
+    "product_is_not_taxable": "Tax free",
+    "product_has_options": "Available in several options",
+    "products_title": "All products",
+    "header_all_categories":"All categories",
+    "header_delivery_and_payment_options":"Payment and delivery options",
+
+    "search_placeholder": "Search",
+
+    "store_language" : "Language",
+    "store_currency_country" : "Country",
+    "customer_reviews": "Customer reviews ",
+
+
+    "or":"Or",
+    "and":"And",
+    "ok":"Ok",
+
+    "sorry":"Sorry",
+    "search":"Search",
+    "close":"Close",
+    "welcome":"Welcome",
+    "city":"City",
+    "cities":"Cities",
+    "save":"Save",
+    "cancel":"Cancel",
+    "next":"Next",
+    "prev":"Prev",
+    "edit":"Edit",
+    "back":"Back",
+    "language":"Language",
+    "clear":"Clear",
+    "before":"Before",
+    "send":"Send",
+
+
+    "order":"Order",
+    "details":"Details",
+
+    "each":"each",
+
+    "choose":"choose",
+
+    "products_search_result":"Search results for",
+    "products_more":"More",
+
+    "products_list_empty":"No products",
+
+
+    "products_page_show_sale_price":"Show discounted only",
+
+
+    "products_list_sort":"Sort by",
+    "products_list_filter_latest":"Newest",
+    "products_list_filter_popularity":"Most popular",
+    "products_list_filter_price_low":"Low to high",
+    "products_list_filter_price_high":"High to low",
+    "products_list_filter": "Filter",
+
+    "products_list_filter_price": "Price",
+    "products_list_filter_price_from": "From",
+    "products_list_filter_price_to": "To",
+
+    "products_list_result": "Total products",
+
+    "products_list_result_products": "products",
+    "empty_cart": "Cart is empty",
+    "cart_sidebar_title": "Cart items",
+
+    "product_description_more":"more information",
+
+    "product_sku":"product sku",
+    "product_share":"share product",
+    "product_description":"product description",
+    "product_options": "product description",
+    "product_product_readmore":"product_readmore",
+    "add_to_cart":"add to cart",
+    "product_price":"price",
+    "product_all_available_options":"All options available",
+    "product_cart_quantity":"Quantity",
+    "product_cart_quantity_low_stock":"Remaining %s only",
+
+    "product_sold_more_than_x_times": "Sold more than %s times",
+
+    "check_out_this_product": "Check Out this Product",
+
+    "similar_products_title": "You may also like",
+
+    "product_reviews_form_title": "Leave a review",
+    "product_reviews_is_anonymous_label": "Don't show my name in the customer reviews list",
+    "product_reviews_form_body_placeholder": "Your review",
+    "product_reviews_form_send": "Send",
+
+    "reviews_submit_success": "Thank you for your review, the rating will be reviewed and posted on the store",
+    "reviews_submit_failed": "Sorry, an error occurred.. Please try again",
+    "reviews_validate_comment_required": "Please add a comment",
+    "reviews_validate_comment_max": "Your comment exceeded the limit",
+    "reviews_validate_comment_min": "Your comment must contain at least 3 characters.",
+    "reviews_validate_rating": "Please leave your rating",
+    "variants_no_image":"No images",
+    "product_images":"Product images",
+    "product_reviews_more":"More reviews",
+    "product_no_reviews": "No reviews, add yours",
+
+    "reviews_rating_1": "Bad",
+    "reviews_rating_2": "Dislike",
+    "reviews_rating_3": "Good",
+    "reviews_rating_4": "Excellent",
+    "reviews_rating_5": "Great",
+
+    "product_price_vat_inclusive":"Price incl. VAT",
+    "product_price_vat_exclusive":"Price Not incl. VAT",
+
+    "product_weight": "Weight",
+
+    "product_discount": "Discount",
+    "error_item_unavailable":"Option not available",
+
+    "product_reviews": "Reviews",
+    "product_reviews_x_count": "review",
+    "product_average_rating": "average rating",
+
+    "profile": {
+        "title": "Profile",
+        "personal_info": "Personal Information",
+        "personal_info_description":"Your contact information",
+        "addresses": "Addresses",
+        "addresses_description":"Through the address book, you can add and edit your favorite addresses",
+        "orders": "Orders",
+        "orders_description":"Through the list of orders, you can view previous and current orders"
+    },
+
+    "add_new_address": "Add new Address",
+
+    "location_on_map":"location on map",
+
+    "navBar":{
+        "allProducts":"All Products "
+    },
+    "footer_vat_number": "The VAT number:",
+    "footer_commercial_registration_number": "The commercial register number:",
+    "title_404":"Page not found",
+    "order_id":"ID",
+    "order_status":"status",
+    "order_date":"Created at",
+    "order_total":"Total",
+    "add_product_review":"Add Comment ",
+    "leave_comment":"Leave Comment",
+    "donot_leave_comment":" My name does not appear in the list of clients  ",
+    "write_your_comment":"Write your comment here",
+    "send_evaluation":"Send Evaluation",
+    "remaining_text":"Number of characters left:250",
+    "sent_successfully":"Send Successfully",
+    "bundle_offer_all_products":"Display all products",
+    "lbl_error_product_not_exist":"This product is no longer available",
+    "lbl_error_product_out_of_stock":"This product is out of stock",
+    "lbl_error_product_quantity_exceed":"There is not enough additional quantity of this product",
+    "notify_me_title":"Notify me when product is available",
+    "notify_me_hint":"Enter your email",
+    "notify_me_submit":"Submit",
+    "notify_me_submit_done":"Sent successfully",
+    "notify_me_failed":"failed to send",
+    "cart_view_title":"Cart",
+    "cart_products_title": "Products",
+    "cart_break_down_summary":"Total summary",
+    "cart_header_product":"Product",
+    "cart_header_quantity":"Quantity",
+    "cart_header_price":"Price",
+    "cart_totals_title":"name",
+    "cart_totals_description":"value",
+    "cart_continue_to_purchase":"Purchase",
+    "cart_back_to_store":"continue shopping",
+    "cart_list_empty":"Cart is empty",
+
+    "coupon_discount":"Discount coupon",
+    "coupon_discount_enter": "Enter discount coupon",
+    "coupon_discount_submit": "Send",
+    "shipping_option":"Shipping Option",
+    "covered_cities": "Coverd Cities",
+    "shipping_charges":"Shipping Charges ",
+    "payment_upon_receipt":"Payment Upon Receopt",
+    "package":"Package",
+    "riyadh":"Riyadh",
+    "inside_merchant_city":"Inside Merchant City",
+    "outside_merchant_city":"Outside Merchant City",
+    "list_of_shipping_options":"List of supported shipping options",
+    "payment_options":"Payment Options",
+    "list_of_payment_options":"List of supported payment options",
+    "bank_accounts":"Bank Accounts",
+    "bank_accounts_regular_transfers":" Bank accounts for regular transfers  ",
+
+    "shipping_payments_th_banks_account_owner":"Name",
+    "shipping_payments_th_banks_account_iban":"IBAN Number",
+    "shipping_payments_th_banks_account_number":"account number" ,
+    "business_location":"Our place",
+    "social_media":"Contact us",
+    "active_payment_session_notification" : "You have an active payment session in another browser, you can't edit the cart contents",
+    "active_payment_session_cancel":"Discard cart & continue shopping",
+    "go_all_reviews":"All reviews"
+}

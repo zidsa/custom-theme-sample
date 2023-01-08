@@ -1,0 +1,28 @@
+
+.vertical-line {
+    border-left: 0px;
+    border-right: 1px solid var(--header-text-color-primary-bg, var(--text-color-primary-bg));
+}
+
+
+.vertical-line-menu {
+    border-right: 1px solid var(--menu-header-text-color-primary-bg, var(--text-color-primary-bg));
+}
+
+.cart-total-price {
+    padding-right: unset;
+    padding-left: 8px;
+}
+
+
+
+.submenu li img {
+    margin-left: unset;
+    margin-right: 30px;
+}
+
+.availability-bar .ab-close, .announcement-bar .ab-close {
+    right: unset;
+    left: 0px;
+    top: 10px;
+}

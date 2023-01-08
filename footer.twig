@@ -1,0 +1,189 @@
+<footer section-id="{{ sectionId }}" class='d-flex flex-column'>
+
+    {% include 'footer-store-section.twig' with { 'about_settings' : settings } %}
+
+</footer>
+
+
+
+{% schema %}
+{
+  "name": {
+    "ar": "اسفل الصفحة",
+    "en": "footer"
+  },
+  "icon": "fa fa-square",
+  "display": true,
+  "settings": {
+    "about_us": {
+      "type": "fieldset",
+      "label": {
+        "ar": "عن المتجر",
+        "en": "About us"
+      },
+      "icon": "font_awesome",
+      "expandable": true,
+      "settings": {
+        "title": {
+          "type": "text",
+          "label": {
+            "ar": "العنوان",
+            "en": "Title"
+          }
+        },
+        "des": {
+          "type": "textarea",
+          "label": {
+            "ar": "النص",
+            "en": "Description"
+          }
+        }
+      }
+    },
+    "links_1": {
+      "type": "fieldset",
+      "label": {
+        "ar": "روابط مهمة",
+        "en": "Links"
+      },
+      "icon": "font_awesome",
+      "expandable": true,
+      "settings": {
+        "hide": {
+          "type": "checkbox",
+          "label": {
+            "ar": " ",
+            "en": " "
+          },
+          "option": {
+            "ar": "إخفاء",
+            "en": "Hide"
+          },
+          "noLabel": true
+        },
+        "title": {
+          "type": "text",
+          "label": {
+            "ar": "العنوان",
+            "en": "Title"
+          }
+        },
+        "links": {
+          "type": "list",
+          "settings_label": {
+            "ar": "الروابط",
+            "en": "Links"
+          },
+          "noLabel": true,
+          "settings": {
+            "title": {
+              "type": "text",
+              "label": {
+                "ar": "العنوان",
+                "en": "text"
+              }
+            },
+            "url": {
+              "type": "url",
+              "label": {
+                "ar": "الرابط",
+                "en": "Link"
+              }
+            }
+          }
+        }
+      }
+    },
+    "links_2": {
+      "type": "fieldset",
+      "label": {
+        "ar": "روابط مهمة",
+        "en": "Links"
+      },
+      "icon": "font_awesome",
+      "expandable": true,
+      "settings": {
+        "hide": {
+          "type": "checkbox",
+          "label": {
+            "ar": " ",
+            "en": " "
+          },
+          "option": {
+            "ar": "إخفاء",
+            "en": "Hide"
+          },
+          "noLabel": true
+        },
+        "title": {
+          "type": "text",
+          "label": {
+            "ar": "العنوان",
+            "en": "Title"
+          }
+        },
+        "links": {
+          "type": "list",
+          "settings_label": {
+            "ar": "الروابط",
+            "en": "Links"
+          },
+          "noLabel": true,
+          "settings": {
+            "title": {
+              "type": "text",
+              "label": {
+                "ar": "العنوان",
+                "en": "text"
+              }
+            },
+            "url": {
+              "type": "url",
+              "label": {
+                "ar": "الرابط",
+                "en": "Link"
+              }
+            }
+          }
+        }
+      }
+    },
+    "business_location": {
+      "type": "fieldset",
+      "label": {
+        "ar": "الموقع الجغرافي",
+        "en": "Business location"
+      },
+      "icon": "font_awesome",
+      "expandable": true,
+      "settings": {
+        "title": {
+          "type": "text",
+          "label": {
+            "ar": "العنوان",
+            "en": "Title"
+          }
+        }
+      }
+    },
+    "social_media": {
+      "type": "fieldset",
+      "label": {
+        "ar": "وسائل التواصل",
+        "en": "Business location"
+      },
+      "icon": "font_awesome",
+      "expandable": true,
+      "settings": {
+        "title": {
+          "type": "text",
+          "label": {
+            "ar": "العنوان",
+            "en": "Title"
+          }
+        }
+      }
+    }
+  }
+}
+{% endschema %}

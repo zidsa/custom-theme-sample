@@ -1,0 +1,63 @@
+{% extends "layout.twig" %}
+
+{% block header %} {{ include('header.twig') }} {% endblock %}
+
+{% block top_links %}
+    <link rel="stylesheet" href="{{ asset_url ~ 'profile-style.css?v=1.03' }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'account-pages.css?v=1.57' }}" />
+{% endblock %}
+
+{% block main_content %}
+    <div class="container-parent">
+        <div class="profile-pages-bg flex-grow-1 d-none d-lg-flex">
+            <div class="section-colored"></div>
+        </div>
+
+        <div class="container">
+            {% include 'profile-section-dropdown.twig' with { 'title' : locals.profile.orders , 'section' : 'orders' } %}
+            <div class="d-flex">
+                {% include 'profile-section.twig' with { 'section' : 'orders' } %}
+                <div class="flex-grow-1">
+                    {% include 'profile-title.twig' with { 'title' : locals.profile.orders } %}
+                    <div class="account-content">
+                        <section class="product-selection mt-5 mb-5">
+                            <div>
+                                <div id="desktop-profile-card" class="mt-5 mb-5 d-none d-lg-block">
+                                    <div class="card">
+                                        <div class="card-body card-table-header" style="background-color: #D9D9D9">
+                                            <div class="row">
+                                                <div class="col">{{ locals.order_id }}</div>
+                                                <div class="col">{{ locals.order_status }}</div>
+                                                <div class="col">{{ locals.order_date }}</div>
+                                                <div class="col">{{ locals.order_total }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% for order in orders %}
+                                <div id="desktop-profileCard" class="mt-5 mb-5">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col"><a class="theme-text-primary" style="text-decoration: underline" href="/orders/{{ order.code }}/invoice">#{{ order.id }}</a></div>
+                                                <div class="col">{{ order.order_status.name }}</div>
+                                                <div class="col">{{ datetimeFormat(order.created_at, 'd-m-Y g:i:s A', session.lang.code) }}</div>
+                                                <div class="col">{{ order.order_total_string }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block footer %} {{ include('footer.twig') }} {% endblock %}

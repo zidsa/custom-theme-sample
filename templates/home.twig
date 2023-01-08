@@ -1,0 +1,22 @@
+{% extends "layout.twig" %}
+
+{% block header %} {{ include('header.twig') }} {% endblock %}
+
+{% block main_content %}
+
+    <div class="home">
+        {{ home_template_modules }}
+    </div>
+
+{% endblock %}
+
+{% block footer %} {{ include('footer.twig') }} {% endblock %}
+
+{% block footer_scripts %}
+    <script>
+        $( window ).resize(function() {
+            $('.s-slider').slick('resize');
+        });
+    </script>
+{% endblock %}
+

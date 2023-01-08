@@ -1,0 +1,95 @@
+{% extends "layout.twig" %}
+
+{% block header %} {{ include('header.twig') }} {% endblock %}
+
+
+{% block top_links %}
+    <link rel="stylesheet" href="{{ asset_url ~ 'category-style.css?v=1.13' }}">
+{% endblock %}
+
+{% block main_content %}
+
+    {% embed 'breadcrumb.twig' %}
+        {% block breadcrumb_items %}
+            <li class="breadcrumb-item active " aria-current="page">{{ locals.header_all_categories }}</li>
+        {% endblock %}
+    {% endembed %}
+
+    <div class="container mb-5">
+        <div class="row categories-row">
+            {% for key, category in categories %}
+                <div class="col col-lg-4 all-cat-col">
+
+                    <div class="card-categories-wrapper">
+                        <div class="card-categories ">
+                            <div class="box-1-1 ratio21_9">
+                                <div class="content">
+                                    {% if category.cover_image %}
+                                        <img class="categories-image" src="{{category.cover_image}}" alt="{{category.img_alt_text}}">
+                                    {% else %}
+                                        <div style="background-color: #cccccc; height: 100%; width: 100%"></div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="accordion" class="category-second-card">
+                            <div class="card-content">
+                                <div class="card-header-category" id="heading{{ key }}">
+
+                                    <a href="/categories/{{ category.id }}/{{ category.slug }}"
+                                       class="btn btn-link-categories d-flex align-items-center d-flex justify-content-between">
+                                        <span>{{category.name}}</span>
+                                    </a>
+                                </div>
+                                {% if category.sub_categories | length > 0 %}
+                                    <div >
+                                        <div class="card-body"  style="padding: 10px 8px">
+                                            {% for sub_key, sub_category in category.sub_categories %}
+                                                <p class="categories-title">
+                                                    <a style="color: inherit" href="categories/{{ sub_category.id }}/{{ sub_category.slug }}">{{sub_category.name}}</a>
+                                                </p>
+                                                {% if sub_category.sub_categories | length > 0 %}
+                                                    <ul class="categories-subTitle">
+                                                        {% for  subTwo_category in sub_category.sub_categories %}
+                                                            <li>
+                                                                <a href="categories/{{ subTwo_category.id }}/{{ subTwo_category.slug }}">
+                                                                    {{subTwo_category.name}}
+                                                                </a>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer_scripts %}
+    <script src="{{ asset_url ~ 'masonry.pkgd.min.js' }}"></script>
+    <script>
+
+        // Initial resize in window.load as the content in each item may contain images
+        document.addEventListener("DOMContentLoaded", function(){
+            var container = document.querySelector('.categories-row');
+            var msnry = new Masonry(container, {
+                itemSelector: '.all-cat-col'
+            });
+        });
+
+
+    </script>
+{% endblock %}
+
+
+{% block footer %} {{ include('footer.twig') }} {% endblock %}

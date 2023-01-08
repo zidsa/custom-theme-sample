@@ -1,0 +1,96 @@
+<div id="sidenav-overlay" onclick="closeSlidingMenu()"></div>
+<nav class="slide-menu menu-header-theme-bg-primary menu-header-theme-bg-primary-brightness-100" id="sliding-menu">
+    <ul class="theme-text-for-primary-bg menu-header-theme-bg-primary menu-header-theme-bg-primary-brightness-100 menu-header-theme-text-for-primary-bg">
+        <li>
+            <div style="height: 50px"></div>
+        </li>
+        {% for menu in main_navigation_menu.items %}
+            <li class="slide-menu-ul-li" onclick="scrollToSubMenu(this)">
+                <a href="{{ menu.url }}">{{ menu.name }}</a>
+                {% if menu.items | length > 0 %}
+                    <ul>
+                        {% for menu_sub in menu.items %}
+                            <li class="slide-menu-ul-li">
+                                <a href="{{ menu_sub.url }}">{{ menu_sub.name }}</a>
+                                {% if menu_sub.items | length > 0 %}
+                                    <ul>
+                                        {% for menu_sub_sub in menu_sub.items %}
+                                            <li class="slide-menu-ul-li">
+                                                <a href="{{ menu_sub_sub.url }}">{{ menu_sub_sub.name }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+        <li class="slide-menu-ul-li">
+            <a href="/shipping-and-payment"><span>{{ locals.header_delivery_and_payment_options }}</span></a>
+        </li>
+        {% if not ('hide_menu_all_categories' in menu_settings.header_options) %}
+        <li class="slide-menu-ul-li">
+            <a href="/categories"><span>{{ locals.header_all_categories }}</span></a>
+        </li>
+        {% endif %}
+        <li>
+            <div class="slide-menu-static">
+                <div class="account-lang-currency upper-bar">
+                    <div class="container d-flex flex-wrap">
+                        <div class="account-area">
+                            {% if customer %}
+                                <button type="button" onclick="window.location.href='/account-profile'" class="btn btn-dark account-btn">
+                                    <span class="icon-account_circle_black_24dp" style="position: relative; top: 1px"></span>
+                                    <span style="position: relative; bottom: 2px">{{ locals.hello }}&nbsp;{{ customer.name }}&nbsp;</span>
+                                </button>
+                            {% else %}
+                                <button type="button" onclick="window.location.href='/auth/login'" class="btn btn-dark account-btn">
+                                    <span class="icon-account_circle_black_24dp" style="position: relative; top: 1px"></span>
+                                    <span style="position: relative; bottom: 2px">&nbsp;{{ locals.login }}&nbsp;</span>
+                                </button>
+                            {% endif %}
+                        </div>
+
+                        {% if not ('hide_country' in menu_settings.header_options) or not ('hide_language' in menu_settings.header_options)%}
+                            <div class="language-currency language-currency-menu d-flex justify-content-between" data-toggle="modal" data-target="#langCurrecyModal">
+
+                                {% if session.lang.code == 'en' %}
+                                    {% set change_to_lang = 'ar' %}
+                                    {% set change_to_lang_name = 'العربية' %}
+                                {% else %}
+                                    {% set change_to_lang = 'en' %}
+                                    {% set change_to_lang_name = 'English' %}
+                                {% endif %}
+
+
+
+                                {% if not ('hide_country' in menu_settings.header_options) %}
+                                    <div class="currency-button-area d-flex justify-content-center">
+                                        <button class="c-btn currency-btn currency-btn-menu">{{ session.currency.country.name }}</button>
+                                    </div>
+                                {% endif %}
+                                {% if not ('hide_country' in menu_settings.header_options) and not ('hide_language' in menu_settings.header_options)%}
+                                    <div class="vertical-line vertical-line-menu"></div>
+                                {% endif %}
+
+                                {% if not ('hide_language' in menu_settings.header_options) %}
+                                    <div class="language-button-area d-flex justify-content-between">
+                                        <button type="submit" class='c-btn language-btn language-btn-menu d-flex justify-content-between align-items-center'>
+                                            <span class="px-2">{{ change_to_lang_name }}</span>&nbsp;
+                                            <span class="icon-language_white icon-language_white-menu"></span>
+                                        </button>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div style="height: 250px"></div>
+        </li>
+    </ul>
+</nav>

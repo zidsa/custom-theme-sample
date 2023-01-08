@@ -1,0 +1,12 @@
+.rtl input-group > .form-control:not(:first-child), .input-group > .custom-select:not(:first-child) {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+
+.form-control {
+    padding: 10px 15px;
+    border-radius: 5px;
+}

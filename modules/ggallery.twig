@@ -1,0 +1,90 @@
+<div section-id="{{ sectionId }}"
+     data-lg-scroll-offset="130"
+     data-md-scroll-offset="130"
+     data-sm-scroll-offset="94"
+     class="gallery-section container section-padding-space">
+    {% if settings.title %}
+      <h1 class="section-title p-0 theme-text-primary">{{ settings.title }}</h1>
+    {% endif %}
+    <div class="gallery row">
+        {% for key, galler in settings.gallery %}
+        <div class="gallery-item col-6 {% if (key == 2) or (key == 3) %} bottom-row {% endif %}">
+          <div class="box-1-1">
+            <div class="content">
+              <a href="{{ galler.url }}" style="width: 100%; height: 100%; display: block">
+                <img style="width: 100%; height: 100%; object-fit: cover"
+                     srcset="
+                             {{ imageUrl(galler.image,{ w: 200, q: 85, f:'auto' }) }} 200w,
+                             {{ imageUrl(galler.image,{ w: 320, q: 85, f:'auto' }) }} 320w,
+                             {{ imageUrl(galler.image,{ w: 375, q: 85, f:'auto' }) }} 375w,
+                             {{ imageUrl(galler.image,{ w: 480, q: 85, f:'auto' }) }} 480w,
+                             {{ imageUrl(galler.image,{ w: 850, q: 85, f:'auto' }) }} 850w,
+                            "
+                     sizes="calc(50vw - 30px)"
+                     src="{{ imageUrl(galler.image,{ w: 850, q: 85, f:'auto' }) }}"
+                     {% if key != 0 %}
+                     loading="lazy"
+                     {% endif %}
+                     alt="">
+              </a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% schema %}
+{
+  "name": {
+    "ar": "مجموعة الصور",
+    "en": "Gallery"
+  },
+  "icon": "fal fa-images",
+  "display": true,
+  "settings": {
+    "title": {
+      "type": "text",
+      "label": {
+        "ar": "العنوان",
+        "en": "text"
+      }
+    },
+    "gallery": {
+      "type": "list",
+      "noLabel": true,
+      "maxItems": 4,
+      "info": {
+        "ar": "",
+        "en": "This is an info text sample here"
+      },
+      "settings_label":{
+        "ar": "الصورة",
+        "en": "Picture"
+      },
+      "settings": {
+        "image": {
+          "type": "image",
+          "label": {
+            "ar": "الصورة",
+            "en": "Image"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 750 * 750 ",
+            "en": "This is an info text sample here"
+          }
+        },
+        "url": {
+          "type": "url",
+          "label": {
+            "ar": "الرابط",
+            "en": "Link"
+          }
+        }
+      }
+    }
+  }
+}
+{% endschema %}

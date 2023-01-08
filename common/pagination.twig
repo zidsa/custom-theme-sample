@@ -1,0 +1,51 @@
+{% if totalPages > 1 %}
+<nav class="products-pagination" aria-label="products navigation">
+    <ul class="pagination flex-wrap justify-content-center">
+        <li class="page-item {% if currentPage == 1 %}disabled{% endif %}">
+            <a class="page-link" href="{{ requestAdd({page:(currentPage - 1)}) }}" tabindex="-1">{{ locals.prev }}</a>
+        </li>
+
+        {% if currentPage > 3 and totalPages > 5%}
+            <li class="page-item">
+                <a class="page-link" href="{{ requestAdd({page:1}) }}">{{ (1) }}</a>
+            </li>
+        {% endif %}
+
+        {% if currentPage > 3 and totalPages > 5 %}
+        <li class="disabled page-item hidden-xxs-down"><a class="page-link">...</a></li>
+        {% endif %}
+
+        {% if currentPage <= 2 %}
+            {% set startPage = 1 %}
+        {% else %}
+            {% set startPage = (currentPage - 2) %}
+        {% endif %}
+
+        {% if (currentPage + 2) <= totalPages %}
+            {% set endPage = (currentPage + 2) %}
+        {% else %}
+            {% set endPage = totalPages %}
+        {% endif %}
+
+        {% for n in rangeN(startPage, endPage) %}
+            <li class="page-item{% if totalPages > 5 and (n - currentPage == 2 or currentPage - n == 2)  %} page-item-n-last {% endif %}" >
+                <a class="page-link {% if currentPage == n %}active{% endif %}" {% if currentPage != n %} href="{{ requestAdd({page:n}) }}" {% endif %}>{{ (n) }}</a>
+            </li>
+        {% endfor %}
+
+        {% if currentPage < (totalPages - 3) and totalPages > 5 %}
+        <li class="disabled page-item hidden-xxs-down"><a class="page-link">...</a></li>
+        {% endif %}
+
+        {% if currentPage < (totalPages - 2) and totalPages > 5 %}
+            <li class="page-item">
+                <a class="page-link" href="{{ requestAdd({page:totalPages}) }}">{{ (totalPages) }}</a>
+            </li>
+        {% endif %}
+
+        <li class="page-item {% if currentPage == totalPages %}disabled{% endif %}">
+            <a class="page-link" href="{{ requestAdd({page:(currentPage + 1)}) }}">{{ locals.next }}</a>
+        </li>
+    </ul>
+</nav>
+{% endif %}

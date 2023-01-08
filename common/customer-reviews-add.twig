@@ -1,0 +1,118 @@
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-comment-content">
+                        <div class="modal-body" style="padding: 20px">
+                                <form>
+                                        <input type="hidden" id="selected_rating" name="selected_rating" value="1">
+                                        <div class="d-flex align-items-center mt-3">
+                                                <div>
+                                            <span class="modal-product-title">
+                                                {{ locals.leave_comment}}
+                                            </span>
+                                                </div>
+                                                <div class="div-btnrating">
+                                                        <div>
+                                                                <a type="button" class="btnrating active" data-attr="1" id="rating-star-1">
+                                                                        <i class="icon-star1" aria-hidden="true"></i>
+                                                                </a>
+                                                                <a type="button" class="btnrating deactive" data-attr="2" id="rating-star-2">
+                                                                        <i class="icon-star1" aria-hidden="true"></i>
+                                                                </a>
+                                                                <a type="button" class="btnrating deactive" data-attr="3" id="rating-star-3">
+                                                                        <i class="icon-star1" aria-hidden="true"></i>
+                                                                </a>
+                                                                <a type="button" class="btnrating deactive" data-attr="4" id="rating-star-4">
+                                                                        <i class="icon-star1" aria-hidden="true"></i>
+                                                                </a>
+                                                                <a type="button" class="btnrating deactive" data-attr="5" id="rating-star-5">
+                                                                        <i class="icon-star1" aria-hidden="true"></i>
+                                                                </a>
+                                                        </div>
+                                                </div>
+
+                                        </div>
+                                        <div class="add-review-form-checkbox">
+                                                <div class="form-group mt-3 mb-3">
+                                                        <label>
+                                                <span class="checkbox-container">
+                                                    <input id="is_review_customer_anonymous" class="custom-checkbox-input checkbox" type="checkbox" name="is_anonymous">
+                                                    <span class="custom-checkmark"></span>
+                                                </span>
+                                                                <span class="custom-checkbox-label">
+                                                <span>{{ locals.donot_leave_comment}}</span>
+                                            </span>
+                                                        </label>
+                                                </div>
+                                        </div>
+                                        <div class="form-group">
+                                                <textarea rows="4" name="comment" placeholder="{{ locals.write_your_comment }}" class="form-control input-review-comment"></textarea>
+                                                <p class="review-remaining-count">250</p>
+                                        </div>
+                                        <div class="form-group bottom-buttons">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
+                                                    {{ locals.cancel}}
+                                                </button>
+                                                <span>&nbsp;&nbsp;</span>
+                                                <button type="button" class="btn btn-primary btn-submit-new-review" onclick="submitReview()">
+                                                        <img class="add-review-progress d-none" src="{{ asset_url }}spinner.gif" width="15" height="15"/>
+                                                    {{ locals.send_evaluation}}
+                                                </button>
+                                        </div>
+                                </form>
+                        </div>
+                </div>
+        </div>
+</div>
+
+
+<script>
+    function submitReview() {
+        if(!$('.add-review-progress').hasClass('d-none'))
+            return;
+
+        $('.add-review-progress').removeClass('d-none');
+        zid.store.product.addReview('{{ product.id }}',$('.input-review-comment').val(),$("#selected_rating").val(), $('#is_review_customer_anonymous').is(':checked')).then(function (response) {
+            if(response.status  === 'success'){
+                toastr.success('{{ locals.reviews_submit_success }}', '{{ locals.sent_successfully }}')
+            }else{
+                toastr.error(response.data.message, '{{ locals.sorry }}')
+            }
+            $('.add-review-progress').addClass('d-none');
+
+            $('#exampleModalCenter').modal('hide');
+        })
+    }
+
+    document.addEventListener("DOMContentLoaded", function(){
+        $(".btnrating").on('click',(function(e) {
+
+            var previous_value = $("#selected_rating").val();
+
+            var selected_value = $(this).attr("data-attr");
+            $("#selected_rating").val(selected_value);
+
+            for (var i = 1; i <= selected_value; ++i) {
+                $("#rating-star-"+i).toggleClass('active');
+                $("#rating-star-"+i).toggleClass('deactive');
+            }
+
+            for (var ix = 1; ix <= previous_value; ++ix) {
+                $("#rating-star-"+ix).toggleClass('active');
+                $("#rating-star-"+ix).toggleClass('deactive');
+            }
+
+        }));
+
+        $('textarea.input-review-comment').keypress(function() {
+            var remainingCount = (250 - this.value.length);
+            if(remainingCount < 0)  {
+                $('.review-remaining-count').html('<span style="color:red">'+remainingCount+'</span>');
+                $('.btn-submit-new-review').prop('disabled', true);
+            }else{
+                $('.review-remaining-count').html(remainingCount);
+                $('.btn-submit-new-review').prop('disabled', false);
+            }
+        });
+    });
+
+</script>

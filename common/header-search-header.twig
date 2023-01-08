@@ -1,0 +1,72 @@
+<div class="search-header header-theme-bg-primary">
+    <div class="container ">
+        <div class="d-flex align-items-center search-header-bar">
+            <div class="d-flex align-items-center bd-highlight header-logo">
+
+                {% if template != 'home' %}
+                <a onclick="goBack()" class="ic-menu-back d-block d-lg-none">
+                    <span style="font-weight: bold" class="{% if session.lang.code == 'ar' %}icon-arrow-right{% else %}icon-arrow-left{% endif %} header-theme-icon-primary"></span>
+                </a>
+                {% endif %}
+
+                <a href="javascript:void(0);"
+                   onclick="window.slidingMenu.open()"
+                   class="ic menu icon-menu-top d-block d-lg-none"
+                   tabindex="1"
+                >
+                    <span class="icon-menu_open_black_24dp-1 header-theme-icon-primary"></span>
+                </a>
+
+                <a href="/" style="width: auto; height: 100%; display: block">
+                    {% if header_settings.header_logo %}
+                        {% set logoUrl = header_settings.header_logo %}
+                    {% else %}
+                        {% set logoUrl = store.logo %}
+                    {% endif %}
+
+                    <img class="image-logo {% if header_settings.header_logo_mobile %} d-none d-lg-block {% endif %}" src="{{ imageUrl(logoUrl,{ h: 175, q: 85 }) }}" alt="{{ store.name }}" style="width: auto; max-height: 100%">
+
+                    {% if header_settings.header_logo_mobile %}
+                        {% set logoUrlMobile = header_settings.header_logo_mobile %}
+                        <img class="image-logo d-block d-lg-none" src="{{ imageUrl(logoUrlMobile ,{ h: 175, q: 85 }) }}" alt="{{ store.name }}" style="width: auto; max-height: 100%">
+                    {% endif %}
+                </a>
+            </div>
+            <div class="p-2 d-none d-lg-flex align-items-center bd-highlight search-input lg-search-div flex-grow-1">
+
+                {% if not ('hide_search_bar' in header_settings.header_options) %}
+                <div class="form-group" style="position: relative; margin: 0px">
+                    <span class="icon-search search-input-icon" style="z-index: 1"></span>
+                    <div class="autocomplete" style="position: relative">
+                        <input type="text"
+                               data-cat-id="{{ category.id }}"
+                               class="form-control search-input-input"
+                               placeholder="{% if header_settings.header_search_placeholder %}{{ header_settings.header_search_placeholder }}{% else %}{{ locals.search_placeholder }}{% endif %}"
+                        >
+                        <div class="autocomplete-items"></div>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+            <div class="bd-highlight d-flex align-items-center justify-content-end header-cart">
+                {% if not ('hide_search_bar' in header_settings.header_options) %}
+                <div class="d-block d-lg-none sm-search-icon">
+                    <span class="icon-search header-theme-icon-primary"></span>
+                </div>
+                {% endif %}
+                <div class="d-none d-lg-block">
+                    <a href="/cart/view" style="color: inherit">
+                        <h3 class="cart-header-total"></h3>
+                    </a>
+                </div>
+                <div style="position: relative">
+                    <a class="a-shopping-cart" href="/cart/view" style="color: inherit">
+                        <span class="icon-shopping_cart_black_36dp-1-1 header-theme-icon-primary"><span class="path1"></span><span class="path2"></span></span>
+                        <span class="cart-badge d-none"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

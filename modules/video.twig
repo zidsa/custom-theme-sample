@@ -1,0 +1,70 @@
+<div section-id="{{ sectionId }}"
+     data-lg-scroll-offset="130"
+     data-md-scroll-offset="130"
+     data-sm-scroll-offset="94"
+     class="gallery-section container section-padding-space">
+    {% if settings.title %}
+      <h1 class="section-title p-0 theme-text-primary">{{ settings.title }}</h1>
+    {% endif %}
+    <div class="video-container">
+      <video width="100%" height="auto" loop playsinline {% if settings.controls %}controls{% endif %}  {% if settings.autoplay %}autoplay muted{% endif %}>
+        <source src="{{ settings.video }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": {
+    "ar": "فيديو",
+    "en": "Video"
+  },
+  "icon": "fa fa-play",
+  "display": true,
+  "settings": {
+    "title": {
+      "type": "text",
+      "label": {
+        "ar": "العنوان",
+        "en": "text"
+      }
+    },
+    "video": {
+      "type": "video",
+      "label": {
+        "ar": "الفيديو",
+        "en": "Video"
+      },
+      "info": {
+        "ar": "mp4 اقصى حجم 10MB",
+        "en": ""
+      }
+    },
+    "controls": {
+      "type": "checkbox",
+      "label": {
+        "ar": "",
+        "en": ""
+      },
+      "noLabel": true,
+      "option": {
+        "ar": "عرض ازرار التحكم",
+        "en": "Controls"
+      }
+    },
+    "autoplay": {
+      "type": "checkbox",
+      "label": {
+        "ar": "",
+        "en": ""
+      },
+      "noLabel": true,
+      "option": {
+        "ar": "تشغيل الفيديو  بشكل مباشر",
+        "en": "autoplay"
+      }
+    }
+  }
+}
+{% endschema %}

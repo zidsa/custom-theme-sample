@@ -1,0 +1,70 @@
+<div class="cart-search-logo d-flex align-items-center" style="background: #6D192B">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="search-and-logo d-flex flex-grow-1 align-items-center">
+            <div class="store-logo">
+                {% include 'logo.twig' with {'width' : '100', 'height': '100'} %}
+            </div>
+            <div class="search-bar flex-grow-1">
+                {% if not ('hide_search_bar' in header_settings.header_options) %}
+                <input id="search-input" placeholder="{% if header_settings.header_search_placeholder %} {{ header_settings.header_search_placeholder }} {% else %} {{ locals.search }} {% endif %}" autocomplete="off" spellcheck="false">
+                <img src="{{ asset_url ~ 'search-icon.svg' }}" alt="" width="31" height="31">  
+               
+                {% endif %}
+            </div>
+        </div>
+        <a class="cart-section d-flex text-center" onclick="showShoppingCart();">
+            <div class="cart-total-price d-flex flex-row-reverse px-4">
+                <span id="cart-total"></span>
+                <span class="mx-2">{{ session.currency.code }}</span>
+            </div>
+            <div class="cart-icon-section">
+                <img src="{{ asset_url ~ 'cart-icon.svg' }}" alt="" width="31" height="31">
+                <div id="cart-counter" class="cart-items-counter"></div>
+            </div>
+            <img src="{{ asset_url ~ 'drop-down.svg' }}" alt="" width="31" height="31">
+        </a>
+        <div id="header-shopping-cart" class="cart-sidebar d-flex flex-column">
+            <div class="cart-sidebar-header m-5">
+                <div onclick="hideShoppingCart();">X</div>
+                {{ locals.cart_sidebar_title }}
+            </div>
+            <div id="cart-items" class="d-flex flex-column m-5"></div>
+            <div id="empty-cart" class="text-center flex-column text-center flex-grow-1 justify-content-center">
+                <div><img src="{{ asset_url ~ 'empty-cart.svg' }}" alt="" width="84" height="88"></div>
+                <div class="empty-cart-title text-nowrap pt-3">{{ locals.empty_cart }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# <nav class="navbar navbar-expand-lg navbar-light"  style="background: #6D192B" >
+<div class="container">
+  <a class="navbar-brand" href="#">
+                {% include 'logo.twig' with {'width' : '100', 'height': '100'} %}
+            </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+     <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  </div>
+</nav>  #}

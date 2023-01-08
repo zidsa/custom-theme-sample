@@ -1,0 +1,325 @@
+/*account-nav-twig*/
+.account-nav{
+    background-color: var(--secondary-color-alt4);
+    padding: 5px;
+}
+.account-nav-title{
+    font-size: 1.167rem;
+    color: var(--primary-color);
+    font-weight: var(--font-wieght-sizeOne);
+}
+
+/*profile-section-twig*/
+.profile-tabs{
+    background-color: var(--sub-primary-color);
+}
+.profile-payment{
+    margin: auto;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color:var(--white-color);
+    background: rgba(255, 255, 255, 0.3)!important;
+    border-radius: 10px;
+    width: 334px;
+    height: 117px;
+}
+.profile-tabs a{
+    color:var(--white-color);
+}
+
+.personal-information-tab{
+    font-size: 1.333rem;
+    font-weight: var(--font-wieght-sizeTwo);
+    margin: 10px 20px;
+    color:var( --white-color)
+}
+.personal-information-sub-title{
+    font-size: 1rem;
+    margin-right: 60px;
+    color:var( --white-color)
+}
+.icon-badge_black,
+.icon-import_contacts,
+.icon-local_mall{
+    font-size: 40px;
+    margin-top: 5px;
+    color:var(--white-color)
+}
+.profile-subTitle{
+    margin-right: 5rem;
+    color:var(--white-color)
+}
+.address-guide{
+    background-color: var(--secondary-color-alt5);
+    padding: 15px;
+    color:var(--secondary-color-alt3);
+    font-size: 1rem;
+    font-weight: var(--font-weight-sizeOne);
+}
+@media only screen and (max-width: 768px) {
+    #profile-section{
+        display:none;
+    }
+    .account-nav{
+        display: none;
+    }
+}
+/*personal-information-twig*/
+.icon-account_circle{
+    font-size: 7rem;
+    color:var(--secondary-color-alt9);
+}
+.personal-title{
+    font-size:  1.333rem;
+    font-weight: var(--font-weight-sizeOne);
+    color:var(--primary-color);
+}
+.personal-info{
+    font-size:1.167rem;
+    font-weight: var(--font-weight-sizeOne);
+    color:var(--secondary-color-alt10);
+}
+.personal-btn{
+    background-color: var(--primary-color);
+    color:var(--white-color);
+    font-size: 1.167rem;
+    font-weight: var(--font-weight-sizeOne);
+    padding: 20px;
+    margin: auto;
+    width: 30%;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+    #profile-section{
+        display:none;
+    }
+
+    .account-nav{
+        display: none;
+    }
+    #profiletest{
+        display: block;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .personal-btn{
+        background-color: var(--primary-color);
+        color:var(--white-color);
+        font-size: 1.167rem;
+        font-weight: var(--font-weight-sizeOne);
+        padding: 20px;
+        margin: auto;
+        width: 100%;
+    }
+
+}
+@media only screen and (max-width: 768px) {
+    .icon-account_circle{
+        font-size: 7rem;
+        color:var(--secondary-color-alt9);
+        margin-right: 100px;
+    }
+
+}
+@media only screen and (max-width: 768px) {
+    .personal-title{
+        font-size:  1.167rem;
+        font-weight: var(--font-weight-sizeOne);
+        color:var(--primary-color);
+    }
+
+}
+
+/*personal-address-twig*/
+.card-personal{
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    margin-bottom: 25px;
+}
+.aaddress-personal-btn{
+    background-color: var(--primary-color);
+    color: var(--text-color-primary-bg);
+    font-size: 1.167rem;
+    font-weight: var(--font-weight-sizeOne);
+    padding: 10px 20px;
+    margin: auto;
+}
+.address-title{
+    font-size:1.333rem;
+    color:var(--primary-color);
+    font-weight: var(--font-weight-sizeTwo);
+
+}
+.address-text{
+    font-size:1.167rem;
+    color:var(--secondary-color-alt12);
+    font-weight: var(--font-weight-sizeOne);
+}
+@media only screen and (max-width: 768px) {
+    .card-personal{
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
+    }
+    .aaddress-personal-btn{
+        background-color: var(--primary-color);
+        color: var(--text-color-primary-bg);
+        font-size: 1.167rem;
+        font-weight: var(--font-weight-sizeOne);
+        padding: 20px;
+        margin: auto;
+        width: 100%;
+    }
+
+}
+/*profile-order-twig*/
+.profile-order-btn{
+    width: 100px;
+    height: 26px;
+    border-radius: 5px;
+    background-color: var(--btn-color-alt0);
+    color: var(--white-color);
+    line-height: 18px;
+    font-size: 1rem;
+    font-weight: var(--font-weight-sizeOne);
+}
+@media only screen and (max-width: 768px) {
+    #desktop-profile-card{
+        display: none;
+    }
+
+}
+.profile-orderNumber{
+    font-size: 1.167rem;
+    font-weight: var(--font-weight-sizeTwo);
+    color:var(--secondary-color-alt3)
+}
+.profile-price{
+    font-size: 1.167rem;
+    font-weight: var(--font-weight-sizeTwo);
+    color:var(--primary-color)
+}
+.profile-currency{
+    font-size: 0.833rem;
+    font-weight: var(--font-weight-sizeOne);
+    color:var(--primary-color)
+}
+#mobile-profileCard{
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    #mobile-profileCard {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .profile-orderNumber{
+        font-size: 0.8rem;
+        font-weight: var(--font-weight-sizeTwo);
+        color:var(--secondary-color-alt3)
+    }
+
+}
+
+
+@media only screen and (max-width: 768px) {
+    .profile-price{
+        font-size: 0.667rem;
+        font-weight: var(--font-weight-sizeOne);
+        color:var(--primary-color)
+    }
+
+}
+@media only screen and (max-width: 768px) {
+
+    .profile-currency{
+        font-size: 0.667rem;
+        font-weight: var(--font-weight-sizeOne);
+        color:var(--primary-color)
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .profile-order-btn{
+        width: 80px;
+        height: 24px;
+        border-radius: 5px;
+        background-color: var(--btn-color-alt0);
+        color: var(--white-color);
+        line-height: 18px;
+        font-size: 1rem;
+        font-weight: var(--font-weight-sizeOne);
+    }
+
+}
+@media only screen and (max-width: 768px) {
+
+    .card-profileMobile{
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
+        width: 300px;
+        height: 51px;
+    }
+}
+
+/*profile-tabs-mobile*/
+.card-ProfileTab {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color:var(--sub-primary-color);
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    font-size: 0.667rem;
+    font-weight: var(--font-weight-sizeOne);
+}
+#profiletest{
+    display: none;
+}
+.card-body-profile {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+    background-color: var(--white-color);
+}
+@media only screen and (max-width: 768px) {
+
+    #profiletest{
+        display: block;
+    }
+}

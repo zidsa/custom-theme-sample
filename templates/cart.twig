@@ -1,0 +1,262 @@
+{% extends "layout.twig" %}
+
+
+
+{% block header %} {{ include('header.twig') }} {% endblock %}
+
+
+{% block top_links %}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'toastr.min.css' }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'cart.css?v=1.40' }}" />
+{% endblock %}
+
+{% block main_content %}
+
+    {% embed 'breadcrumb.twig' %}
+        {% block breadcrumb_items %}
+            <li class="breadcrumb-item active " aria-current="page">{{ locals.cart_view_title }}</li>
+        {% endblock %}
+    {% endembed %}
+
+    <div class="container mb-5">
+        <div class="cart-view">
+            <div class="row cart-products-with-totals {% if cart.products_count <= 0 %}d-none{% endif %}">
+                <div class="col-12 col-lg-8">
+                    <div class="section-cart-products">
+                        <h1 class="section-title ">{{ locals.cart_products_title }}</h1>
+                        <div class="header-wrapper">
+                            <div class="section-cart-products-row d-flex">
+                                <div class="section-cart-products-col-1"></div>
+                                <div class="section-cart-products-col-2 flex-grow-1">{{ locals.cart_header_product }}</div>
+                                <div class="section-cart-products-col-3">{{ locals.cart_header_quantity }}</div>
+                                <div class="section-cart-products-col-4">{{ locals.cart_header_price }}</div>
+                            </div>
+                        </div>
+
+                        <div class="template_for_cart_products_list">
+                            {{ template_for_cart_products_list }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4">
+
+                    <h1 class="section-title ">{{ locals.cart_break_down_summary }}</h1>
+                    <div class="header-wrapper">
+                        <div class="section-cart-products-row section-cart-totals-row  d-flex">
+                            <div class="flex-grow-1">{{ locals.cart_totals_title }}</div>
+                            <div class="flex-shrink-0" style="width: 30%">{{ locals.cart_totals_description }}</div>
+                        </div>
+                    </div>
+                    <div class="cart-totals-div">
+                        {% for cartTotal in cart.totals %}
+                            <div class="cart-product-row-wrapper cart-totals-row-wrapper">
+                                <div class="flex-grow-1">{{ cartTotal.title }}</div>
+                                <div class="flex-shrink-0" style="width: 30%; {% if cartTotal.code == 'total' %} font-weight: bold; color: var( --primary-color); {% endif %}">{{ cartTotal.value_string }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div>{{ template_for_cart_payments_widget }}</div>
+
+
+                    <div class="coupon-form mt-5">
+                        <form>
+                            <div class="form-group">
+                                <h4>{{ locals.coupon_discount }}</h4>
+                                <div class="d-flex">
+                                    <input class="form-control send-coupon" type="text" placeholder="{{ locals.coupon_discount_enter }}" />
+                                    <button type="button" class="btn btn-primary" onclick="sendCoupon()">
+                                        <img class="send-coupon-progress d-none" src="{{ asset_url }}spinner.gif" width="15" height="15"/>
+                                        {{ locals.coupon_discount_submit }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+
+                        {% if cart.coupon.message %}
+                            <div class="message-coupon alert alert-primary" role="alert">
+                                <span>{{ cart.coupon.message }}</span>&nbsp;
+                                <a onclick="deleteCoupon()" style="color: inherit; cursor: pointer">
+                                    <span class="icon-trash-alt"></span>
+                                    <img class="delete-coupon-progress d-none" src="{{ asset_url }}spinner.gif" width="15" height="15"/>
+                                </a>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+
+                    <div class="cart-discount-rule-wrapper free-shipping-rule-section mt-5 {% if cart.fee_shipping_discount_rules %}d-block{% else %}d-none{% endif %}">
+                        <div class="d-flex align-items-center">
+                            <div class="message flex-grow-1 free-shipping-rule-message">
+                                {{ cart.fee_shipping_discount_rules.conditions_subtotal.status.message }}
+                            </div>
+                            <div class="discount-progress flex-shrink-0">
+                                <span class="free-shipping-rule-done {% if cart.fee_shipping_discount_rules.conditions_subtotal.status.code == 'applied' %}d-inline-block{% else %}d-none{% endif %}">
+                                    <span style="font-size: 28px"  class="icon-done text-color-primary"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <div class="mt-5">
+                            {% if store.availability.closed_now %}
+                                <a href="#"
+                                   class="btn btn-lg btn-block btn-disabled"
+                                >
+                                    {{ locals.cart_continue_to_purchase }}
+                                </a>
+                            {% else %}
+                                <a href="{% if customer %}/checkout/choose-address-and-shipping{% else %}/auth/login?redirect_to=/checkout/choose-address-and-shipping{% endif %}"
+                                   class="btn btn-primary btn-lg btn-block"
+                                >
+                                    {{ locals.cart_continue_to_purchase }}
+                                </a>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="mt-3">
+                            <a href="/" class="btn btn-outline-primary btn-lg btn-block">
+                                {{ locals.cart_back_to_store }}
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="cart-empty pt-5 pbb-5 {% if cart.products_count > 0 %}d-none{% endif %}">
+                <div class="d-flex flex-column align-items-center">
+                    <span class="icon-shopping_cart_black_36dp-1-1 theme-title-primary" style="font-size: 90px">
+                        <span class="path1"></span><span class="path2"></span>
+                    </span>
+                    <h1 class="mt-3">{{ locals.cart_list_empty }}</h1>
+                    <div class="mt-3">
+                        <a href="/" class="btn btn-outline-primary btn-lg btn-block">
+                            {{ locals.cart_back_to_store }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
+
+    {{ cart_view_scripts|raw }}
+
+    <script>
+
+        $( document ).ready(function() {
+            addDeleteProgressImage()
+        });
+
+        function addDeleteProgressImage(){
+            $('.cart-product-delete a .prefix', document).addClass('d-none');
+            $('.cart-product-delete a .prefix', document).html('<img class="send-coupon-progress" src="{{ asset_url }}spinner.gif" width="15" height="15"/>');
+        }
+
+        $(document).on('click','.cart-product-delete a', function(event) {
+            $('.icon-delete', event.currentTarget).addClass('d-none');
+            $('.prefix',event.currentTarget).removeClass('d-none');
+        });
+
+        function sendCoupon() {
+            if(!$('.send-coupon-progress').hasClass('d-none'))
+                return;
+
+            $('.send-coupon-progress').removeClass('d-none');
+            zid.store.cart.redeemCoupon($('.send-coupon').val())
+                .then(function (response) {
+                    if(response.status  === 'success'){
+                        toastr.success('{{ locals.sent_successfully }}', null)
+                        window.location.reload();
+                    }else{
+                        toastr.error(response.data.message, '{{ locals.sorry }}')
+                    }
+                    $('.send-coupon-progress').addClass('d-none');
+                }).catch(function (err) {
+                    $('.send-coupon-progress').addClass('d-none');
+                })
+        }
+
+        function deleteCoupon() {
+            if(!$('.delete-coupon-progress').hasClass('d-none'))
+                return;
+
+            $('.delete-coupon-progress').removeClass('d-none');
+            zid.store.cart.removeCoupon().then(function (response) {
+                if(response.status  === 'success'){
+                    toastr.success('{{ locals.sent_successfully }}', null)
+                    window.location.reload();
+                }else{
+                    toastr.error(response.data.message, '{{ locals.sorry }}')
+                }
+                $('.delete-coupon-progress').addClass('d-none');
+            })
+        }
+
+
+        function cartProductsHtmlChanged(html, cart){
+            if(cart.products_count <= 0){
+                $('.cart-products-with-totals').addClass('d-none');
+                $('.cart-empty').removeClass('d-none');
+                return;
+            }else{
+                $('.cart-products-with-totals').removeClass('d-none');
+                $('.cart-empty').addClass('d-none');
+            }
+
+
+            $('.template_for_cart_products_list').html(html);
+
+            if(cart &&  cart.totals){
+                var strCartTotlas = '';
+                for(var i = 0; i < cart.totals.length; i++){
+                    var cartTotal = cart.totals[i];
+
+                    var totalStyle = '';
+                    if(cartTotal.code === 'total'){
+                        totalStyle = 'font-weight: bold; color: var( --primary-color)';
+                    }
+
+                    strCartTotlas += '<div class="cart-product-row-wrapper cart-totals-row-wrapper">' +
+                        '                                <div class="flex-grow-1">'+cartTotal.title+'</div>' +
+                        '                                <div class="flex-shrink-0" style="width: 30%; '+totalStyle+'">'+cartTotal.value_string+'</div>' +
+                        '                            </div>'
+                }
+
+                $('.cart-totals-div').html(strCartTotlas);
+            }
+
+            if(cart.fee_shipping_discount_rules){
+                $('.free-shipping-rule-section').removeClass('d-none')
+                $('.free-shipping-rule-message').html(cart.fee_shipping_discount_rules.conditions_subtotal.status.message)
+                if (cart.fee_shipping_discount_rules.conditions_subtotal.status.code === 'applied') {
+                    $('.free-shipping-rule-done').removeClass('d-none')
+                }else {
+                    $('.free-shipping-rule-done').addClass('d-none')
+                }
+            }else{
+                $('.free-shipping-rule-section').addClass('d-none')
+            }
+
+
+            setCartTotalAndBadge(cart);
+            addDeleteProgressImage();
+        }
+
+    </script>
+{% endblock %}
+
+
+{% block footer %} {{ include('footer.twig') }} {% endblock %}
