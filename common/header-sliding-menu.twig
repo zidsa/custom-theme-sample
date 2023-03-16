@@ -5,7 +5,8 @@
             <div style="height: 50px"></div>
         </li>
         {% for menu in main_navigation_menu.items %}
-            <li class="slide-menu-ul-li" onclick="scrollToSubMenu(this)">
+            {% if menu.url %}
+            <li class="slide-menu-ul-li {% if menu.slug == 'all_categories' %} all-categories {% endif %}"  onclick="scrollToSubMenu(this)">
                 <a href="{{ menu.url }}">{{ menu.name }}</a>
                 {% if menu.items | length > 0 %}
                     <ul>
@@ -26,15 +27,11 @@
                     </ul>
                 {% endif %}
             </li>
+            {% endif %}
         {% endfor %}
         <li class="slide-menu-ul-li">
             <a href="/shipping-and-payment"><span>{{ locals.header_delivery_and_payment_options }}</span></a>
         </li>
-        {% if not ('hide_menu_all_categories' in menu_settings.header_options) %}
-        <li class="slide-menu-ul-li">
-            <a href="/categories"><span>{{ locals.header_all_categories }}</span></a>
-        </li>
-        {% endif %}
         <li>
             <div class="slide-menu-static">
                 <div class="account-lang-currency upper-bar">
@@ -68,7 +65,7 @@
 
                                 {% if not ('hide_country' in menu_settings.header_options) %}
                                     <div class="currency-button-area d-flex justify-content-center">
-                                        <button class="c-btn currency-btn currency-btn-menu">{{ session.currency.country.name }}</button>
+                                        <button class="c-btn currency-btn currency-btn-menu">{{ session.country.name }} {% if session.country.city %} - {{ session.country.city.name }} {% endif %}</button>
                                     </div>
                                 {% endif %}
                                 {% if not ('hide_country' in menu_settings.header_options) and not ('hide_language' in menu_settings.header_options)%}

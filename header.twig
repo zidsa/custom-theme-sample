@@ -33,72 +33,10 @@
   <div class="modal" id="langCurrecyModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-body" style="padding: 30px 20px">
+        <div class="modal-body" style="padding: 10px">
 
-          <form action="/customer/lang-shipping-country" method="POST">
-
-            <input type="hidden" name="_token" value="{{ csrf_token }}" />
-
-
-            <input id="redirect-to" type="hidden" name="redirect_to" value="{{ requestUri() }}" />
-            <input id="input-change-session-currency" type="hidden" name="currency" value="{{ session.currency.code }}">
-            <input id="input-change-session-currency-symbol" type="hidden" name="currency_symbol" value="{{ session.currency.symbol }}">
-
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-
-            <div class="d-flex row-language-currency">
-
-
-                {% if not ('hide_language' in settings.header_options) %}
-              <div class="flex-fill">
-                <div class="div-dropdown">
-                  <div class="form-group">
-                    <span>{{ locals.store_language }}</span>
-                    <div>
-                      <select name="language" class="select-lang">
-                          {% for storeLang in store.languages %}
-                            <option value="{{ storeLang.code }}" {% if session.lang.code == storeLang.code %}selected{% endif %}>{{ storeLang.name }}</option>
-                          {% endfor %}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {% endif %}
-
-                {% if not ('hide_country' in settings.header_options) %}
-              <div class="flex-fill">
-                <div class="div-dropdown">
-                  <div class="form-group">
-                    <span>{{ locals.store_currency_country }}</span>
-                    <div>
-                      <select name="country" class="select-country" onchange="sessionLangCurrencyChange()">
-                          {% for storeCurrency in store.currencies %}
-                            <option data-currency="{{ storeCurrency.code }}"
-                                    data-currency-symbol="{{ storeCurrency.symbol }}"
-                                    value="{{ storeCurrency.country.code }}" {% if session.currency.country.code == storeCurrency.country.code %}selected{% endif %}>
-                                {{ storeCurrency.country.name }}
-                            </option>
-                          {% endfor %}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-                {% endif %}
-
-            </div>
-
-            <div class="d-flex justify-content-end">
-              <button type="button" class="btn btn-default" data-dismiss="modal">{{ locals.cancel }}</button>&nbsp;&nbsp;
-              <button type="submit" class="btn btn-primary">{{ locals.save }}</button>
-            </div>
-
-          </form>
-
-
+          {% include 'template_for_shipping_destination_currency_lang' with { 'hideDestination' : ('hide_country' in settings.header_options), 'hideLanguage' : ('hide_language' in settings.header_options) , 'hideCurrency' : ('hide_country' in settings.header_options)  } %}
+        
         </div>
       </div>
     </div>
@@ -253,27 +191,6 @@
               "label": {
                 "ar": "إخفاء اسم الدولة",
                 "en": "Hide country"
-              }
-            },
-            {
-              "value": "hide_menu_home",
-              "label": {
-                "ar": "إخفاء الرئيسية من القائمة",
-                "en": "Hide home menu item"
-              }
-            },
-            {
-              "value": "hide_menu_all_products",
-              "label": {
-                "ar": "إخفاء جميع المنتجات من القائمة",
-                "en": "Hide all products menu item"
-              }
-            },
-            {
-              "value": "hide_menu_all_categories",
-              "label": {
-                "ar": "إخفاء جميع التصنيفات من القائمة",
-                "en": "Hide all categories menu item"
               }
             }
           ]

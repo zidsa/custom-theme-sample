@@ -6,7 +6,7 @@
     <div class="features-section container d-flex flex-row justify-content-around align-items-center">
         {% for key, galler in settings.store_features %}
             <div class="feature d-flex flex-column justify-content-center align-items-center">
-                <img class="features-section-img" src="{{ imageUrl(galler.image,{ w: 250, q: 85, f:'auto' }) }}" loading="lazy" alt=""  />
+                <img class="features-section-img" src="{{ imageUrl(galler.image,{ w: 350, q: 85, f:'auto' }) }}" loading="lazy" alt=""  />
                 <p class="px-2 theme-text-for-primary-bg features-section-title">{{ galler.title }}</p>
             </div>
         {% endfor %}

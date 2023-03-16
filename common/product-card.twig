@@ -9,7 +9,7 @@
                 <div class="d-flex justify-content-center" style="width: 100%; height: 100%;">
                     <img id="product-card-img-{{ product.id }}"
                             {% if product.images %}
-                                    src="{{ imageUrl(product.images[0]['image']['small'],{ w: 235, q: 85, f:'auto' }) }}"
+                                    src="{{ imageUrl(product.images[0]['image']['medium'],{ w: 400, q: 85, f:'auto' }) }}"
                              {% else %}
                                  src="{{ imageUrl(asset_url ~ 'product-img.svg',{ w: 235, q: 85, f:'auto' }) }}"
                             {% endif %}

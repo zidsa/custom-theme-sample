@@ -157,7 +157,7 @@
                                                                     <div class="content">
                                                                         <a class="image-link"
                                                                            style="display:block; width: 100%; height: 100%;">
-                                                                            <img src="{{ image.image.large }}" class="carousel-img" alt="{{ product.name }}">
+                                                                            <img src="{{ image.image.full_size }}" class="carousel-img" alt="{{ product.name }}" loading="lazy">
                                                                         </a>
                                                                     </div>
                                                                 </div>
@@ -175,7 +175,7 @@
                                                         <div class="content">
                                                             <a class="d-flex align-items-center justify-content-center thumb-image-a" data-index="{{ key }}"
                                                                style="width: 100%; height: 100%;" >
-                                                                <img src="{{ image.image.small }}" data-index="{{ key }}">
+                                                                <img src="{{ image.image.medium }}" data-index="{{ key }}" loading="lazy">
                                                             </a>
                                                         </div>
                                                     </div>
@@ -461,7 +461,7 @@
                                                                     <div class="box-1-1">
                                                                         <div class="content">
                                                                             <a data-index="{{ key }}" data-link-var-id="{{ variant.id }}" class="d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;" >
-                                                                                <img src="{{ image.image.small }}" data-image-url="{{ image.image.full_size }}">
+                                                                                <img src="{{ image.image.medium }}" data-image-url="{{ image.image.full_size }}" loading="lazy">
                                                                             </a>
                                                                         </div>
                                                                     </div>
@@ -671,10 +671,8 @@
 {% endblock %}
 
 
-
-
-
 {% block footer_scripts %}
+
     <script type="text/javascript" src="{{ asset_url ~ 'ekko-lightbox.min.js' }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'product-details.js' }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
@@ -830,7 +828,7 @@
                         '                                                                        <div class="content">\n' +
                         '                                                                            <a class="image-link"\n' +
                         '                                                                               style="display:block; width: 100%; height: 100%;">\n' +
-                        '                                                                                <img src="'+ prImage.image.large +'" class="carousel-img" alt="'+ selected_product.name +'">\n' +
+                        '                                                                                <img src="'+ prImage.image.full_size +'" class="carousel-img" loading="lazy" alt="'+ selected_product.name +'">\n' +
                         '                                                                            </a>\n' +
                         '                                                                        </div>\n' +
                         '                                                                    </div>\n' +
@@ -842,7 +840,7 @@
                         '                                                                <div class="content">\n' +
                         '                                                                    <a class="d-flex align-items-center justify-content-center thumb-image-a" data-index="{{ key }}"\n' +
                         '                                                                       style="width: 100%; height: 100%;" >\n' +
-                        '                                                                        <img src="'+ prImage.image.small +'" data-index="'+ z +'">\n' +
+                        '                                                                        <img src="'+ prImage.image.medium +'" loading="lazy" data-index="'+ z +'">\n' +
                         '                                                                    </a>\n' +
                         '                                                                </div>\n' +
                         '                                                            </div>\n' +

@@ -15,24 +15,25 @@
                       <img class="d-block w-100 slider-image-{{ key }}" style="width: 100%; height: 100%; object-fit: cover"
                               {% if key == 0 %}
                                 srcset="
-                                 {{ imageUrl(slide.image,{ w: 400, q: 85, f:'auto' }) }} 320w,
-                                 {{ imageUrl(slide.image,{ w: 550, q: 85, f:'auto' }) }} 480w,
-                                 {{ imageUrl(slide.image,{ w: 720, q: 85, f:'auto' }) }} 640w,
-                                 {{ imageUrl(slide.image,{ w: 1010, q: 85, f:'auto' }) }} 960w,
-                                 {{ imageUrl(slide.image,{ w: 1300, q: 85, f:'auto' }) }} 1110w,
+                                 {{ imageUrl(slide.image,{ w: 620, q: 85, f:'auto' }) }} 320w,
+                                 {{ imageUrl(slide.image,{ w: 960, q: 85, f:'auto' }) }} 480w,
+                                 {{ imageUrl(slide.image,{ w: 1280, q: 85, f:'auto' }) }} 640w,
+                                 {{ imageUrl(slide.image,{ w: 1920, q: 85, f:'auto' }) }} 960w,
+                                 {{ imageUrl(slide.image,{ w: 2220, q: 85, f:'auto' }) }} 1110w,
                                 "
-                                src="{{ imageUrl(slide.image,{ w: 1300, q: 85, f:'auto' }) }}"
+                                src="{{ imageUrl(slide.image,{ w: 2220, q: 85, f:'auto' }) }}"
                                   {% else %}
                                     data-srcset="
-                                 {{ imageUrl(slide.image,{ w: 400, q: 85, f:'auto' }) }} 320w,
-                                 {{ imageUrl(slide.image,{ w: 550, q: 85, f:'auto' }) }} 480w,
-                                 {{ imageUrl(slide.image,{ w: 720, q: 85, f:'auto' }) }} 640w,
-                                 {{ imageUrl(slide.image,{ w: 1010, q: 85, f:'auto' }) }} 960w,
-                                 {{ imageUrl(slide.image,{ w: 1300, q: 85, f:'auto' }) }} 1110w,
+                                 {{ imageUrl(slide.image,{ w: 620, q: 85, f:'auto' }) }} 320w,
+                                 {{ imageUrl(slide.image,{ w: 960, q: 85, f:'auto' }) }} 480w,
+                                 {{ imageUrl(slide.image,{ w: 1280, q: 85, f:'auto' }) }} 640w,
+                                 {{ imageUrl(slide.image,{ w: 1920, q: 85, f:'auto' }) }} 960w,
+                                 {{ imageUrl(slide.image,{ w: 2220, q: 85, f:'auto' }) }} 1110w,
                                 "
-                                    data-src="{{ imageUrl(slide.image,{ w: 1300, q: 85, f:'auto' }) }}"
+                                    data-src="{{ imageUrl(slide.image,{ w: 2220, q: 85, f:'auto' }) }}"
                               {% endif %}
                            sizes="(max-width: 1110px) 100vw, 1110px"
+                           loading="lazy"
                            alt="{{ slide.title }}"
                       >
                     {% endif %}

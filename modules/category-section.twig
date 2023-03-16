@@ -16,7 +16,7 @@
 
                                     <img
                                             {% if categoryItem.category.image %}
-                                                src="{{ imageUrl(categoryItem.category.image, { w: 235, q: 85, f:'auto' }) }}"
+                                                src="{{ imageUrl(categoryItem.category.image_full_size, { w: 400, q: 85, f:'auto' }) }}"
                                             {% else %}
                                                 src="{{ imageUrl(asset_url ~ 'product-img.svg',{ w: 235, q: 85, f:'auto' }) }}"
                                             {% endif %}

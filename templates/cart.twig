@@ -18,6 +18,8 @@
         {% endblock %}
     {% endembed %}
 
+   
+
     <div class="container mb-5">
         <div class="cart-view">
             <div class="row cart-products-with-totals {% if cart.products_count <= 0 %}d-none{% endif %}">
@@ -50,8 +52,13 @@
                     <div class="cart-totals-div">
                         {% for cartTotal in cart.totals %}
                             <div class="cart-product-row-wrapper cart-totals-row-wrapper">
-                                <div class="flex-grow-1">{{ cartTotal.title }}</div>
-                                <div class="flex-shrink-0" style="width: 30%; {% if cartTotal.code == 'total' %} font-weight: bold; color: var( --primary-color); {% endif %}">{{ cartTotal.value_string }}</div>
+                                <div class="flex-grow-1">
+                                    {{ cartTotal.title }}
+                                    {% if cartTotal.code == 'total' and store.is_cart_total_vat_included %}&nbsp;<small>{{ locals.sys_lbl_cart_includes_vat }}</small>{% endif %}
+                                </div>
+                                <div class="flex-shrink-0" style="width: 30%; {% if cartTotal.code == 'total' %} font-weight: bold; color: var( --primary-color); {% endif %}">
+                                    {{ cartTotal.value_string }}
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
@@ -86,8 +93,6 @@
 
                     </div>
 
-
-
                     <div class="cart-discount-rule-wrapper free-shipping-rule-section mt-5 {% if cart.fee_shipping_discount_rules %}d-block{% else %}d-none{% endif %}">
                         <div class="d-flex align-items-center">
                             <div class="message flex-grow-1 free-shipping-rule-message">
@@ -97,6 +102,15 @@
                                 <span class="free-shipping-rule-done {% if cart.fee_shipping_discount_rules.conditions_subtotal.status.code == 'applied' %}d-inline-block{% else %}d-none{% endif %}">
                                     <span style="font-size: 28px"  class="icon-done text-color-primary"></span>
                                 </span>
+                            </div>
+                        </div>
+                        <div class="discount-progress-linear" class="{% if cart.fee_shipping_discount_rules.conditions_subtotal.status.code == 'min_not_reached' %}d-block{% else %}d-none{% endif %}">
+                            <div class="progress-bar free-shipping-rule-progress" style="width: {{ cart.fee_shipping_discount_rules.conditions_subtotal.products_subtotal_percentage_from_min }}%">
+                                {% if cart.fee_shipping_discount_rules.conditions_subtotal.status.code == 'applied' %}
+                                    <span>{{ locals.coupon_discount_free_shipping }}</span>
+                                {% else %}
+                                    <span>{{ cart.fee_shipping_discount_rules.conditions_subtotal.products_subtotal_percentage_from_min }}%</span>
+                                {% endif %}
                             </div>
                         </div>
 
@@ -225,12 +239,26 @@
                     var cartTotal = cart.totals[i];
 
                     var totalStyle = '';
+
                     if(cartTotal.code === 'total'){
                         totalStyle = 'font-weight: bold; color: var( --primary-color)';
                     }
+            
+                    var vat_included = '';
+                    if(cartTotal.code === 'total'){
+
+                        var is_cart_total_vat_included = {{ store.is_cart_total_vat_included ? 'true' : 'false' }};
+                        var local_sys_lbl_cart_includes_vat = '{{ locals.sys_lbl_cart_includes_vat }}';
+                    
+                        if(is_cart_total_vat_included){
+                            vat_included = '&nbsp;<small>'+local_sys_lbl_cart_includes_vat+'</small>';
+                        }
+                        
+                    }
+
 
                     strCartTotlas += '<div class="cart-product-row-wrapper cart-totals-row-wrapper">' +
-                        '                                <div class="flex-grow-1">'+cartTotal.title+'</div>' +
+                        '                                <div class="flex-grow-1">'+cartTotal.title+vat_included+'</div>' +
                         '                                <div class="flex-shrink-0" style="width: 30%; '+totalStyle+'">'+cartTotal.value_string+'</div>' +
                         '                            </div>'
                 }
@@ -241,10 +269,15 @@
             if(cart.fee_shipping_discount_rules){
                 $('.free-shipping-rule-section').removeClass('d-none')
                 $('.free-shipping-rule-message').html(cart.fee_shipping_discount_rules.conditions_subtotal.status.message)
+                $('.free-shipping-rule-progress').css('width', `${cart.fee_shipping_discount_rules.conditions_subtotal.products_subtotal_percentage_from_min}%`)
                 if (cart.fee_shipping_discount_rules.conditions_subtotal.status.code === 'applied') {
                     $('.free-shipping-rule-done').removeClass('d-none')
+                    $('.free-shipping-rule-read-more').addClass('d-none')
+                    $('.free-shipping-rule-progress').html('{{ locals.coupon_discount_free_shipping }}')
                 }else {
                     $('.free-shipping-rule-done').addClass('d-none')
+                    $('.free-shipping-rule-read-more').removeClass('d-none')
+                    $('.free-shipping-rule-progress').html(`${cart.fee_shipping_discount_rules.conditions_subtotal.products_subtotal_percentage_from_min}%`)
                 }
             }else{
                 $('.free-shipping-rule-section').addClass('d-none')

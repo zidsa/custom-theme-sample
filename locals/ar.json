@@ -48,6 +48,7 @@
   "choose":"اختر",
 
   "products_search_result":"نتائج البحث عن",
+  "no_result_found": "لا توجد نتائج بحث",
   "products_more":"المزيد من المنتجات",
 
   "products_list_empty":"لا يوجد منتجات",
@@ -180,6 +181,8 @@
   "coupon_discount":"كوبون الخصم",
   "coupon_discount_enter": "ادخل كود الخصم",
   "coupon_discount_submit": "إرسال",
+  "coupon_discount_free_shipping": "شحن مجاني",
+  "enjoy_free_shipping_cities": "تمتع بالشحن المجاني للمدن التالية",
 
   "shipping_option":"خيارات الشحن",
   "covered_cities": "المدن التى يتم تغطيتها",
@@ -201,5 +204,6 @@
   "social_media":"وسائل التواصل",
   "active_payment_session_notification" : "يوجد لديك عملية دفع قائمة في صفحة أخرى للمتجر، لا يمكنك تعديل محتويات السلة",
   "active_payment_session_cancel":"إلغاء السلة و متابعة الشراء",
-  "go_all_reviews":"جميع التقييمات"
+  "go_all_reviews":"جميع التقييمات",
+  "read_more": "اعرف المزيد"
 }

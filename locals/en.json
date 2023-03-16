@@ -48,6 +48,8 @@
     "choose":"choose",
 
     "products_search_result":"Search results for",
+    "no_result_found": "No Result Found",
+
     "products_more":"More",
 
     "products_list_empty":"No products",
@@ -181,6 +183,9 @@
     "coupon_discount":"Discount coupon",
     "coupon_discount_enter": "Enter discount coupon",
     "coupon_discount_submit": "Send",
+    "coupon_discount_free_shipping": "Free Shipping",
+    "enjoy_free_shipping_cities": "Enjoy free shipping for the cities",
+
     "shipping_option":"Shipping Option",
     "covered_cities": "Coverd Cities",
     "shipping_charges":"Shipping Charges ",
@@ -202,5 +207,6 @@
     "social_media":"Contact us",
     "active_payment_session_notification" : "You have an active payment session in another browser, you can't edit the cart contents",
     "active_payment_session_cancel":"Discard cart & continue shopping",
-    "go_all_reviews":"All reviews"
+    "go_all_reviews":"All reviews",
+    "read_more": "Read More"
 }

@@ -7,6 +7,7 @@
                 <ul class="main-nav d-flex flex-grow-1 flex-wrap menu-header-theme-text-for-primary-bg">
                     
                     {% for menu in main_navigation_menu.items %}
+                        {% if menu.url %}
                             <li class="top-level-link {% if menu.slug == 'all_categories' %} all-categories {% endif %}" >
                                 <a href="{{ menu.url }}"
                                         {% if menu.items | length > 0 %} class="mega-menu" {% endif %} ><span>{{ menu.name }}</span></a>
@@ -33,6 +34,7 @@
                                     </div>
                                 {% endif %}
                             </li>
+                        {% endif %}
                     {% endfor %}
 
 
