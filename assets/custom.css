@@ -442,6 +442,10 @@
     margin-left: 16px;
 }
 
+.products-list .prod-col-attr{
+    width: 25%;
+}
+
 @media (max-width: 768px) {
     .header-cart {
         flex-grow: 1;
@@ -554,7 +558,7 @@
         width: auto;
     }
 
-    .products-list .prod-col{
+    .products-list .prod-col, .products-list .prod-col-attr{
         width: 50%;
     }
 
@@ -584,4 +588,9 @@
 .btn:focus,.btn:active, .page-link:focus, .page-link:active {
     outline: none !important;
     box-shadow: none;
+}
+
+
+.products-filters-attribute-form .attribute-group:last-child button {
+    display: none;
 }

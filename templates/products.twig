@@ -12,15 +12,25 @@
     {% endembed %}
 
 
-     <div class="container">
-        <div class="products-container pt-4">
-            <div>
-                {% include 'products-filter.twig' with { 'count' : products.total } %}
+     <div class="container d-flex flex-row">
+        {% if  products.filters|length > 0 %}
+            <div class="d-flex flex-column">
+                {% include 'template_for_products_attributes' %}
+                <div class="d-flex justify-content-end attributes-submit" style="padding-inline-end: 25px">
+                    <button type="button" onclick="document.getElementById('attribute_form').submit()" class="highlight-button btn btn-sm" data-abc="true">تطبيق</button>
+                </div>
             </div>
-            <div class="row products-list">
+        {% endif %}
+        <div class="products-container flex-grow-1 pt-4">
+        {% if  products.filters|length <= 0 %}
+            <div>
+                {% include 'products-filter.twig' with { 'count' : products.total, 'has_products_filtration': ( products.filters|length > 0) } %}
+            </div>
+        {% endif %}
+            <div id="products-list" class="row products-list">
                 {% for product in products.data %}
 
-                    <div class="prod-col prod-col-tb">
+                    <div class="prod-col {% if products.filters|length > 0 %}prod-col-attr{% endif %} prod-col-tb">
                         {% include 'product-card.twig' with {'product' : product, 'index': key} %}
                     </div>
 
