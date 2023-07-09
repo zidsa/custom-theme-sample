@@ -594,3 +594,30 @@
 .products-filters-attribute-form .attribute-group:last-child button {
     display: none;
 }
+
+.gift-popover-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 115px;
+    height: 140px;
+    max-width: 100%;
+}
+.popover {
+    top: 40px;
+}
+.popover .arrow {
+    top: -0.5rem;
+    left: 5px;
+}
+.popover .arrow::before {
+    top: 0;
+    border-width: 0 0.5rem 0.5rem;
+    border-bottom-color: #fff;
+}
+.popover .arrow ::after {
+    top: 1px;
+    border-width: 0 0.5rem 0.5rem;
+    border-bottom-color: #fff;
+}

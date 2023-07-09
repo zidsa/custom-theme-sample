@@ -295,8 +295,18 @@ function setCartBadge(badge) {
     if(badge > 0){
         $('.cart-badge').removeClass('d-none');
         $('.cart-badge').html(badge);
+        showGiftCart();
     }else {
         $('.cart-badge').addClass('d-none');
+    }
+}
+
+function showGiftCart() {
+    if (location.pathname !== '/cart/view') {
+      $('#tooltip').removeClass('d-none');
+      setTimeout(() => {
+        $('#tooltip').addClass('d-none');
+      }, 3000);
     }
 }
 

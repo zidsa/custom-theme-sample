@@ -65,6 +65,22 @@
                         <span class="icon-shopping_cart_black_36dp-1-1 header-theme-icon-primary"><span class="path1"></span><span class="path2"></span></span>
                         <span class="cart-badge d-none"></span>
                     </a>
+                    {% if store.gift_order_settings.is_gift_order_customer_motivation_enabled == '1' %}
+                      <div id="tooltip" class="d-none popover" role="tooltip">
+                        <div class="arrow"></div>
+                        <div class="gift-popover-body">
+                          <img src="{{ asset_url }}gift-popover-icon.svg" width="24" height="24" />
+                          <p class="h6 my-2">
+                            {{ locals.cart_send_as_gift }}
+                          </p>
+                          <button class="btn round primary d-block">
+                            <a href="/cart/view" class="no-border d-block">
+                              {{ locals.continue }}
+                            </a>
+                          </button>
+                        </div>
+                      </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

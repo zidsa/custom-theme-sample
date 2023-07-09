@@ -38,6 +38,24 @@
                         <div class="template_for_cart_products_list">
                             {{ template_for_cart_products_list }}
                         </div>
+
+                        {% if cart.gift_card_details | length > 0 %}
+                            <div class="cart-gift-card">
+                                <p class="font-weight-bold mb-2">
+                                    <img src="{{ asset_url }}gift_icon.png" style="display: inline-block" />
+                                    {{ locals.cart_send_as_gift_info }}
+                                </p>
+                                <p class="mb-2">
+                                    <span>{{ locals.products_list_filter_price_from }}: {{cart.gift_card_details.sender_name}}</span>
+                                    <span class="mx-2">{{ locals.products_list_filter_price_to }}: {{cart.gift_card_details.receiver_name}}</span>
+                                </p>
+                                {% if cart.gift_card_details.gift_message | length > 0 %}
+                                    <p class="mb-0">
+                                        <span>{{ locals.cart_gift_card_info_message }}: </span> {{ cart.gift_card_details.gift_message }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -133,6 +151,12 @@
                             {% endif %}
 
                         </div>
+
+                        {% if store.gift_order_settings.is_gift_order_enabled == '1' %}
+                          <div class="card border-0 mt-3 text-body">
+                              {{ template_for_cart_gifts_widget }}
+                          </div>
+                        {% endif %}
 
                         <div class="mt-3">
                             <a href="/" class="btn btn-outline-primary btn-lg btn-block">

@@ -1044,3 +1044,9 @@
     font-family: inherit;
 }
 
+.cart-gift-card {
+    background-color: #F1F1F1;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+}
