@@ -2074,3 +2074,8 @@ hr {
 .product-card-bundle-offer.bundle-offer-product-tag {
     display: inline-block;
 }
+
+.product-card-bundle-offer.badge-product-tag {
+    display: inline-block;
+    top: 50px;
+}
