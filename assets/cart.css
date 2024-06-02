@@ -75,6 +75,7 @@
 
 .icon-delete:before {
     content: "\f05c";
+    font-family: 'icomoon';
     font-size: 16px;
     font-weight: bold;
 }
@@ -198,7 +199,7 @@
 }
 
 .cart-discount-rule-wrapper .message {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: var(--primary-color);
 }
 
@@ -282,6 +283,19 @@
     .cart-product-delete, .cart-products-action, .cart-product-prices, .cart-product-col-details, .cart-product-col-img {
         padding-bottom: 0px;
     }
+}
+
+.discount-progress-linear {
+  background: rgba(0, 169, 134, 0.08);
+  border-radius: 44px;
+  overflow: hidden;
+  margin-top: 7px;
+}
+
+.discount-progress-linear .progress-bar {
+  background-color: #00A986;
+  padding: 2px 3px;
+  border-radius: 44px;
 }
 
 .discount-progress .text-color-primary {

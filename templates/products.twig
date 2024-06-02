@@ -4,29 +4,31 @@
 
 {% block main_content %}
 
-    {% embed 'breadcrumb.twig' %}
-        {% block breadcrumb_items %}
-            <li class="breadcrumb-item" aria-current="page"><a href="/">{{ locals.home_title }}</a></li>
-            <li class="breadcrumb-item active " aria-current="page">{{ locals.products_title }}</li>
-        {% endblock %}
-    {% endembed %}
+
+    <section class="breadcrumb-section">
+        <nav aria-label="breadcrumb">
+
+            <ol class="breadcrumb">
+            <div class="container d-flex flex-wrap">
+                <li class="breadcrumb-item" aria-current="page"><a href="/">{{ locals.home_title }}</a></li>
+                <li class="breadcrumb-item active " aria-current="page">{{ locals.products_title }}</li>
+            </div>
+
+            </ol>
+
+        </nav>
+    </section>
+
 
 
      <div class="container d-flex flex-row">
         {% if  products.filters|length > 0 %}
-            <div class="d-flex flex-column">
-                {% include 'template_for_products_attributes' %}
-                <div class="d-flex justify-content-end attributes-submit" style="padding-inline-end: 25px">
-                    <button type="button" onclick="document.getElementById('attribute_form').submit()" class="highlight-button btn btn-sm" data-abc="true">تطبيق</button>
-                </div>
-            </div>
+            {% include 'template_for_products_attributes' with { 'async' : true } %}
         {% endif %}
         <div class="products-container flex-grow-1 pt-4">
-        {% if  products.filters|length <= 0 %}
             <div>
                 {% include 'products-filter.twig' with { 'count' : products.total, 'has_products_filtration': ( products.filters|length > 0) } %}
             </div>
-        {% endif %}
             <div id="products-list" class="row products-list">
                 {% for product in products.data %}
 
@@ -44,3 +46,31 @@
 {% endblock %}
 
 {% block footer %} {{ include('footer.twig') }} {% endblock %}
+
+{% block footer_scripts %}
+    <script>
+        window.onProductAttributesTriggered = function(){
+            $('#products-list').css('opacity', '0.4');
+            $('#product-pagination').css('opacity', '0');
+        }
+
+        window.onProductAttributesChanged = function(htmlStr){
+            var html = $.parseHTML( htmlStr );
+            $('#products-list').html($('#products-list', html).html());
+            $('#products-list').css('opacity', '1');
+
+            if($('#product-pagination', html).length>0){
+                $('#product-pagination').html($('#product-pagination', html).html());
+                $('#product-pagination').css('opacity', '1');
+            }
+
+        }
+
+        {% if  products.data|length > 0 %}
+        document.addEventListener("DOMContentLoaded", function(){
+            var productsObj = {{ products.data | json_encode() | raw }}
+                window.sendGaProductsViewItemsListEvent('all_products', productsObj);
+        });
+        {% endif %}
+    </script>
+{% endblock %}

@@ -4,7 +4,7 @@
      data-sm-scroll-offset="94"
      class="home-categories-section section-padding-space">
     <div class="container slider-container">
-        <h1 class="section-title theme-text-primary">{{ settings.title }}</h1>
+        <h2 class="section-title theme-text-primary">{{ settings.title }}</h2>
         <div class="d-flex flex-column">
             <div class="categories-slider-wrapper" style="position: relative">
 
@@ -16,9 +16,9 @@
 
                                     <img
                                             {% if categoryItem.category.image %}
-                                                src="{{ imageUrl(categoryItem.category.image_full_size, { w: 400, q: 85, f:'auto' }) }}"
+                                                src="{{ imageUrl(categoryItem.category.image_full_size, { w: 400, q: 100, f:'auto' }) }}"
                                             {% else %}
-                                                src="{{ imageUrl(asset_url ~ 'product-img.svg',{ w: 235, q: 85, f:'auto' }) }}"
+                                                src="{{ imageUrl(asset_url ~ 'product-img.svg',{ w: 235, q: 100, f:'auto' }) }}"
                                             {% endif %}
 
                                             loading="lazy" alt="{{ categoryItem.category.name }}">

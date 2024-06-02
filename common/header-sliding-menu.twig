@@ -7,7 +7,9 @@
         {% for menu in main_navigation_menu.items %}
             {% if menu.url %}
             <li class="slide-menu-ul-li {% if menu.slug == 'all_categories' %} all-categories {% endif %}"  onclick="scrollToSubMenu(this)">
-                <a href="{{ menu.url }}">{{ menu.name }}</a>
+                <a href="{{ menu.url }}" title="{{ menu.name }}" class="menu-link">
+                    <span class="px-1 clickable-span">{{ menu.name }}</span>
+                </a>
                 {% if menu.items | length > 0 %}
                     <ul>
                         {% for menu_sub in menu.items %}
@@ -17,7 +19,9 @@
                                     <ul>
                                         {% for menu_sub_sub in menu_sub.items %}
                                             <li class="slide-menu-ul-li">
-                                                <a href="{{ menu_sub_sub.url }}">{{ menu_sub_sub.name }}</a>
+                                                <a href="{{ menu_sub_sub.url }}">
+                                                    {{ menu_sub_sub.name }}
+                                                </a>
                                             </li>
                                         {% endfor %}
                                     </ul>
@@ -91,3 +95,36 @@
         </li>
     </ul>
 </nav>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    function cleanUrl(url) {
+        if (url.startsWith("//")) {
+            url = "/" + url.slice(2);
+        }
+        url = url.replace(/([^:]\/)\/+/g, "$1");
+        if (url !== '/' && url.endsWith('/')) {
+            url = url.slice(0, -1);
+        }
+        return url;
+    }
+    var menuLinks = document.querySelectorAll('.menu-link');
+    menuLinks.forEach(function(link) {
+        link.href = cleanUrl(link.getAttribute('href'));
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+        });
+    });
+    var clickableSpans = document.querySelectorAll('.clickable-span');
+    clickableSpans.forEach(function(span) {
+        span.addEventListener('click', function(event) {
+            event.stopPropagation();
+            var parentAnchor = span.closest('a');
+            if (parentAnchor) {
+                window.location.href = parentAnchor.href;
+            }
+        });
+    });
+});
+</script>

@@ -12,20 +12,64 @@
 
 {% block main_content %}
 
-    {% embed 'breadcrumb.twig' %}
-        {% block breadcrumb_items %}
-            <li class="breadcrumb-item active " aria-current="page">{{ locals.cart_view_title }}</li>
-        {% endblock %}
-    {% endembed %}
+    <section class="breadcrumb-section">
+        <nav aria-label="breadcrumb">
+        
+            <ol class="breadcrumb">
+            <div class="container d-flex flex-wrap">
+                 <li class="breadcrumb-item active " aria-current="page">{{ locals.cart_view_title }}</li>
+            </div>
+        
+            </ol>
+    
+        </nav>
+    </section>
 
-   
+
+    <div class="modal" id="searchCitiesModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body" style="padding: 10px 20px 20px">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+
+              <h5 class="text-center py-3 mb-0 text-color-primary">
+                {{ locals.enjoy_free_shipping_cities }}
+              </h5>
+
+              <div class="p-2 d-lg-flex align-items-center bd-highlight search-input lg-search-div flex-grow-1">
+                <div class="form-group" style="position: relative; margin: 0px">
+                    <span class="icon-search search-input-icon" style="z-index: 1"></span>
+                    <div class="autocomplete" style="position: relative">
+                        <input type="text" data-cat-id="" class="form-control cities-search-input pl-5" placeholder="{{ locals.search }}">
+                    </div>
+                </div>
+            </div>
+
+              <div>
+                <p class="cities-result lead">
+                  {% for city in cart.fee_shipping_discount_rules.conditions_shipping_city | slice(0, 50) %}
+                    {{ city.name }}
+                    {% if not loop.last %} ، {% endif %}
+                  {% endfor %}
+                </p>
+              </div>
+
+              <div class="d-flex justify-content-center mt-3">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" style="width: 120px">{{ locals.cancel }}</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="container mb-5">
         <div class="cart-view">
             <div class="row cart-products-with-totals {% if cart.products_count <= 0 %}d-none{% endif %}">
                 <div class="col-12 col-lg-8">
                     <div class="section-cart-products">
-                        <h1 class="section-title ">{{ locals.cart_products_title }}</h1>
+                        <h2 class="section-title ">{{ locals.cart_products_title }}</h2>
                         <div class="header-wrapper">
                             <div class="section-cart-products-row d-flex">
                                 <div class="section-cart-products-col-1"></div>
@@ -56,17 +100,21 @@
                                 {% endif %}
                             </div>
                         {% endif %}
+
                     </div>
                 </div>
                 <div class="col-12 col-lg-4">
 
-                    <h1 class="section-title ">{{ locals.cart_break_down_summary }}</h1>
+                    <h2 class="section-title ">{{ locals.cart_break_down_summary }}</h2>
                     <div class="header-wrapper">
                         <div class="section-cart-products-row section-cart-totals-row  d-flex">
                             <div class="flex-grow-1">{{ locals.cart_totals_title }}</div>
                             <div class="flex-shrink-0" style="width: 30%">{{ locals.cart_totals_description }}</div>
                         </div>
                     </div>
+
+                    <div>{{ template_for_cart_loyalty_points_widget }}</div>
+                    
                     <div class="cart-totals-div">
                         {% for cartTotal in cart.totals %}
                             <div class="cart-product-row-wrapper cart-totals-row-wrapper">
@@ -111,10 +159,19 @@
 
                     </div>
 
+
+
                     <div class="cart-discount-rule-wrapper free-shipping-rule-section mt-5 {% if cart.fee_shipping_discount_rules %}d-block{% else %}d-none{% endif %}">
                         <div class="d-flex align-items-center">
                             <div class="message flex-grow-1 free-shipping-rule-message">
                                 {{ cart.fee_shipping_discount_rules.conditions_subtotal.status.message }}
+                            </div>
+                            <div class="text-muted mr-1 flex-shrink-0 free-shipping-rule-read-more" class="{% if cart.fee_shipping_discount_rules.conditions_subtotal.status.code == 'min_not_reached' %}d-inline-block{% else %}d-none{% endif %}">
+                              <a data-toggle="modal" data-target="#searchCitiesModal" href="#">
+                                <small>
+                                  {{ locals.read_more }}
+                                </small>
+                              </a>
                             </div>
                             <div class="discount-progress flex-shrink-0">
                                 <span class="free-shipping-rule-done {% if cart.fee_shipping_discount_rules.conditions_subtotal.status.code == 'applied' %}d-inline-block{% else %}d-none{% endif %}">
@@ -148,6 +205,9 @@
                                 >
                                     {{ locals.cart_continue_to_purchase }}
                                 </a>
+                                <div style="margin-top: 1rem">
+                                    {{ template_for_cart_apple_pay_button }}
+                                </div>
                             {% endif %}
 
                         </div>
@@ -174,7 +234,7 @@
                     <span class="icon-shopping_cart_black_36dp-1-1 theme-title-primary" style="font-size: 90px">
                         <span class="path1"></span><span class="path2"></span>
                     </span>
-                    <h1 class="mt-3">{{ locals.cart_list_empty }}</h1>
+                    <h2 class="mt-3">{{ locals.cart_list_empty }}</h2>
                     <div class="mt-3">
                         <a href="/" class="btn btn-outline-primary btn-lg btn-block">
                             {{ locals.cart_back_to_store }}
@@ -206,6 +266,20 @@
         $(document).on('click','.cart-product-delete a', function(event) {
             $('.icon-delete', event.currentTarget).addClass('d-none');
             $('.prefix',event.currentTarget).removeClass('d-none');
+        });
+
+        $(".cities-search-input").on('keyup', function (e) {
+            const searchVal = e.target.value
+            const mappedCities = cartObj.fee_shipping_discount_rules.conditions_shipping_city.map((city) => city.name);
+            let filteredCities = mappedCities.slice(0, 50).join(' ، ');
+            if (searchVal.length > 2) {
+              filteredCities = mappedCities.filter((name) => name.trim().toLowerCase().includes(searchVal.trim().toLowerCase())).join(' ، ');
+            }
+            if (filteredCities.length) {
+              $(".cities-result").html(filteredCities);
+            } else {
+              $(".cities-result").html('{{ locals.no_result_found }}');
+            }
         });
 
         function sendCoupon() {

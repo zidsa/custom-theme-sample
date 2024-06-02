@@ -71,6 +71,7 @@
             return;
 
         $('.add-review-progress').removeClass('d-none');
+
         zid.store.product.addReview('{{ product.id }}',$('.input-review-comment').val(),$("#selected_rating").val(), $('#is_review_customer_anonymous').is(':checked')).then(function (response) {
             if(response.status  === 'success'){
                 toastr.success('{{ locals.reviews_submit_success }}', '{{ locals.sent_successfully }}')

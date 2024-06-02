@@ -271,6 +271,10 @@
     padding: 15px;
 }
 
+.products-list .prod-col-attr{
+    width: 25%;
+}
+
 .sort-block-width {
     margin-left: 30px;
 }
@@ -442,10 +446,6 @@
     margin-left: 16px;
 }
 
-.products-list .prod-col-attr{
-    width: 25%;
-}
-
 @media (max-width: 768px) {
     .header-cart {
         flex-grow: 1;
@@ -520,6 +520,9 @@
         overflow-x: scroll;
         white-space: nowrap;
     }
+    .product-crd-spec small {
+        white-space: break-spaces;
+    }
 
     .testimonials-slider::-webkit-scrollbar { width: 0 !important }
 
@@ -588,11 +591,6 @@
 .btn:focus,.btn:active, .page-link:focus, .page-link:active {
     outline: none !important;
     box-shadow: none;
-}
-
-
-.products-filters-attribute-form .attribute-group:last-child button {
-    display: none;
 }
 
 .gift-popover-body {

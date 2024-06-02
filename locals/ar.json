@@ -12,6 +12,12 @@
   "header_delivery_and_payment_options":"خيارات الدفع والتوصيل",
   "customer_reviews": "آراء العملاء",
 
+  "common_requried_input_error": "هذا الحقل مطلوب",
+  
+
+  "products_list_filter_show_more":"المزيد",
+
+
 
   "search_placeholder": "ابحث",
 
@@ -144,6 +150,9 @@
   "footer_vat_number": "الرقم الضريبي:",
   "footer_commercial_registration_number": "رقم السجل التجاري:",
   "title_404":"لم يتم أيجاد الصفحة",
+  "go_to_home": "العودة للصفحة الرئيسية",
+  "redirect_message": "سيتم تحويلك للصفحة الرئيسية خلال",
+  "seconds": "ثواني",
   "order_id":"رقم الطلب",
   "order_status":"حالة الطلب",
   "order_date":"تاريخ الطلب",
@@ -205,5 +214,22 @@
   "active_payment_session_notification" : "يوجد لديك عملية دفع قائمة في صفحة أخرى للمتجر، لا يمكنك تعديل محتويات السلة",
   "active_payment_session_cancel":"إلغاء السلة و متابعة الشراء",
   "go_all_reviews":"جميع التقييمات",
-  "read_more": "اعرف المزيد"
+  "read_more": "اعرف المزيد",
+  "product_questions": "الأسئلة",
+  "add_product_question":"إضافة سؤالك",
+  "add_product_question_placholder": "اكتب سؤالك هنا",
+  "add_product_question_name": "الاسم",
+  "add_product_question_email": "البريد الإلكتروني",
+  "add_product_question_anonymous": "إرسال كمجهول",
+  "question_submit_success": "تم إرسال سؤالك بنجاح سيصلك تنبيه في حال تمت الإجابة عليه",
+  "product_question_empty": "لا يوجد أسئلة سابقة،",
+  "product_question_empty_note": "يمكنك إضافة سؤالك لمعرفة المزيد حول المنتج",
+  "product_questions_view_all" : "عرض جميع الأسئلة", 
+  "common_requried_email_input_error": "البريد الإلكتروني غير صحيح",
+  "grouped_product_details": "تفاصيل المنتج",
+  "grouped_product_included_products": "المنتجات الشاملة التجميعية: ",
+  "grouped_product_table_th_photo": "الصورة",
+  "grouped_product_table_th_name": "الاسم",
+  "grouped_product_table_th_desc": "الوصف",
+  "grouped_product_table_no_desc": "لا يوجد وصف"
 }

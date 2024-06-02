@@ -1,5 +1,5 @@
 {% if totalPages > 1 %}
-<nav class="products-pagination" aria-label="products navigation">
+<nav id="product-pagination" class="products-pagination" aria-label="products navigation">
     <ul class="pagination flex-wrap justify-content-center">
         <li class="page-item {% if currentPage == 1 %}disabled{% endif %}">
             <a class="page-link" href="{{ requestAdd({page:(currentPage - 1)}) }}" tabindex="-1">{{ locals.prev }}</a>

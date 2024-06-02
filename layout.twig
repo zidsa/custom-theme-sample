@@ -56,8 +56,21 @@
             --main-slider-sm-height: 115px;
         }
 
-        
+        @font-face {
+          font-family: 'icomoon';
+          src:  url('{{ asset_url }}icomoon.eot?d668y32');
+          src:  url('{{ asset_url }}icomoon.eot?d668y32#iefix') format('embedded-opentype'),
+          url('{{ asset_url }}icomoon.woff2?d668y32') format('woff2'),
+          url('{{ asset_url }}icomoon.ttf?d668y32') format('truetype'),
+          url('{{ asset_url }}icomoon.woff?d668y32') format('woff'),
+          url('{{ asset_url }}icomoon.svg?d668y32#icomoon') format('svg');
+          font-weight: normal;
+          font-style: normal;
+          font-display: block;
+        }
     </style>
+
+  <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'icomoon.css?v=1.0.2' }}"  />
 
     {% if session.lang.code == 'ar' %}
         <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'bootstrap-rtl.css?v=1.05' }}" />
@@ -73,15 +86,15 @@
     <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'jquery-ui.theme.min.css' }}"  />
 
     <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'slick.css' }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'slick-theme.css?v=1.07' }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'slick-theme.css?v=1.08' }}" />
 
     <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'slide-menu.css' }}" />
 
     <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'slide-menu-style.css?v=1.16' }}" />
 
-    <link rel="stylesheet" href="{{ asset_url ~ 'main.css?v=1.219' }}" />
+    <link rel="stylesheet" href="{{ asset_url ~ 'main.css?v=1.221' }}" />
 
-    <link rel="stylesheet" type="text/css" href="{{ assetUrl('custom.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'custom.css?v=1.148' }}" />
 
     {% if session.lang.code == 'ar' %}
         <link rel="stylesheet" href="{{ asset_url ~ 'main.rtl.css?v=1.25' }}">
@@ -196,7 +209,7 @@
 <script src="{{ asset_url ~ 'slide-menu.ie.js?v=1.06' }}" ></script>
 <script src="{{ asset_url ~ 'slick.min.js' }}" ></script>
 
-<script type="text/javascript" src="{{ asset_url ~ 'main.js?v=1.117' }}" ></script>
+<script type="text/javascript" src="{{ asset_url ~ 'main.js?v=1.119' }}" ></script>
 
 {% block footer_scripts %}{% endblock %}
 

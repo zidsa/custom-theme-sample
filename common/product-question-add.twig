@@ -1,0 +1,54 @@
+<div class="modal fade" id="addProductQuestionModal" tabindex="-1" role="dialog" aria-labelledby="addProductQuestionModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-comment-content">
+      <div class="modal-body" style="padding: 20px">
+        <form>
+          <div class="d-flex align-items-center mt-3 mb-3">
+            <span class="modal-product-title">{{ locals.add_product_question }}</span>
+          </div>
+
+          <div class="form-group">
+            <input rows="4" name="name" class="form-control" placeholder="{{ locals.add_product_question_name }}" />
+            <p class="d-none input-error-name mt-1 text-danger">{{ locals.common_requried_input_error }}</p>
+          </div>
+          <div class="form-group">
+            <textarea rows="4" name="question" placeholder="{{ locals.add_product_question_placholder }}" class="form-control"></textarea>
+            <p class="d-none input-error-question mt-1 text-danger">{{ locals.common_requried_input_error }}</p>
+          </div>
+          <div class="form-group">
+            <input rows="4" name="email" class="form-control" placeholder="{{ locals.add_product_question_email }}"/>
+            <p class="d-none input-error-email mt-1 text-danger">{{ locals.common_requried_input_error }}</p>
+            <p class="d-none input-error-invalid-email mt-1 text-danger">{{ locals.common_requried_email_input_error }}</p>
+          </div>
+          <div class="form-group mt-3 mb-3">
+            <label>
+              <span class="checkbox-container">
+                <input id="is_anonymous" class="checkbox" type="checkbox" name="is_anonymous" />
+                <span class="custom-checkmark"></span>
+              </span>
+              <span class="custom-checkbox-label"><span>{{ locals.add_product_question_anonymous }}</span></span>
+            </label>
+          </div>
+          <div class="form-group bottom-buttons">
+            <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">{{ locals.cancel }}</button>
+            <span>&nbsp;&nbsp;</span>
+            <button type="button" class="btn btn-primary btn-submit-new-question" onclick="productsQuestions.submitQuestion('{{product.id}}')">
+              <img class="add-review-progress d-none" src="{{ asset_url }}spinner.gif" width="15" height="15" />
+              {{ locals.send }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block footer_scripts %}
+  <script>
+    const locales_messages = {
+      success: '{{ locals.question_submit_success }}',
+      success_header: '{{ locals.sent_notification_successfully }}',
+      error: '{{ locals.notify_me_failed }}',
+    };
+  </script>
+{% endblock %}

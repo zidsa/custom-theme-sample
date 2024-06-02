@@ -4,15 +4,22 @@
          data-sm-scroll-offset="94">
   <div class="container section-slider-padding-space slider-container">
 
-    <h1 class="section-title theme-text-primary">{{ settings.title }}</h1>
+    <h2 class="section-title theme-text-primary">{{ settings.title }}</h2>
 
     <div class="partners-slider-wrapper" style="position: relative">
 
       <div class="partners-slider s-slider">
           {% for key, store_partner in settings.store_partners %}
-            <div class="partners-item">
-              <img src="{{ imageUrl(store_partner.image,{ w: 250, q: 85, f:'auto' }) }}" loading="lazy" alt="" style="max-width: 90px; max-height: 90px"  />
-            </div>
+              <div class="partners-item">
+                  {% if store_partner.url %}
+                      <a href="{{ store_partner.url }}" style="width: 100%; height: 100%; display: block">
+                      {% endif %}
+                      <img src="{{ imageUrl(store_partner.image,{ w: 250, q: 100, f:'auto' }) }}" loading="lazy" alt=""
+                           style="max-width: 90px; max-height: 90px"/>
+                  {% if store_partner.url %}
+                      </a>
+                  {% endif %}
+              </div>
           {% endfor %}
       </div>
 
@@ -87,7 +94,7 @@
         "ar": "",
         "en": "This is an info text sample here"
       },
-      "settings_label":{
+      "settings_label": {
         "ar": "الصورة",
         "en": "Picture"
       },
@@ -101,6 +108,13 @@
           "info": {
             "ar": "ارفع صورة بحجم ٢٠٠ *٢٠٠ ",
             "en": "This is an info text sample here"
+          }
+        },
+        "url": {
+          "type": "url",
+          "label": {
+            "ar": "الرابط",
+            "en": "Link"
           }
         }
       }

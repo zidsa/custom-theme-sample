@@ -1065,6 +1065,16 @@ button.more-button , a.more-button {
     border-radius: 50%;
 }
 
+.x-icon-twitter {
+    height: 35px;
+    width: 35px;
+    fill: var(--footer-text-color-primary-bg, var(--text-color-primary-bg));
+    font-size: 22px;
+    border: 2px solid var(--footer-text-color-primary-bg, var(--text-color-primary-bg));
+    padding: 5px;
+    border-radius: 50%;
+}
+
 .store-section .social-icons{
     margin-left: -5px;
     margin-right: -5px;
@@ -1619,6 +1629,9 @@ hr {
     max-width: 100%;
     word-wrap: break-word;
 }
+.blog-text {
+    overflow: hidden;
+}
 /*shipping-nav-twig*/
 .shipping-nav{
     background-color: var(--secondary-color-alt4);
@@ -1796,6 +1809,7 @@ hr {
 
 .div-dropdown > div.form-group > div:after{
     content: '\e94b';
+    font-family: 'icomoon';
     font-size: 20px;
     color: #333;
     right: 0px;
@@ -1957,7 +1971,6 @@ hr {
 .blog-text img {
     max-width: 100% !important;
     display: inline-block;
-    height: auto !important;
 }
 
 @media only screen and (max-width: 768px) {

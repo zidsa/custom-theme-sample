@@ -1,0 +1,52 @@
+                <section id="product-details">
+                    <h4> {{ locals.grouped_product_details }}</h4>
+                    <p class="grouped-heading">{{ locals.grouped_product_included_products }}</p>
+                    <div class="grouped-product-row">
+                    {% for index, groupedProduct in product.group_products %}
+                        <div class="grouped-product-row">
+                            {% if index > 0 %}
+                                <img src="{{ asset_url }}plus_icon.svg" alt="plus"/>
+                            {% endif %}
+                            <div class="grouped-product-col">
+                                {% if groupedProduct.item.images | length > 0 %}
+                                <img src="{{groupedProduct.item.images[0].image.full_size}}" alt="{{groupedProduct.item.images[0].alt_text or 'image'}}" />
+                                {% else %}
+                                <img src="{{ asset_url }}empty_image.svg" />
+                                {% endif %}
+                                <h6>{{groupedProduct.item.name}}</h6>
+                                <p>x{{groupedProduct.item_quantity}}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                    <div class="grouped-product-table">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>{{ locals.grouped_product_table_th_photo }}</th>
+                                    <th>{{ locals.grouped_product_table_th_name }}</th>
+                                    <th>{{ locals.grouped_product_table_th_desc }}</th>
+                                </tr>
+                                {% for groupedProduct in product.group_products %} 
+                                <tr class="grouped-product-table-row">
+                                    <td>  
+                                    {% if groupedProduct.item.images | length > 0 %}                                          
+                                        <img src="{{groupedProduct.item.images[0].image.full_size}}" alt="{{groupedProduct.item.images[0].alt_text or 'image'}}" />
+                                        {% else %}
+                                        <img src="{{ asset_url }}empty_image.svg" />
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ groupedProduct.item.name }}</td>
+                                    <td>
+                                        {% if groupedProduct.item.description %}
+                                        <p>{{ groupedProduct.item.description }}</p>
+                                        {% else %}
+                                        <p> {{ locals.grouped_product_table_no_desc }}</p>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>

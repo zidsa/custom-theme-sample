@@ -136,7 +136,8 @@
                                                             <div class="form-element" style="position: relative">
                                                                 <i class="icon-search"></i>
                                                                 <input type="text" class="form-control" placeholder="{{ locals.shipping_payments_th_shipping_cities_search }}"
-                                                                       id=""
+                                                                       id="citiesFilter-{{ shipping_method.id }}"
+                                                                       onkeyup="filterCitiesList({{ shipping_method.id }})"
                                                                        name="citiesFilter"
                                                                        v-model="filterCities"
                                                                 >
@@ -287,6 +288,18 @@
                 $('.li-pills-profile').removeClass('d-none')
             }
 
+        }
+
+        function filterCitiesList(shipping_method_id) {
+            const searchVal = $('#citiesFilter-'+shipping_method_id).val().toLowerCase();
+            var ul = "#shipping-cities-ul-"+shipping_method_id;
+            $(ul+" > li").each(function() {
+                if ($(this).text().toLowerCase().search(searchVal) > -1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
         }
     </script>
 

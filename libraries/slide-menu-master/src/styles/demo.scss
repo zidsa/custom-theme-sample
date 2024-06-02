@@ -1,0 +1,187 @@
+$color-primary: hsl(206, 36%, 20%);
+$color-danger: hsl(356, 62%, 38%);
+
+*:active,
+*:focus {
+  outline: none !important;
+}
+
+html {
+  font-size: 20px;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  line-height: 1.4;
+  color: fade_out(#000, 0.06);
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+
+  small {
+    margin-left: 0.3rem;
+    color: fade_out(#000, 0.4);
+    font-size: 60%;
+  }
+}
+
+h2 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: saturate(lighten($color-primary, 16%), 8%);
+}
+
+a,
+.btn {
+  transition: background-color 0.15s ease-in-out;
+  will-change: background-color;
+}
+
+p {
+  margin: 0 0 0.5rem;
+}
+
+p:last-of-type {
+  margin: 0 0 2rem;
+}
+
+footer {
+  margin-top: 2rem;
+  font-size: 90%;
+
+  a {
+    font-style: italic;
+  }
+
+  path {
+    fill: $color-danger;
+  }
+}
+
+.btn {
+  padding: 0.6rem 0.8rem 0.64rem 0.8rem;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 85%;
+  line-height: 1;
+}
+
+.icon {
+  height: 0.6rem;
+  margin: 0 0.1rem;
+}
+
+main {
+  display: block; // IE11
+  width: 90%;
+  margin: 2.5rem auto;
+
+  .btn {
+    width: 100%;
+    display: block;
+    margin: 0 0.25rem 0.75rem 0;
+    background-color: lighten($color-primary, 8%);
+    border-radius: 0.2rem;
+    font-size: 70%;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 40rem;
+
+    .btn {
+      width: auto;
+      display: inline-block;
+
+      &:hover {
+        background-color: $color-primary;
+      }
+    }
+
+    .btn-danger {
+      background-color: $color-danger;
+
+      &:hover {
+        background-color: darken($color-danger, 8%);
+      }
+    }
+  }
+
+  #events {
+    font-family: monospace;
+    font-size: 80%;
+  }
+}
+
+.slide-menu {
+  width: 340px;
+  background-color: $color-primary;
+
+  &,
+  a {
+    font-size: 0.8rem;
+    color: #fff;
+  }
+
+  a {
+    padding: 0.9rem 1.5rem;
+    border-bottom: solid 1px darken($color-primary, 8%);
+    text-decoration: none;
+
+    &:hover {
+      background-color: darken($color-primary, 6%);
+    }
+  }
+
+  .controls {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    flex: 1 0 auto;
+    font-size: 90%;
+    color: #fff;
+    background-color: darken($color-primary, 6%);
+    text-transform: uppercase;
+
+    &:first-of-type {
+      text-align: left;
+
+      &:before {
+        content: '⮜';
+        margin-right: 0.5rem;
+      }
+    }
+
+    &:last-of-type {
+      text-align: right;
+
+      &:before {
+        content: '✕';
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  .slide-menu__backlink {
+    text-transform: uppercase;
+  }
+}
+
+#test-menu-left p {
+  font-size: 110%;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}

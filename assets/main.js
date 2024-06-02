@@ -317,6 +317,8 @@ function closeSlidingMenu () {
 
 function clearFilters () {
     $('.form-products-filter input').val('');
+    const cleanURL = window.location.origin + window.location.pathname;
+    window.location.href = cleanURL;
 }
 
 
@@ -409,6 +411,7 @@ $(".search-input-input").on('keyup', function (e) {
 document.addEventListener("DOMContentLoaded", function(){
 
     fetchCart();
+    productsQuestions.checkAddQuestionPossibility();
 
     /* mobile slide menu */
     window.slidingMenuElement = document.getElementById('sliding-menu');
@@ -537,3 +540,120 @@ function scrollToSubMenu(ele) {
         subMenu.scrollTop = 0;
     }
 }
+
+class ProductsQuestions {
+  constructor() {
+    this.emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    this.customer = window.customer;
+    this.customerName = $('#addProductQuestionModal input[name="name"]');
+    this.customerEmail = $('#addProductQuestionModal input[name="email"]');
+    this.customerQuestion = $('#addProductQuestionModal textarea[name="question"]');
+    this.isAnonymous = $('#addProductQuestionModal input[name="is_anonymous"]');
+    this.submitButton = $('.btn-submit-new-question');
+  }
+
+  isValidEmail() {
+    return this.emailRegex.test(this.customerEmail.val());
+  }
+
+  showError(inputName) {
+    $(`#addProductQuestionModal .input-error-${inputName}`).removeClass('d-none');
+    $(`#addProductQuestionModal input[name="${inputName}"], textarea[name="${inputName}"]`).addClass('border-danger');
+  }
+
+  hideError(inputName) {
+    $(`#addProductQuestionModal .input-error-${inputName}`).addClass('d-none');
+    $(`#addProductQuestionModal input[name="${inputName}"], textarea[name="${inputName}"]`).removeClass('border-danger');
+  }
+
+  validateInputs() {
+    let isValid = true;
+
+    if (!this.customerQuestion.val().length) {
+      this.showError('question');
+      isValid = false;
+    } else {
+      this.hideError('question');
+    }
+
+    if (!this.customerEmail.val().length) {
+      this.showError('email');
+      isValid = false;
+    } else {
+      this.hideError('email');
+    }
+
+    if (this.customerEmail.val().length && !this.isValidEmail()) {
+      $('#addProductQuestionModal .input-error-invalid-email').removeClass('d-none');
+      $('#addProductQuestionModal input[name="email"]').addClass('border-danger');
+      isValid = false;
+    } else {
+      $('#addProductQuestionModal .input-error-invalid-email').addClass('d-none');
+    }
+
+    if (!this.customerName.val().length) {
+      this.showError('name');
+      isValid = false;
+    } else {
+      this.hideError('name');
+    }
+
+    return isValid;
+  }
+
+  fillCustomerData() {
+    if (this.customer && this.customer.name && this.customer.email) {
+      if (!this.customerName.val()) this.customerName.val(this.customer.name);
+      if (!this.customerEmail.val()) this.customerEmail.val(this.customer.email);
+    }
+  }
+
+  checkAddQuestionPossibility() {
+    $('#addQuestionButton').click(function () {
+      if (window.customer) {
+        $('#addProductQuestionModal').modal('show');
+        productsQuestions.fillCustomerData();
+      } else {
+        const currentPathname = location.pathname;
+        const params = location.search;
+        location.href = `/auth/login?redirect_to=${encodeURIComponent(currentPathname + params)}`;
+        return;
+      }
+    });
+  }
+
+  async submitQuestion(productId) {
+    const isValid = this.validateInputs();
+
+    if (isValid) {
+      $('.add-review-progress').removeClass('d-none');
+      this.submitButton.attr('disabled', true);
+
+      try {
+        const response = await zid.store.product.addQuestion(
+          productId,
+          this.customerQuestion.val(),
+          this.customerName.val(),
+          this.customerEmail.val(),
+          this.isAnonymous.is(':checked'),
+        );
+
+        if (response.status === 'success') {
+          toastr.success(locales_messages.success, locales_messages.success_header);
+
+          $('textarea[name="question"]').val('');
+        }
+      } catch (error) {
+        console.log(error);
+        toastr.error(error, locales_messages.error);
+      } finally {
+        $('.add-review-progress').addClass('d-none');
+
+        $('#addProductQuestionModal').modal('hide');
+        this.submitButton.removeAttr('disabled');
+      }
+    }
+  }
+}
+
+const productsQuestions = new ProductsQuestions();

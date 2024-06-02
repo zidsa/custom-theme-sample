@@ -24,11 +24,11 @@
                         {% set logoUrl = store.logo %}
                     {% endif %}
 
-                    <img class="image-logo {% if header_settings.header_logo_mobile %} d-none d-lg-block {% endif %}" src="{{ imageUrl(logoUrl,{ h: 175, q: 85 }) }}" alt="{{ store.name }}" style="width: auto; max-height: 100%">
+                    <img class="image-logo {% if header_settings.header_logo_mobile %} d-none d-lg-block {% endif %}" src="{{ imageUrl(logoUrl,{ h: 175, q: 100 }) }}" alt="{{ store.name }}" style="width: auto; max-height: 100%">
 
                     {% if header_settings.header_logo_mobile %}
                         {% set logoUrlMobile = header_settings.header_logo_mobile %}
-                        <img class="image-logo d-block d-lg-none" src="{{ imageUrl(logoUrlMobile ,{ h: 175, q: 85 }) }}" alt="{{ store.name }}" style="width: auto; max-height: 100%">
+                        <img class="image-logo d-block d-lg-none" src="{{ imageUrl(logoUrlMobile ,{ h: 175, q: 100 }) }}" alt="{{ store.name }}" style="width: auto; max-height: 100%">
                     {% endif %}
                 </a>
             </div>

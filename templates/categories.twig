@@ -9,11 +9,18 @@
 
 {% block main_content %}
 
-    {% embed 'breadcrumb.twig' %}
-        {% block breadcrumb_items %}
-            <li class="breadcrumb-item active " aria-current="page">{{ locals.header_all_categories }}</li>
-        {% endblock %}
-    {% endembed %}
+    <section class="breadcrumb-section">
+        <nav aria-label="breadcrumb">
+        
+            <ol class="breadcrumb">
+            <div class="container d-flex flex-wrap">
+                <li class="breadcrumb-item active " aria-current="page">{{ locals.header_all_categories }}</li>
+            </div>
+        
+            </ol>
+    
+        </nav>
+    </section>
 
     <div class="container mb-5">
         <div class="row categories-row">

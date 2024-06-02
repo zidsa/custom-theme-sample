@@ -1,6 +1,6 @@
 <div class="d-flex align-items-center justify-content-between products-filter">
     <div class="d-flex filter-buttons-container">
-            <div class="d-inline-block" >
+            <div class="{% if has_products_filtration %}d-sm-inline-block d-xs-inline-block d-md-none{% else %}d-inline-block{% endif %}" >
 
                     <div><label class="filter-result">{{ locals.products_list_filter }}</label></div>
                     <button id="products-list-filter"
@@ -8,6 +8,8 @@
                             class="btn btn-filter filter-block-width d-lg-none products-list-filter-sm"
                             data-toggle="collapse"
                             data-target="#filters-form-collapse-sm"
+                            onclick="toggleProductAttributeMobile()"
+                            
 
                     >
                         <span>{{ locals.products_list_filter }}</span>
@@ -57,16 +59,16 @@
                         </button>
                         <div class="dropdown-menu select-dropdown">
 
-                                <a class="dropdown-item" href="{{ requestAdd({sort_by: 'created_at', order: 'desc'}) }}">
+                                <a class="dropdown-item" onclick="this.href = this.getAttribute('data-href')" data-href="{{ requestAdd({sort_by: 'created_at', order: 'desc'}) }}">
                                     {{ locals.products_list_filter_latest }}
                                 </a>
-                                <a class="dropdown-item" href="{{ requestAdd({sort_by: 'popularity_order', order: 'asc'}) }}">
+                                <a class="dropdown-item" onclick="this.href = this.getAttribute('data-href')" data-href="{{ requestAdd({sort_by: 'popularity_order', order: 'asc'}) }}">
                                     {{ locals.products_list_filter_popularity }}
                                 </a>
-                                <a class="dropdown-item" href="{{ requestAdd({sort_by: 'price', order: 'asc'}) }}">
+                                <a class="dropdown-item" onclick="this.href = this.getAttribute('data-href')" data-href="{{ requestAdd({sort_by: 'price', order: 'asc'}) }}">
                                     {{ locals.products_list_filter_price_low }}
                                 </a>
-                                <a class="dropdown-item" href="{{ requestAdd({sort_by: 'price', order: 'desc'}) }}">
+                                <a class="dropdown-item" onclick="this.href = this.getAttribute('data-href')" data-href="{{ requestAdd({sort_by: 'price', order: 'desc'}) }}">
                                     {{ locals.products_list_filter_price_high }}
                                 </a>
 

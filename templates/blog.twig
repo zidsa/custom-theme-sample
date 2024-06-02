@@ -3,7 +3,10 @@
 {% block header %} {{ include('header.twig') }} {% endblock %}
 
 {% block main_content %}
-    <section class="blog mt-5 mb-5 ">
+
+    <div id="loader"class="loader-container-relative"></div>
+
+    <section id="blog-post" class="blog mt-5 mb-5 ">
         <div class="container">
 
             <div class="blog-title mt-5 mb-5">
@@ -15,6 +18,7 @@
                 {{ blog.content | raw }}
             </div>
 
+            {% include 'template_for_blogs_metafields' %}
 
         </div>
     </section>

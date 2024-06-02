@@ -45,14 +45,14 @@
 }
 
 .slide-menu-arrow {
-    font-size: 20px;
+    font-size: 26px;
 }
 
 .slide-menu-arrow-back {
     position: relative;
     top: 3px;
     right: 5px;
-    font-size: 20px;
+    font-size: 26px;
 }
 
 .rtl .slide-menu-arrow-back {

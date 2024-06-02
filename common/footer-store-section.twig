@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-12 col-lg-5">
                 <div class="footer-about-us-links-div footer-about-us-div">
-                    <h1 class="pb-2">{{ about_settings.about_us_title }}</h1>
+                    <h2 class="pb-2">{{ about_settings.about_us_title }}</h2>
                     <p>{{ about_settings.about_us_des | raw }}</p>
                 </div>
             </div>
@@ -12,7 +12,7 @@
                     <div class="col-12 col-lg-4">
                         {% if not (about_settings.links_1_hide) %}
                             <div class="footer-about-us-links-div">
-                                <h1 class="pb-2">{{ about_settings.links_1_title }}</h1>
+                                <h2 class="pb-2">{{ about_settings.links_1_title }}</h2>
                                 {% for link in about_settings.links_1_links %}
                                     <p><a href="{{ link.url }}">{{ link.title }}</a></p>
                                 {% endfor %}
@@ -22,7 +22,7 @@
                     <div class="col-12 col-lg-4">
                         {% if not (about_settings.links_2_hide) %}
                             <div class="footer-about-us-links-div">
-                                <h1 class="pb-2">{{ about_settings.links_2_title }}</h1>
+                                <h2 class="pb-2">{{ about_settings.links_2_title }}</h2>
                                 {% for link in about_settings.links_2_links %}
                                     <p><a href="{{ link.url }}">{{ link.title }}</a></p>
                                 {% endfor %}
@@ -32,7 +32,7 @@
                     <div class="col-12 col-lg-4">
                         {% if store.business_location.show_location %}
                         <div class="footer-about-us-links-div">
-                            <h1 class="pb-2">{% if about_settings.business_location_title %}{{ about_settings.business_location_title }}{% else %}{{ locals.business_location }}{% endif %}</h1>
+                            <h2 class="pb-2">{% if about_settings.business_location_title %}{{ about_settings.business_location_title }}{% else %}{{ locals.business_location }}{% endif %}</h2>
                             <p>
                                 <a {% if store.business_location.lat %} target="_blank" href="https://maps.google.com/?q={{ store.business_location.lat }},{{ store.business_location.lng }}" {% endif %}>
                                     {{ store.business_location.street }}<br/>
@@ -42,7 +42,7 @@
                         </div>
                         {% endif %}
                         <div  class="footer-about-us-links-div {% if store.business_location.show_location %}mt-5{% endif %}">
-                            <h1 class="pb-2">{% if about_settings.social_media_title %}{{ about_settings.social_media_title }}{% else %}{{ locals.social_media }}{% endif %}</h1>
+                            <h2 class="pb-2">{% if about_settings.social_media_title %}{{ about_settings.social_media_title }}{% else %}{{ locals.social_media }}{% endif %}</h2>
                             <div class="social-icons d-flex flex-wrap">
 
                                 {% if store.social_media.items.facebook %}
@@ -58,8 +58,26 @@
                                 {% endif %}
 
                                 {% if store.social_media.items.twitter %}
-                                    <a href="https://twitter.com/{{ store.social_media.items.twitter }}" target="_blank">
-                                        <span class="icon-twitter d-flex align-items-center justify-content-center"></span>
+                                    <a href="https://twitter.com/{{ store.social_media.items.twitter }}"
+                                       target="_blank">
+                                        <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                             width="512.000000pt" height="512.000000pt"
+                                             viewBox="0 0 512.000000 512.000000"
+                                             class="x-icon-twitter d-flex align-items-center justify-content-center"
+                                             preserveAspectRatio="xMidYMid meet">
+
+                                            <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)">
+                                                <path d="M75 5093 c10 -16 448 -653 973 -1418 525 -765 955 -1395 955 -1400 0
+                                                -6 -431 -512 -959 -1126 -527 -613 -965 -1123 -973 -1132 -13 -16 1 -17 206
+                                                -17 l220 0 849 987 c467 542 854 988 859 989 6 2 316 -442 689 -986 l679 -990
+                                                744 0 c705 0 743 1 734 18 -5 9 -460 672 -1010 1472 -550 800 -1001 1457
+                                                -1001 1460 0 4 418 492 929 1085 l928 1080 -215 3 c-177 2 -218 0 -231 -12 -9
+                                                -8 -374 -431 -811 -939 -437 -509 -798 -923 -802 -921 -4 3 -296 425 -649 939
+                                                l-642 935 -745 0 -744 0 17 -27z m2815 -2529 c855 -1224 1557 -2229 1558
+                                                -2235 3 -6 -118 -8 -334 -7 l-338 3 -1558 2228 c-857 1226 -1558 2231 -1558
+                                                2233 0 2 152 4 338 4 l337 -1 1555 -2225z"/>
+                                            </g>
+                                        </svg>
                                     </a>
                                 {% endif %}
 
@@ -125,14 +143,14 @@
                     <div class="logistics-pay-icons d-flex flex-wrap justify-content-center">
                         {% for shipping_method in store.shipping_methods %}
                             <a href="/shipping-and-payment">
-                                <img src="{{ imageUrl(shipping_method.icon,{ h: 80, q: 85 }) }}" loading="lazy" alt="" height="21">
+                                <img src="{{ imageUrl(shipping_method.icon,{ h: 80, q: 100 }) }}" loading="lazy" alt="" height="21">
                             </a>
                         {% endfor %}
 
 
                         {% for payment_method in store.payment_methods %}
                             <a href="/shipping-and-payment">
-                                <img src="{{ imageUrl(payment_method.icon,{ h: 80, q: 85 }) }}" loading="lazy" alt="" height="21">
+                                <img src="{{ imageUrl(payment_method.icon,{ h: 80, q: 100 }) }}" loading="lazy" alt="" height="21">
                             </a>
                         {% endfor %}
 
@@ -157,11 +175,10 @@
                     </div>
                 {% endif %}
 
-                {% if store.social_media.items.maroof %}
-                    <div class="maroof-icon">
-                        <a {% if store.social_media.items.maroof %}href="{{ store.social_media.items.maroof }}"  target="_blank"{% endif %} >
-                            <img src="{{ asset_url ~ 'maroof.png' }}" loading="lazy" alt="" width="auto" height="30">
-                        </a>
+                {% if store.social_media.items.business_center %}
+                    <div class="maroof-icon" style="text-align: center;">
+                        <img src="{{ asset_url ~ 'business_center.png' }}" loading="lazy" alt="" width="auto" height="30">
+                        <div>{{ store.social_media.items.business_center }}</div>
                     </div>
                 {% endif %}
 

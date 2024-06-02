@@ -1,0 +1,94 @@
+{% extends 'layout.twig' %}
+
+{% block header %}
+  {{ include('header.twig') }}
+{% endblock %}
+
+{% block top_links %}
+  <link rel="stylesheet" type="text/css" href="{{ assetUrl('product-details.css?v=1.100.30') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'toastr.min.css' }}" />
+{% endblock %}
+
+{% block main_content %}
+  <section class="mt-5">
+    <div class="container pb-5 product">
+      <div class="row">
+        {% if product.images is not empty and product.images[0].image.medium is defined %}
+          <div class="col-md-3">
+            <img src="{{ product.images[0].image.medium }}" alt="product-image" class="img-fluid" />
+          </div>
+        {% endif %}
+        <div class="col-md-9 d-flex align-items-center">
+          <h3>{{ product.name }}</h3>
+        </div>
+      </div>
+      <div class="questions mt-5">
+        <div class="d-flex justify-content-between align-items-center">
+          <h4>{{ locals.product_questions }}</h4>
+          <div>
+            <button type="button" class="btn btn-primary btn-lg add-review-btn" id="addQuestionButton">{{ locals.add_product_question }}</button>
+          </div>
+        </div>
+      </div>
+      <div class="mt-5">
+        {% if product.questions is defined and product.questions is not empty and product.questions.data is defined and product.questions.data is not empty %}
+          {% for key, question in product.questions.data %}
+            <div class="card questions-card-preview mt-2 mb-5">
+              <div class="card-body p-0">
+                {% if not question.is_anonymous and question.name is defined and question.name is not empty %}
+                  <div class="customer-name">{{ question.name }}</div>
+                {% endif %}
+                <div class="d-flex">
+                  <div class="question-box">
+                    <p class="question">{{ question.question }}</p>
+                  </div>
+                </div>
+                <div class="answer-box">
+                  <p class="answer m-0">{{ question.answers[0].answer }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+      {% if product.questions is defined and (product.questions.pages|length) > 1 %}
+        <div class="d-flex justify-content-center">
+          <nav class="questions-pagination">
+            <ul class="pagination">
+              <!-- Previous Page Link -->
+              <li class="page-item {{ product.questions.current_page == 1 ? 'disabled' : '' }}">
+                <a class="page-link" href="/products-questions?id={{ product.id }}&page={{ product.questions.current_page - 1 }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+              </li>
+
+              {% for page in product.questions.pages %}
+                <li class="page-item {{ product.questions.current_page == page ? 'disabled selected' : '' }}">
+                  <a class="page-link" href="/products-questions?id={{ product.id }}&page={{ page }}">{{ page }}</a>
+                </li>
+              {% endfor %}
+
+              <!-- Next Page Link -->
+              <li class="page-item {{ product.questions.current_page == product.questions.last_page ? 'disabled' : '' }}">
+                <a class="page-link" href="/products-questions?id={{ product.id }}&page={{ product.questions.current_page + 1 }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      {% endif %}
+    </div>
+    {% include 'product-question-add.twig' with { product: product } %}
+  </section>
+{% endblock %}
+
+{% block footer %}
+  {{ include('footer.twig') }}
+{% endblock %}
+
+{% block footer_sticky %}
+{% endblock %}
+
+{% block footer_scripts %}
+  <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
+  <script>
+  console.log({{product | json_encode() | raw}});
+  </script>
+{% endblock %}

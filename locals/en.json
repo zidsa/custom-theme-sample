@@ -10,13 +10,14 @@
     "products_title": "All products",
     "header_all_categories":"All categories",
     "header_delivery_and_payment_options":"Payment and delivery options",
+    "products_list_filter_show_more": "More",
 
     "search_placeholder": "Search",
 
     "store_language" : "Language",
     "store_currency_country" : "Country",
     "customer_reviews": "Customer reviews ",
-
+    "common_requried_input_error": "This field is required",
 
     "or":"Or",
     "and":"And",
@@ -148,6 +149,9 @@
     "footer_vat_number": "The VAT number:",
     "footer_commercial_registration_number": "The commercial register number:",
     "title_404":"Page not found",
+    "go_to_home": "Go to Home",
+    "redirect_message": "You will be redirected to the home page in",
+    "seconds": "seconds",
     "order_id":"ID",
     "order_status":"status",
     "order_date":"Created at",
@@ -208,5 +212,22 @@
     "active_payment_session_notification" : "You have an active payment session in another browser, you can't edit the cart contents",
     "active_payment_session_cancel":"Discard cart & continue shopping",
     "go_all_reviews":"All reviews",
-    "read_more": "Read More"
+    "read_more": "Read More",
+    "product_questions": "Questions",
+    "add_product_question": "Add your question",
+    "add_product_question_placholder": "Write your question here",
+    "add_product_question_name": "Name",
+    "add_product_question_email": "Email",
+    "add_product_question_anonymous": "Send as anonymous",
+    "question_submit_success": "Your question has been sent successfully. You will receive a notification if it is answered.",
+    "product_question_empty": "There is no questions,",
+    "product_question_empty_note": "you can ask for this product",
+    "product_questions_view_all": "View all questions",
+    "common_requried_email_input_error": "Email is incorrect",
+    "grouped_product_details": "Product Details",
+    "grouped_product_included_products": "Included In Group Products: ",
+    "grouped_product_table_th_photo": "Photo",
+    "grouped_product_table_th_name": "Name",
+    "grouped_product_table_th_desc": "Description",
+    "grouped_product_table_no_desc": "N/A"
 }
