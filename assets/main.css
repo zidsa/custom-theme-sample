@@ -1249,7 +1249,7 @@ ul.main-nav > li ul.sub-menu-lists > li > a {
         color: #333;
         left: 0;
         box-sizing: border-box;
-        z-index : 3;
+        z-index : 556 !important;
         font-size: 16px;
         border-left: 1px solid #ccc;
         border-right: 1px solid #ccc;

@@ -64,7 +64,10 @@
         </div>
         <div style="text-align: center">
             {% if product.is_infinite == false and product.quantity <= 0 %}
-            <a class="btn btn-primary btn-product-card-out-of-stock" disabled>{{ locals.lbl_error_product_out_of_stock }}</a>
+            <a class="btn btn-primary btn-product-card-out-of-stock" disabled>
+                <img src="{{ assetUrl('u_bell.svg') }}" alt="" width="18" height="18" class="d-inline">
+                <span>{{ locals.btn_error_product_out_of_stock }}</span>
+             </a>
             {% elseif ( product.has_options or product.has_fields ) %}
             <a class="btn btn-primary btn-product-card-select-variant" href="/products/{{ product.slug }}">{{ locals.add_to_cart }}</a>
             {% else %}

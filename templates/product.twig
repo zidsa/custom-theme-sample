@@ -59,92 +59,6 @@
         .d-none-important {
             display: none !important;
         }
-
-        .grouped-heading {
-            padding-top: 5px;
-            font-weight: 600;
-            color: #62606f;
-        }
-        .grouped-product-row {
-            display: flex;
-            gap: 20px;
-        }
-        .grouped-product-row img {
-            margin-bottom: 20px;
-        }
-        .grouped-product-col {
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-        .grouped-product-col p {
-            color: #00b186;
-        }
-        .grouped-product-col h6 {
-            color: #141316;
-        }
-        .grouped-product-col img {
-            width: 100px;
-            height: 120px;
-        }
-        .grouped-product-table img {
-            width: 80px;
-            height: 80px;
-            border: 1px solid #f7f7f8;
-            border-radius: 8px;
-        }
-        .grouped-product-table table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 10px;
-        }
-
-        .grouped-product-table table tr:first-child {
-            background: #f7f7f8;
-            height: 60px;
-        }
-
-        .grouped-product-table table tr:first-child th {
-            border-color: transparent !important;
-            border: none !important;
-        }
-
-        .grouped-product-table table tr:first-child th:first-child {
-            background: #f7f7f8;
-            height: 60px;
-            border-width: 0;
-            padding: 0 10px;
-            border-left-width: 1px;
-            border-right-width: 0;
-            border-bottom-left-radius: 10px;
-            border-top-left-radius: 10px;
-        }
-        .grouped-product-table table tr:first-child th:last-child {
-            border-left-width: 0;
-            border-right-width: 1px;
-            border-bottom-right-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-        .rtl .grouped-product-table table tr:first-child th:first-child {
-            border-left-width: 0;
-            border-right-width: 1px;
-            border-bottom-right-radius: 10px;
-            border-top-right-radius: 10px;
-            border-bottom-left-radius: 0;
-            border-top-left-radius: 0;
-        }
-        .rtl .grouped-product-table table tr:first-child th:last-child {
-            border-left-width: 1px;
-            border-right-width: 0;
-            border-bottom-left-radius: 10px;
-            border-top-left-radius: 10px;
-            border-bottom-right-radius: 0;
-            border-top-right-radius: 0;
-        }
-        .grouped-product-table-row {
-            border-bottom: 1px solid #f7f7f8;
-        }
-
     </style>
 {% endblock %}
 
@@ -413,16 +327,30 @@
                                     <div>
                                         <h4 class="product-title">{{ locals.lbl_error_product_out_of_stock }}</h4>
                                         <form>
+                                            <input type="hidden" class="send-notify-product-id" value="{{ product.selected_product.id }}">
                                             <div class="form-group form-notify-me">
                                                 <h4>{{ locals.notify_me_title }}</h4>
-                                                <div class="d-flex">
-                                                    <input type="hidden" class="send-notify-product-id" value="{{ product.selected_product.id }}">
-                                                    <input class="form-control send-notify-email" type="email" placeholder="{{ locals.notify_me_hint }}" />
+                                                
+                                                <input class="form-control send-notify-name" value="{{ customer.name }}" type="text" placeholder="{{ locals.notify_me_hint_name }}" />
+                                                <input class="form-control send-notify-email" type="email" value="{{ customer.email }}" placeholder="{{ locals.notify_me_hint }}" />
+                                                <div class="d-flex form-notify-me-phone-row">
+                                                    <input class="form-control send-notify-country-key"
+                                                        type="number"
+                                                        {% if customer.mobile  %}
+                                                        value="{{ customer.mobile | slice(0, 3) }}" 
+                                                        {% else %}
+                                                        value="966"
+                                                        {% endif %}
+                                                        placeholder="966" maxlength="4" />
+                                                    <input class="form-control send-notify-phone" type="number"  value="{{ customer.mobile | slice(3, 9) }}" placeholder="{{ locals.notify_me_hint_mobile }}" maxlength="10" />
+                                                </div>
+                                                <div class="form-notify-me-submit-button-row">
                                                     <button type="button" class="btn btn-primary btn-send-notify" onclick="sendProductNotifyMe()">
-                                                        <img class="send-notify-progress d-none" src="{{ asset_url }}spinner.gif" width="15" height="15"/>
-                                                        {{ locals.send }}
+                                                    <img class="send-notify-progress d-none" src="{{ asset_url }}spinner.gif" width="15" height="15"/>
+                                                    {{ locals.send }}
                                                     </button>
                                                 </div>
+                                            
                                             </div>
                                         </form>
                                     </div>
@@ -500,10 +428,23 @@
             </section>
             {% endif %}
 
-            {% if product.group_products and product.group_products | length > 0 %}
-            {% include 'grouped-product-details.twig' with {'product' : product } %}
-            {% endif %}
+            {{ template_for_product_grouped }}
 
+            {% if product.metafields %}
+                <section id="product-description" class="mt-5">
+                    <div class="d-flex align-items-center">
+                        <div class="description-icon">
+                            <span class="icon-fact_check_black"></span>
+                        </div>
+                        <div class="description-title">
+                           {{ locals.product_properties }}
+                        </div>
+                    </div>
+                    <div class="description-paragrah text-justify description-text-clear">
+                        {{ template_for_product_metafields }}
+                    </div>
+                </section>
+            {% endif %}
 
             {% if product.description %}
                 <section id="product-description" class="mt-5">
@@ -707,9 +648,6 @@
 
                     </div>
                 </section>
-                <section>
-                  {{ template_for_product_metafields }}
-                </section>
 
                 <!-- Modal -->
                 {% include 'customer-reviews-add.twig' with {'product' : product } %}
@@ -802,12 +740,10 @@
     {{ include('footer.twig') }}
 {% endblock %}
 
-{% block footer_sticky %}
-{% endblock %}
-
 
 
 {% block footer_scripts %}
+
     <script type="text/javascript" src="{{ asset_url ~ 'ekko-lightbox.min.js' }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'product-details.js' }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
@@ -968,7 +904,7 @@
         }
 
         function updateProductImages(selected_product) {
-            if(selected_product.images && selected_product.images.length > 0){
+            if(selected_product && selected_product.images && selected_product.images.length > 0){
                 $('.product-images-carousel').removeClass('d-none');
                 $('.product-images-carousel-thumbs').removeClass('d-none-important');
                 $('.product-images-empty').addClass('d-none');
@@ -1022,11 +958,20 @@
                 return;
 
             $('.send-notify-progress').removeClass('d-none');
-            zid.store.product.setAvailabilityNotificationEmail($('.send-notify-product-id').val(),$('.send-notify-email').val()).then(function (response) {
+            zid.store.product.setAvailabilityNotificationEmail(
+                $('.send-notify-product-id').val(),
+                $('.send-notify-email').val(),
+                $('.send-notify-name').val(),
+                $('.send-notify-country-key').val() + $('.send-notify-phone').val(),
+                ).then(function (response) {
                 if(response.status  === 'success'){
                     toastr.success('{{ locals.sent_successfully }}', null)
                 }else{
-                    toastr.error('{{ locals.notify_me_failed }}', '{{ locals.sorry }}')
+                    if(response && response.data && response.data.message) {
+                        toastr.error(JSON.stringify(response.data.message), '{{ locals.sorry }}')
+                    }else {
+                        toastr.error('{{ locals.notify_me_failed }}', '{{ locals.sorry }}')
+                    }
                 }
                 $('.send-notify-progress').addClass('d-none');
             })

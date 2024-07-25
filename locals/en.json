@@ -81,6 +81,7 @@
     "product_sku":"product sku",
     "product_share":"share product",
     "product_description":"product description",
+    "product_properties":"product information",
     "product_options": "product description",
     "product_product_readmore":"product_readmore",
     "add_to_cart":"add to cart",
@@ -166,9 +167,12 @@
     "bundle_offer_all_products":"Display all products",
     "lbl_error_product_not_exist":"This product is no longer available",
     "lbl_error_product_out_of_stock":"This product is out of stock",
+    "btn_error_product_out_of_stock":"Notify me when available",
     "lbl_error_product_quantity_exceed":"There is not enough additional quantity of this product",
     "notify_me_title":"Notify me when product is available",
     "notify_me_hint":"Enter your email",
+    "notify_me_hint_name": "Enter your name",
+    "notify_me_hint_mobile": "Enter your phone (Optional)",
     "notify_me_submit":"Submit",
     "notify_me_submit_done":"Sent successfully",
     "notify_me_failed":"failed to send",
@@ -223,11 +227,5 @@
     "product_question_empty": "There is no questions,",
     "product_question_empty_note": "you can ask for this product",
     "product_questions_view_all": "View all questions",
-    "common_requried_email_input_error": "Email is incorrect",
-    "grouped_product_details": "Product Details",
-    "grouped_product_included_products": "Included In Group Products: ",
-    "grouped_product_table_th_photo": "Photo",
-    "grouped_product_table_th_name": "Name",
-    "grouped_product_table_th_desc": "Description",
-    "grouped_product_table_no_desc": "N/A"
+    "common_requried_email_input_error": "Email is incorrect"
 }

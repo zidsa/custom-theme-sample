@@ -617,11 +617,29 @@
     flex-wrap: wrap;
 }
 
-
 .form-notify-me {
     border: 1px solid var( --primary-color);
     padding: 15px;
     border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-notify-me-phone-row {
+    display: flex;
+    gap: 20px;
+    direction: ltr;
+}
+
+.form-notify-me-phone-row > input:first-child {
+    max-width: 80px;
+}
+
+
+.form-notify-me-submit-button-row {
+    display: flex;
+    justify-content: end;
 }
 
 .btn-send-notify {
