@@ -371,6 +371,7 @@
 
 .user-review-date {
     margin-left: auto;
+    color: #cccccc;
 }
 
 .rtl .user-review-date {
@@ -394,9 +395,56 @@
 }
 
 .card-review .icon-account_circle {
-    width: 40px;
-    font-size: 40px;
-    color: #A8A8A8;
+    width: 38px;
+    height: 38px;
+    font-size: 20px;
+    background: #f0f2f5;
+    text-align: center;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-review .review-images-container {
+    margin-left: 50px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 15px;
+}
+
+.rtl .card-review .review-images-container {
+    margin-left: unset;
+    margin-right: 50px;
+}
+
+.card-review .review-images-container img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 5px;
+    border: #ced4da 1px solid;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.card-review .review-reply-card {
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 50px;
+}
+
+.rtl .card-review .review-reply-card {
+    margin-left: unset;
+    margin-right: 50px;
+    background-color: var(--primary-color-op-5, #ced4da33);
+}
+
+.card-review .review-reply-card .icon-account_circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .card-review .card-name {
@@ -727,8 +775,20 @@
 @media only screen and (max-width: 768px) {
 
     .user-review-text {
-        margin: 0px !important;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
     }
+
+    .card-review .review-images-container {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+
+    .card-review .review-reply-card {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    
 
     .description-paragrah {
         margin: 0px !important;

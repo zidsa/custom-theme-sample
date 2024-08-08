@@ -6,129 +6,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'toastr.min.css' }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'ekko-lightbox.css' }}" />
 
-    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'photoswipe.css' }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'default-skin.css?v=1.02' }}" />
-
     <link rel="stylesheet" type="text/css" href="{{ assetUrl('product-details.css') }}" />
-
-    <style>
-        .pswp__button,
-        .pswp__button--arrow--left:before,
-        .pswp__button--arrow--right:before {
-            background: url({{ asset_url }}default-skin.png) 0 0 no-repeat;
-        }
-
-        @media (-webkit-min-device-pixel-ratio: 1.1), (-webkit-min-device-pixel-ratio: 1.09375), (min-resolution: 105dpi), (min-resolution: 1.1dppx) {
-            /* Serve SVG sprite if browser supports SVG and resolution is more than 105dpi */
-            .pswp--svg .pswp__button,
-            .pswp--svg .pswp__button--arrow--left:before,
-            .pswp--svg .pswp__button--arrow--right:before {
-
-            }
-
-        }
-
-        .pswp__preloader--active .pswp__preloader__icn {
-            /* We use .gif in browsers that don't support CSS animation */
-            background: url({{ asset_url }}preloader.gif) 0 0 no-repeat; }
-
-
-        .d-hide {
-            visibility: hidden;
-            position: absolute;
-        }
-
-        .slick-dots li {
-            width: 10px;
-            height: 10px;
-        }
-
-        .slick-dots li button::before {
-            font-size: 8px !important;
-        }
-
-        .pswp__button.pswp__button--share {
-            display: none !important;
-        }
-
-        .pswp img {
-            max-width: none;
-            object-fit: contain;
-        }
-
-        .d-none-important {
-            display: none !important;
-        }
-    </style>
 {% endblock %}
 
-{% block top_body %}
-    <!-- Root element of PhotoSwipe. Must have class pswp. -->
-    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-        <!-- Background of PhotoSwipe.
-             It's a separate element, as animating opacity is faster than rgba(). -->
-        <div class="pswp__bg"></div>
-
-        <!-- Slides wrapper with overflow:hidden. -->
-        <div class="pswp__scroll-wrap">
-
-            <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
-            <div class="pswp__container">
-                <!-- don't modify these 3 pswp__item elements, data is added later on -->
-                <div class="pswp__item"></div>
-                <div class="pswp__item"></div>
-                <div class="pswp__item"></div>
-            </div>
-
-            <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-            <div class="pswp__ui pswp__ui--hidden">
-
-                <div class="pswp__top-bar">
-
-                    <!--  Controls are self-explanatory. Order can be changed. -->
-
-                    <div class="pswp__counter"></div>
-
-                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                    <button class="pswp__button pswp__button--share" title="Share"></button>
-
-                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                    <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
-                    <!-- element will get class pswp__preloader--active when preloader is running -->
-                    <div class="pswp__preloader">
-                        <div class="pswp__preloader__icn">
-                            <div class="pswp__preloader__cut">
-                                <div class="pswp__preloader__donut"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                    <div class="pswp__share-tooltip"></div>
-                </div>
-
-                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-                </button>
-
-                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-                </button>
-
-                <div class="pswp__caption">
-                    <div class="pswp__caption__center"></div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-{% endblock %}
 
 {% block main_content %}
 
@@ -337,7 +217,7 @@
                                                     <input class="form-control send-notify-country-key"
                                                         type="number"
                                                         {% if customer.mobile  %}
-                                                        value="{{ customer.mobile | slice(0, 3) }}" 
+                                                        value="{{ customer.mobile | slice(0, 3) }}"
                                                         {% else %}
                                                         value="966"
                                                         {% endif %}
@@ -568,9 +448,7 @@
 
                             &nbsp;
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary add-review-btn" id="add-review-btn" data-toggle="modal" data-target="#exampleModalCenter"><span class="icon-add_circle"></span>{{ locals.add_product_review}} </button>
-                            <a class="d-none btn btn-primary add-review-btn" id="add-review-link" href=""><span class="icon-add_circle"></span>{{ locals.add_product_review}} </a>
-
+                            <a href="/products/{{ product.id}}/reviews/add" class="btn btn-primary add-review-btn" id="add-review-btn"><span class="icon-add_circle"></span>{{ locals.add_product_review}} </a>
                         </div>
                         <div class="reviews-break-down-div description-paragrah">
                             <div class="d-flex align-items-center mt-3 mb-4">
@@ -648,10 +526,6 @@
 
                     </div>
                 </section>
-
-                <!-- Modal -->
-                {% include 'customer-reviews-add.twig' with {'product' : product } %}
-
             {% endif %}
             {% if store.is_product_question_and_answer_enabled %}
             <section class="mt-5 review-details">
@@ -747,9 +621,6 @@
     <script type="text/javascript" src="{{ asset_url ~ 'ekko-lightbox.min.js' }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'product-details.js' }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
-
-    <script type="text/javascript" src="{{ asset_url ~ 'photoswipe.min.js' }}"></script>
-    <script type="text/javascript" src="{{ asset_url ~ 'photoswipe-ui-default.min.js' }}"></script>
 
     {{ product_view_scripts|raw }}
 
@@ -962,7 +833,7 @@
                 $('.send-notify-product-id').val(),
                 $('.send-notify-email').val(),
                 $('.send-notify-name').val(),
-                $('.send-notify-country-key').val() + $('.send-notify-phone').val(),
+                '+'+$('.send-notify-country-key').val() + $('.send-notify-phone').val(),
                 ).then(function (response) {
                 if(response.status  === 'success'){
                     toastr.success('{{ locals.sent_successfully }}', null)
@@ -1010,7 +881,7 @@
             $('.pswp').removeClass('d-hide');
             $('.app').addClass('d-hide');
 
-            openPhotoSwipe(productImages.map(function (image) {
+            openPhotoSwiper(productImages.map(function (image) {
                 return image.image.full_size
             }), $('#product-images-slick .slick-active').attr('data-slick-index'));
 
@@ -1028,8 +899,7 @@
                 images.push($( this ).attr('data-image-url'))
             });
 
-            openPhotoSwipe(images, $(elm).attr('data-index'));
-
+            openPhotoSwiper(images, $(elm).attr('data-index'));
         });
 
 

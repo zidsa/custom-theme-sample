@@ -1,21 +1,69 @@
 {% if reviews %}
     {% for key, review in reviews %}
-            <div class="card card-review mt-2 mb-5 bg-transparent">
+            <div class="card card-review mt-2 mb-4 bg-transparent">
                     <div class="card-body">
                             <div class="d-flex">
-                                    <span class="icon-account_circle"></span>
+                                    <span class="icon-account_circle">
+                                        <span class="d-none">{{ review.customer.name }}</span>
+                                    </span>
                                     <div class="card-name">
                                             <p class="card-name-customer">{{ review.customer.name }}</p>
                                             <div class="d-flex card-rate-comment">
                                                 {% include 'rating-stars.twig' with {'rating' : review.rating } %}
                                             </div>
                                     </div>
-                                    <div class="card-date user-review-date">
-                                        {{ datetimeFormat(review.created_at, 'd-m-Y g:i:s A', session.lang.code) }}
+                                    <div class="card-date user-review-date" data-time-ago-date="{{ review.created_at }}">    
                                     </div>
                             </div>
                             <div class="card-paragraph text-justify mt-2 user-review-text">{{ review.comment | raw }}</div>
+                            {% if review.images %}
+                            <div class="d-flex review-images-container mt-3 ">
+                                {% for ikey, image in review.images %}
+                                        <img src="{{ image.path }}" attr-index={{ ikey }} />
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% if review.reply %}
+                            <div class="review-reply-card mt-4">
+                                <div class="d-flex align-items-center">
+                                    <span class="icon-account_circle">
+                                        <img src={{ store.logo }} />
+                                    </span>
+                                    <div class="card-name">
+                                            <p class="card-name-customer">{{ store.name }}</p>
+                                    </div>
+                                </div>
+                                <div class="card-paragraph text-justify mt-2 user-review-text">{{ review.reply.text | raw }}</div>
+                                {% if review.reply.images %}
+                                <div class="d-flex review-images-container mt-3 ">
+                                        {% for ikey, image in review.reply.images %}
+                                                <img src="{{ image.path }}" attr-index={{ ikey }} />
+                                        {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endif %}
                     </div>
             </div>
     {% endfor %}
+
+<script>
+$('.card-review .icon-account_circle').each(function() {
+        var name =  $( 'span', this ).text();
+        $('span', this).text(name.substring(0, 1));
+        $( 'span', this ).removeClass( 'd-none' );
+
+});
+
+$('.card-review .review-images-container img').on( "click", function() {
+        var parent = $( this ).parent();
+        var index = $( this ).attr('attr-index');
+        var images = []
+        $('img', parent).each(function(idx, itm) {
+                images.push($(itm).attr('src'));
+        });        
+        openPhotoSwiper(images, index);
+});
+
+</script>
 {% endif %}
