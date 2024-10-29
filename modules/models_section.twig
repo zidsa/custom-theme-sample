@@ -1,0 +1,164 @@
+<section class="models_section mt-3 mb-3" section-id="{{ sectionId }}">
+  <div class="container-fluid">
+    <div class="row align-items-center position-relative">
+      <div class="col-lg-5 col-md-6 col-sm-12 models_section_img"></div>
+      <div class="col-lg-7 col-md-6 col-sm-12 d-flex flex-column justify-content-start models_section_content">
+        <h1 class="model_brand">{{ settings.model_brand }}</h1>
+        <div class="models_content_inner">
+          <h3 class="models_section_title">{{ settings.title }}</h3>
+          <p class="models_section_desc">{{ settings.description }}</p>
+          <a href="{{ settings.buttonUrl }}" class="models_section_btn text-decoration-none">
+            {{ settings.buttonText }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.models_section_img {
+  background-image: url('{{ settings.modelsImage }}');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 450px;
+}
+
+.models_section_content {
+  height: 450px;
+  background: {{ settings.sectionColor }};
+  padding: 0;
+  
+}
+
+.model_brand {
+  color: {{ settings.model_brand_color }};
+  font-size: 200px;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 12%;
+  bottom: 22%;
+  transform: rotate(-21deg);
+  text-transform: capitalize;
+}
+
+.models_content_inner {
+  margin: 9rem;
+  padding: 1rem;
+  position: absolute;
+  z-index: 2;
+}
+
+.models_section_title {
+  color: {{ settings.title_color }};
+  font-size: 30px;
+  margin-bottom: 1.5rem;
+}
+
+.models_section_desc {
+  color: {{ settings.description_color }};
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+
+.models_section_btn {
+  background: {{ settings.buttonColor }};
+  color: #ffffff;
+  padding: 10px 50px;
+  border-radius: 18px;
+  font-size: 14px;
+  width: 75%;
+}
+</style>
+
+{% schema %}
+{
+  "name": {
+    "ar": "موديل ",
+    "en": "Models section"
+  },
+  "display": true,
+  "settings": {
+    "title": {
+      "type": "text",
+      "label": {
+        "ar": "العنوان الرئيسي",
+        "en": "Main Title"
+      }
+    },
+    "title_color": {
+      "type": "color",
+      "label": {
+        "ar": "اضافة لون العنوان",
+        "en": "Add Title Color"
+      }
+    },
+    "description": {
+      "type": "text",
+      "label": {
+        "ar": "الوصف",
+        "en": "Description"
+      }
+    },
+    "description_color": {
+      "type": "color",
+      "label": {
+        "ar": "اضافة لون للوصف",
+        "en": "Add Description Color"
+      }
+    },
+    "model_brand": {
+      "type": "text",
+      "label": {
+        "ar": "اسم البراند",
+        "en": "Brand Name"
+      }
+    },
+    "model_brand_color": {
+      "type": "color",
+      "label": {
+        "ar": "لون اسم البراند",
+        "en": "Brand color"
+      }
+    },
+    "modelsImage": {
+      "type": "image",
+      "label": {
+        "ar": "اضافة صورة",
+        "en": "Add Image"
+      }
+    },
+    "buttonText": {
+      "type": "text",
+      "label": {
+        "ar": "اضافة نص",
+        "en": "Add Text"
+      }
+    },
+    "buttonUrl": {
+      "type": "url",
+      "label": {
+        "ar": "اضافة رابط",
+        "en": "Add URL"
+      }
+    },
+    "buttonColor": {
+      "type": "color",
+      "label": {
+        "ar": "اضافة لون الزر",
+        "en": "Add Button Color"
+      }
+    },
+    "sectionColor": {
+      "type": "color",
+      "label": {
+        "ar": "اضافة لون القسم",
+        "en": "Add Section Color"
+      }
+    }
+  }
+}
+{% endschema %}
