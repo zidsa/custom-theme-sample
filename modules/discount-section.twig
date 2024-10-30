@@ -1,0 +1,184 @@
+<section class="discount_section mt-3 mb-3" section-id="{{ sectionId }}"  
+{% if settings.enablebackground %}
+  style="background-image: url('{{ settings.discountImage }}'); background-size: cover; background-position: center; width:100%; height:300px;"
+{% endif %}>
+ <div class="container">
+  <div class="row align-items-center">
+    <div class="col-lg-6 col-md-6 col-sm-12 mt-3" {% if settings.enablebackground %} style="padding: 10px;" {% endif %}>
+      <h3 class="discount_section_title mb-4" style="color: {{ settings.title_color }};">
+        {{ settings.title }}
+      </h3>
+      <p class="discount_section_desc fs-5 mb-5" style="color: {{ settings.description_color }};">
+        {{ settings.description }}
+      </p>
+      <div class="mt-4">
+       <a href="{{ settings.buttonUrl }}" class="discount_section_btn w-75 text-decoration-none" style="background: {{ settings.buttonColor }};">
+        {{ settings.buttonText }}
+      </a> 
+      </div>
+    </div>
+    {% if not settings.enablebackground %}
+      <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
+        <img src="{{ settings.discountImage }}" alt="" class="img-fluid discount_section_img">
+      </div>
+    {% endif %}
+  </div>
+ </div>
+</section>
+
+<style>
+.discount_section {
+  padding: 10px 30px;
+  height: 350px;
+  position: relative;
+  overflow: hidden;
+  background-color: {{ settings.sectionColor }};
+}
+
+.discount_section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.discount_section .container {
+  position: relative;
+  z-index: 2;
+}
+.discount_section_title{
+  font-size: 30px;
+}
+.discount_section_desc{
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.discount_section_btn {
+  color: #ffffff !important;
+  padding: 10px 50px;
+  border-radius: 18px;
+  font-size: 14px;
+}
+
+.discount_section_img {
+  animation: rotate 4s infinite;
+  transition: 0.4s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-37deg) scale(0.8);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@media (max-width: 992px) {
+  .discount_section {
+    height: 100% !important;
+  }
+  .discount_section_title{
+  font-size: 24px;
+}
+.discount_section_desc{
+  font-size: 17px;
+  font-weight: 300;
+}
+
+  .discount_section_img {
+    animation: none;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": {
+    "ar": "تخفيضات",
+    "en": "Discounts"
+  },
+  "display": true,
+  "settings": {
+    "title": {
+      "type": "text",
+      "label": {
+        "ar": "العنوان الرئيسي",
+        "en": "Main Title"
+      }
+    },
+    "title_color": {
+      "type": "color",
+      "label": {
+        "ar": "اضافة لون العنوان",
+        "en": "Add Title Color"
+      }
+    },
+    "description": {
+      "type": "text",
+      "label": {
+        "ar": "الوصف",
+        "en": "Description"
+      }
+    },
+    "description_color": {
+      "type": "color",
+      "label": {
+        "ar": "اضافة لون للوصف",
+        "en": "Add Description Color"
+      }       
+    },
+    "discountImage": {
+      "type": "image",
+      "label": {
+        "ar": "اضافة صورة",
+        "en": "Add Image"
+      }
+    },
+    "enablebackground": {
+      "type": "checkbox",
+      "label": {
+        "ar": "تفعيل صورة الخلفية",
+        "en": "Enable Background Image"
+      },
+      "default": false
+    },
+    "buttonText": {
+      "type": "text",
+      "label": {
+        "ar": "اضافة نص",
+        "en": "Add Text"
+      }
+    },
+    "buttonUrl": {
+      "type": "url",
+      "label": {
+        "ar": "اضافة رابط",
+        "en": "Add URL"
+      }
+    },
+    "buttonColor": {
+      "type": "color",
+      "label": {
+        "ar": "اضافة لون الزر",
+        "en": "Add Button Color"
+      }
+    },
+    "sectionColor": {
+      "type": "color",
+      "label": {
+        "ar": "اضافة لون القسم",
+        "en": "Add Section Color"
+      }
+    }
+  }
+}
+{% endschema %}
