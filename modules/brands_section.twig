@@ -1,0 +1,225 @@
+<section class="brands_section mt-4 mb-4 ">
+    <div class="container-fluid p-0">
+        <div class="brands_section_header mt-3 mb-3 container d-flex align-items-center justify-content-between">
+         <div class="brands_section_header_inner">
+           <h3 class="brands_section_title">
+            {{ settings.title }}
+           </h3>
+           <p class="brands_section_desc">
+            {{ settings.description }}
+           </p>
+         </div>
+         <div class="swiper_arrows d-flex align-items-center flex-row-reverse">
+           <!-- If we need navigation buttons -->
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+         </div>
+        </div>
+        <!-- Slider main container -->
+        <div class="slider_section mt-3 mb-3">
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper p-2">
+                  <!-- Slides -->
+                  {% for item in settings.brands %}
+                    <div class="swiper-slide">
+                        <h5 class="brand_name">
+                            {{item.name}}
+                        </h5>
+                      </div>
+                  {% endfor %}
+                 
+                  {# <div class="swiper-slide">Slide 2</div>
+                  <div class="swiper-slide">Slide 3</div>
+                  ... #}
+                </div>
+                
+              
+               
+              
+             
+              </div>
+        </div>
+   
+  
+    </div>
+
+</section>
+
+
+
+<style>
+  
+.brands_section_header{
+    position: relative;
+    width: 100%;
+    padding: 8px 20px;
+}
+ .brands_section_header .brands_section_title{
+   color: {{ settings.title_color }};
+   font-weight: bold;
+   font-size: clamp(1.25rem, 0.9859rem + 1.1268vw, 2rem);
+ }
+ .brands_section_header .brands_section_desc{
+   color: {{ settings.description_color }};
+   font-size: clamp(1rem, 0.8504rem + 0.6385vw, 1.425rem);
+   font-wight:300;
+ }
+
+ .slider_section .swiper{
+   background: {{ settings.color_section }};
+   width:100%;
+ }
+
+.brands_section_header .swiper_arrows{
+    gap: 45px;
+}
+.swiper_arrows .swiper-button-next, .swiper-button-prev{
+   position: relative;
+   border: 1px solid #FFD3BA;
+  border-radius: 50%;
+  padding: 20px;
+  width: 45px !important;
+  height: 45px !important;
+   color: #E3651D;
+   z-index: 0;
+ }
+
+ .swiper_arrows .swiper-button-next::after, .swiper-button-prev::after{
+    font-size: clamp(0.938rem, 0.7841rem + 0.6565vw, 1.375rem);
+    font-weight: bold;
+ }
+ .slider_section .swiper .swiper-wrapper{
+
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin: 3rem;
+  width: 100%;
+ }
+
+   .swiper-slide .brand_name{
+     {% for item in settings.brands %}
+        color: {{ item.brand_color }};
+     {% endfor %}
+    
+    font-weight: bold;
+    font-size: clamp(1.875rem, 1.3380rem + 2.2911vw, 3.4rem);
+    text-align: end;
+   }
+
+
+ @media (max-width:992px) {
+    .swiper_arrows .swiper-button-next, .swiper-button-prev{
+        
+        padding: 15px;
+        width: 35px !important;
+        height: 35px !important;
+    }
+ }  
+</style>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const swiperElement = document.querySelector('.swiper');
+        if (swiperElement) {
+            const swiper = new Swiper(swiperElement, {
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                slidesPerView: 3,
+                loop:true,
+                
+    
+                breakpoints: {
+                    0: { slidesPerView: 1 },
+                    390: { slidesPerView: 1 },
+                    502: { slidesPerView: 2 },
+                    802: { slidesPerView: 2 },
+                    992: { slidesPerView: 3 },
+                    1200: { slidesPerView: 3 },
+                }
+            });
+        } else {
+            console.warn("Swiper element not found!");
+        }
+    });
+    
+</script>
+
+
+
+
+
+
+
+
+{% schema %}
+    {
+      "name": {
+        "ar": "الماركات",
+        "en": "Brands"
+      },
+      "display": true,
+      "settings": {
+        "color_section": {
+          "type": "color",
+          "label": {
+            "ar": "اختر لون القسم",
+            "en": "Choose Section Color"
+          }
+        },
+        "title": {
+          "type": "text",
+          "label": {
+            "ar": "العنوان الرئيسي",
+            "en": "Main Title"
+          }
+        },
+        "title_color": {
+          "type": "color",
+          "label": {
+            "ar": "اضافة لون العنوان",
+            "en": "Add Title Color"
+          }
+        },
+        "description": {
+          "type": "text",
+          "label": {
+            "ar": "الوصف",
+            "en": "Description"
+          }
+        },
+        "description_color": {
+          "type": "color",
+          "label": {
+            "ar": "اضافة لون للوصف",
+            "en": "Add Description Color"
+          }
+        },
+        "brands": {
+          "type": "list",
+          "noLabel": true,
+          "settings": {
+            "name": {
+              "type": "text",
+              "label": {
+                "ar": "اسم الماركة",
+                "en": "Brand Name"
+              }
+            },
+            "brand_color": {
+              "type": "color",
+              "label": {
+                "ar": "اختر لون البراند",
+                "en": "Choose Brand Color"
+              }
+            }
+          }
+        }
+      }
+    }
+    {% endschema %}

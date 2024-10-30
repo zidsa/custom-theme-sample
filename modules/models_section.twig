@@ -1,12 +1,26 @@
+{% set isVideo = settings.videoOrGifUrl matches '/\.(mp4|webm|ogg)$/i' %}
+  {% set isGif = settings.videoOrGifUrl matches '/\.gif$/i' %}
+
 <section class="models_section mt-3 mb-3" section-id="{{ sectionId }}">
   <div class="container-fluid">
     <div class="row align-items-center position-relative">
-      <div class="col-lg-5 col-md-6 col-sm-12 models_section_img"></div>
+  <div class="col-lg-5 col-md-6 col-sm-12 p-0 models_section_img" 
+  {% if settings.videoOrGifUrl %}
+    style="background-image: url('{{settings.videoOrGifUrl }}');"
+  {% endif %}>
+     {% if isVideo  %}
+      <video autoplay loop muted playsinline class="model_section_video">
+        <source src="{{ settings.videoOrGifUrl }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+     {% endif %}
+        
+      </div>
       <div class="col-lg-7 col-md-6 col-sm-12 d-flex flex-column justify-content-start models_section_content">
         <h1 class="model_brand">{{ settings.model_brand }}</h1>
         <div class="models_content_inner">
-          <h3 class="models_section_title">{{ settings.title }}</h3>
-          <p class="models_section_desc">{{ settings.description }}</p>
+          <h3 class="models_section_title ">{{ settings.title }}</h3>
+          <p class="models_section_desc ">{{ settings.description }}</p>
           <a href="{{ settings.buttonUrl }}" class="models_section_btn text-decoration-none">
             {{ settings.buttonText }}
           </a>
@@ -18,30 +32,35 @@
 
 <style>
 .models_section_img {
-  background-image: url('{{ settings.modelsImage }}');
+  
   background-size: cover;
   background-position: center;
   width: 100%;
   height: 450px;
 }
-
+.model_section_video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .models_section_content {
   height: 450px;
   background: {{ settings.sectionColor }};
   padding: 0;
-  
+  overflow: hidden;
 }
 
 .model_brand {
   color: {{ settings.model_brand_color }};
-  font-size: 200px;
+  font-size: clamp(12rem, 7.0704rem + 21.0329vw, 26rem);
   width: 100%;
   text-align: center;
   position: absolute;
-  top: 12%;
-  bottom: 22%;
+  top: 5%;
+  bottom: 19%;
   transform: rotate(-21deg);
   text-transform: capitalize;
+  opacity: 0.2;
 }
 
 .models_content_inner {
@@ -61,17 +80,35 @@
   color: {{ settings.description_color }};
   font-size: 16px;
   font-weight: 400;
-  margin-bottom: 1.5rem;
+  margin-bottom: 3.5rem;
+  
 }
 
 .models_section_btn {
-  background: {{ settings.buttonColor }};
   color: #ffffff;
+  margin-top: 1.5rem;
   padding: 10px 50px;
   border-radius: 18px;
   font-size: 14px;
   width: 75%;
+  background: {{ settings.buttonColor }};
 }
+
+
+{# media query #}
+  @media (max-width:992px) {
+    .model_brand{
+      top: 24%;
+      bottom: 42%;
+    }
+    .models_content_inner{
+      margin: 8rem 0rem !important;
+      padding: 0.5rem !important;
+    }
+    .models_section_desc{
+      font-size: 13px;
+    }
+  }
 </style>
 
 {% schema %}
@@ -124,11 +161,11 @@
         "en": "Brand color"
       }
     },
-    "modelsImage": {
-      "type": "image",
+    "videoOrGifUrl": {
+      "type": "url",
       "label": {
-        "ar": "اضافة صورة",
-        "en": "Add Image"
+        "ar": "رابط الفيديو أو GIF",
+        "en": "Video or GIF URL"
       }
     },
     "buttonText": {
