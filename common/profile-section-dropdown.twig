@@ -7,6 +7,7 @@
                 <span class="profile-item-image icon-import_contacts"></span>
                 <h2 class=" m-0 profile-item-title">
                     {{ title }}
+                    {% if section == 'wishlist' and wishlist.total > 0 %}<span class="mx-1">({{ wishlist.total }})</span>{% endif %}
                 </h2>
                 <span class="icon-arrow_drop_down1"></span>
             </a>
@@ -39,6 +40,17 @@
                         <span class="profile-item-image icon-import_contacts"></span>
                         <h2 class=" m-0 profile-item-title">
                             {{ locals.profile.orders }}
+                        </h2>
+                    </a>
+                </li>
+                {% endif %}
+                {% if section != 'wishlist' %}
+                <li class="divider"></li>
+                <li>
+                    <a href="/account-wishlist" class="d-flex flex-grow-1 align-items-center">
+                        <span class="profile-item-image icon-import_contacts"></span>
+                        <h2 class=" m-0 profile-item-title">
+                            {{ locals.profile.wishlist }}
                         </h2>
                     </a>
                 </li>

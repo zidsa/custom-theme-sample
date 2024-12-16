@@ -175,7 +175,7 @@ function addToCart(product_id, quantity, onCompleted) {
     zid.store.cart.addProduct({productId: product_id, quantity: quantity}).then(function (response) {
         if(response.status  === 'success') {
             setCartTotalAndBadge(response.data.cart);
-
+            fetchCart();
             if (onCompleted) {
                 onCompleted();
             }
@@ -199,6 +199,75 @@ function removeFromCart(product_id) {
         .catch(err => setCartCount(0, true))
 }
 
+function fillWishlistItems(items) {
+  items.forEach((product) => {
+    $(`.add-to-wishlist[data-wishlist-id=${product.id}]`)
+      .find(".icon-heart-mask")
+      .addClass("filled");
+  });
+}
+
+function addToWishlist(elm, productId) {
+  $(elm).siblings(".add-to-wishlist .loader").removeClass("d-none");
+  $(elm).addClass("d-none");
+
+  // Remove From Wishlist if added
+  if ($(elm).hasClass("filled")) {
+    return removeFromWishlist(elm, productId);
+  }
+
+  zid.store.customer.addToWishlist(productId).then((response) => {
+    if (response.status === "success") {
+      $(elm).siblings(".add-to-wishlist .loader").addClass("d-none");
+      $(elm).addClass("filled").removeClass("d-none");
+
+      toastr.success(response.data.message);
+    } else {
+      toastr.error(response.data.message);
+    }
+  });
+}
+
+function removeFromWishlist(elm, productId) {
+  $(elm).siblings(".add-to-wishlist .loader").removeClass("d-none");
+  $(elm).addClass("d-none");
+  zid.store.customer.removeFromWishlist(productId).then((response) => {
+    if (response.status === "success") {
+      $(elm).siblings(".add-to-wishlist .loader").addClass("d-none");
+      $(elm).removeClass("d-none filled");
+
+      toastr.success(response.data.message);
+
+      if (location.pathname === '/account-wishlist') {
+        location.reload();
+      }
+
+    } else {
+      toastr.error(response.data.message);
+    }
+  });
+}
+
+function shareWishlist() {
+  $(".share-wishlist .loader").removeClass("d-none").siblings(".share-icon").addClass("d-none");
+  zid.store.customer.shareWishlist().then(async (response) => {
+    if (response.status === "success") {
+      $(".share-wishlist .loader").addClass("d-none").siblings(".share-icon").removeClass("d-none");
+
+      if (response.data.link) {
+        try {
+          await navigator.clipboard.writeText(response.data.link);
+          toastr.success(response.data.message);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+    } else {
+      toastr.error(response.data.message);
+    }
+  });
+}
 
 /*
     Initialize Cart

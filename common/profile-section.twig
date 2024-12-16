@@ -46,6 +46,21 @@
             </a>
         </div>
 
+        {% if store.is_wishlist_enabled == true %}
+            <div class="profile-item">
+                <a href="/account-wishlist" class="d-flex flex-column profile-row {% if section == 'wishlist' %}active{% endif %}">
+                    <div class="d-flex align-items-center">
+                        <span class="profile-item-image icon-heart-secondary"></span>
+                        <h2 class=" m-0 profile-item-title">
+                            {{ locals.profile.wishlist }}
+                        </h2>
+                    </div>
+                    <div class="profile-item-description">
+                        <p>{{ locals.profile.wishlist_description }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endif %}
 
     </div>
 

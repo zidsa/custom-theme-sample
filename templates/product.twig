@@ -125,7 +125,7 @@
                                 </div>
 
                                 {% if product.short_description is not empty %}
-                                    <p>
+                                    <p class="text-short-description">
                                         {{ product.short_description | raw }}
                                         &nbsp;<a id="product-description-a" href="#product-description" class="text-color-primary">{{ locals.product_description_more }}</a>
                                     </p>
@@ -211,18 +211,13 @@
                                             <div class="form-group form-notify-me">
                                                 <h4>{{ locals.notify_me_title }}</h4>
                                                 
-                                                <input class="form-control send-notify-name" value="{{ customer.name }}" type="text" placeholder="{{ locals.notify_me_hint_name }}" />
-                                                <input class="form-control send-notify-email" type="email" value="{{ customer.email }}" placeholder="{{ locals.notify_me_hint }}" />
+                                                <input class="form-control send-notify-name" value="" type="text" placeholder="{{ locals.notify_me_hint_name }}" />
+                                                <input class="form-control send-notify-email" type="email" value="" placeholder="{{ locals.notify_me_hint }}" />
                                                 <div class="d-flex form-notify-me-phone-row">
                                                     <input class="form-control send-notify-country-key"
                                                         type="number"
-                                                        {% if customer.mobile  %}
-                                                        value="{{ customer.mobile | slice(0, 3) }}"
-                                                        {% else %}
-                                                        value="966"
-                                                        {% endif %}
                                                         placeholder="966" maxlength="4" />
-                                                    <input class="form-control send-notify-phone" type="number"  value="{{ customer.mobile | slice(3, 9) }}" placeholder="{{ locals.notify_me_hint_mobile }}" maxlength="10" />
+                                                    <input class="form-control send-notify-phone" type="number"  value="" placeholder="{{ locals.notify_me_hint_mobile }}" maxlength="10" />
                                                 </div>
                                                 <div class="form-notify-me-submit-button-row">
                                                     <button type="button" class="btn btn-primary btn-send-notify" onclick="sendProductNotifyMe()">
@@ -240,12 +235,21 @@
                             </form>
                             <div class="product-buttons {% if product.selected_product.out_of_stock %}d-none{% else %}d-block{% endif %}">
                                 <div class="border-product"></div>
-                                <button style="margin-bottom: 20px"
-                                        class="btn btn-add-to-cart" type="button" onclick="productAddToCart()">
-                                    <i class="fa fa-shopping-cart me-1" aria-hidden="true"></i>
-                                    <img class="add-to-cart-progress d-none" src="{{ asset_url }}spinner.gif" width="25" height="25"/>
-                                    <span>{{ locals.add_to_cart }}</span>
-                                </button>
+                                <div class="d-flex align-center">
+                                  <button style="margin-bottom: 20px"
+                                          class="btn btn-add-to-cart" type="button" onclick="productAddToCart()">
+                                      <i class="fa fa-shopping-cart me-1" aria-hidden="true"></i>
+                                      <img class="add-to-cart-progress d-none" src="{{ asset_url }}spinner.gif" width="25" height="25"/>
+                                      <span>{{ locals.add_to_cart }}</span>
+                                  </button>
+                                  {% if store.is_wishlist_enabled == true %}
+                                    <span class="add-to-wishlist position-relative my-2" data-wishlist-id="{{ product.id }}">
+                                        <a zid-visible-customer="true" class="icon-heart-mask" onclick="addToWishlist(this, '{{ product.id }}')"></a>      
+                                        <a zid-visible-guest="true" class="icon-heart-mask" href="/auth/login?redirect_to={{ requestUri() }}"></a>
+                                      <img class="loader d-none" src="{{ asset_url }}spinner.gif" width="20" height="20"/>
+                                    </span>
+                                  {% endif %}
+                                </div>
 
                                 <div>
                                     {{ template_for_product_apple_pay_button }}
@@ -626,6 +630,7 @@
 
     <script>
         var productImages = {{  product.selected_product.images | json_encode() | raw }};
+        var customerWishlistIds = {{  customer.wishlist | json_encode() | raw }};
 
         function productAddToCart() {
             if(!$('.add-to-cart-progress').hasClass('d-none'))
@@ -829,11 +834,12 @@
                 return;
 
             $('.send-notify-progress').removeClass('d-none');
+            const countryCode = '+'+ ($('.send-notify-country-key').val() || '966');
             zid.store.product.setAvailabilityNotificationEmail(
                 $('.send-notify-product-id').val(),
                 $('.send-notify-email').val(),
                 $('.send-notify-name').val(),
-                '+'+$('.send-notify-country-key').val() + $('.send-notify-phone').val(),
+                 countryCode + $('.send-notify-phone').val(),
                 ).then(function (response) {
                 if(response.status  === 'success'){
                     toastr.success('{{ locals.sent_successfully }}', null)
@@ -859,7 +865,7 @@
         });
 
         function addReviewButtonChecks() {
-            if (!window.customer){
+            if (!customer){
                 $('#add-review-btn').css('display','none');
                 $('#add-review-link').removeClass('d-none');
                 $('#add-review-link').attr('href', `/auth/login?redirect_to=${window.location.pathname.replace('/','')}`);
@@ -868,12 +874,17 @@
 
         $(document).ready(function() {
             initSlick(productImages);
+            if (customerWishlistIds) {
+              fillWishlistItems(customerWishlistIds.map(id => ({ id })));
+            }
         });
 
         $(document).on('click','.thumb-image-a',function(event){
             var tarr = event.target;
 
-            $('#product-images-slick').slick('slickGoTo',$(tarr).attr('data-index'),true);
+            if ($('#product-images-slick')) {
+                $('#product-images-slick').slick('slickGoTo',$(tarr).attr('data-index'),true);
+            }
         });
 
 
@@ -989,6 +1000,17 @@
                 });
             }
         }
+
+
+        document.addEventListener('zid-customer-fetched', function(event) {
+            var customer = event.detail.customer;
+            if(customer) {
+                $('.send-notify-name').val(customer.name)
+                $('.send-notify-email').val(customer.email)
+                $('.send-notify-country-key').val(customer.mobile.substring(0, 3));
+                $('.send-notify-phone').val(customer.mobile.substring(3));
+            }
+        });
 
     </script>
 

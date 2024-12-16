@@ -1,0 +1,54 @@
+{% extends "layout.twig" %}
+
+
+{% block header %} {{ include('header.twig') }} {% endblock %}
+
+{% block top_links %}
+	  <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'toastr.min.css' }}"/>
+    <link rel="stylesheet" href="{{ asset_url ~ 'profile-style.css?v=1.02' }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'account-pages.css?v=1.59' }}" />
+    <style>
+      .account-content .btn-primary, .rtl .account-content .btn-primary {
+          float: unset;
+      }
+    </style>
+{% endblock %}
+
+
+{% block main_content %}
+    <div class="container-parent">
+        <div class="profile-pages-bg d-none d-lg-flex flex-grow-1">
+            <div class="section-colored"></div>
+        </div>
+
+        <div class="container">
+            {% include 'profile-section-dropdown.twig' with { 'title' : locals.profile.wishlist , 'section' : 'wishlist' } %}
+            <div class="d-flex">
+                {% include 'profile-section.twig' with { 'section' : 'wishlist' } %}
+                <div class="flex-grow-1">
+                    {% include 'profile-title.twig' with { 'title' : locals.profile.wishlist , 'section' : 'wishlist' } %}
+                    <div class="account-content">
+                        <div>
+                            <div id="wishlist-list" class="row">
+                                {% for product in wishlist.data %}
+                                    <div class="col-6 col-lg-4 py-3">
+                                        {% include 'product-card.twig' with {'product' : product, 'index': key} %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% include 'pagination.twig' with { 'totalPages' : products.last_page , 'currentPage' : products.current_page } %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %} {{ include('footer.twig') }} {% endblock %}
+
+{% block footer_scripts %}
+	<script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
+{% endblock %}

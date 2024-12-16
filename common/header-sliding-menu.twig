@@ -41,17 +41,17 @@
                 <div class="account-lang-currency upper-bar">
                     <div class="container d-flex flex-wrap">
                         <div class="account-area">
-                            {% if customer %}
-                                <button type="button" onclick="window.location.href='/account-profile'" class="btn btn-dark account-btn">
-                                    <span class="icon-account_circle_black_24dp" style="position: relative; top: 1px"></span>
-                                    <span style="position: relative; bottom: 2px">{{ locals.hello }}&nbsp;{{ customer.name }}&nbsp;</span>
-                                </button>
-                            {% else %}
-                                <button type="button" onclick="window.location.href='/auth/login'" class="btn btn-dark account-btn">
-                                    <span class="icon-account_circle_black_24dp" style="position: relative; top: 1px"></span>
-                                    <span style="position: relative; bottom: 2px">&nbsp;{{ locals.login }}&nbsp;</span>
-                                </button>
-                            {% endif %}
+                           
+                            <button zid-visible-customer="true" type="button" onclick="window.location.href='/account-profile'" class="btn btn-dark account-btn">
+                                <span class="icon-account_circle_black_24dp" style="position: relative; top: 1px"></span>
+                                <span style="position: relative; bottom: 2px">{{ locals.hello }}&nbsp; <zid-store-customer get="name"></zid-store-customer> &nbsp;</span>
+                            </button>
+                            
+                            <button zid-visible-guest="true" type="button" onclick="window.location.href='/auth/login'" class="btn btn-dark account-btn">
+                                <span class="icon-account_circle_black_24dp" style="position: relative; top: 1px"></span>
+                                <span style="position: relative; bottom: 2px">&nbsp;{{ locals.login }}&nbsp;</span>
+                            </button>
+                            
                         </div>
 
                         {% if not ('hide_country' in menu_settings.header_options) or not ('hide_language' in menu_settings.header_options)%}

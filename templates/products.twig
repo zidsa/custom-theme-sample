@@ -2,6 +2,10 @@
 
 {% block header %} {{ include('header.twig') }} {% endblock %}
 
+{% block top_links %}
+	<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'toastr.min.css' }}"/>
+{% endblock %}
+
 {% block main_content %}
 
 
@@ -48,6 +52,7 @@
 {% block footer %} {{ include('footer.twig') }} {% endblock %}
 
 {% block footer_scripts %}
+    <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
     <script>
         window.onProductAttributesTriggered = function(){
             $('#products-list').css('opacity', '0.4');
@@ -58,7 +63,8 @@
             var html = $.parseHTML( htmlStr );
             $('#products-list').html($('#products-list', html).html());
             $('#products-list').css('opacity', '1');
-
+            $('#product-filter-count').html($('#product-filter-count', html).html());
+            $('#product-filter-count').css('opacity', '1');
             if($('#product-pagination', html).length>0){
                 $('#product-pagination').html($('#product-pagination', html).html());
                 $('#product-pagination').css('opacity', '1');

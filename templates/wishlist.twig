@@ -1,0 +1,50 @@
+{% extends "layout.twig" %}
+
+{% block header %} {{ include('header.twig') }} {% endblock %}
+
+{% block top_links %}
+    <link rel="stylesheet" href="{{ asset_url ~ 'profile-style.css?v=1.02' }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'account-pages.css?v=1.59' }}" />
+    <style>
+      .account-content .btn-primary, .rtl .account-content .btn-primary {
+          float: unset;
+      }
+      .add-to-wishlist, .share-wishlist {
+        display: none !important;
+      }
+    </style>
+{% endblock %}
+
+
+{% block main_content %}
+    <div class="container-parent">
+        <div class="container">
+            <div class="d-flex">
+                <div class="flex-grow-1">
+                    {% include 'profile-title.twig' with { 'title' : locals.profile.wishlist , 'section' : 'wishlist' } %}
+                    <div class="account-content">
+                        <div>
+                            <div id="wishlist-list" class="row">
+                                {% for product in wishlist.data %}
+                                    <div class="col-6 col-md-4 col-lg-3 py-3">
+                                        {% include 'product-card.twig' with {'product' : product, 'index': key} %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% include 'pagination.twig' with { 'totalPages' : products.last_page , 'currentPage' : products.current_page } %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %} {{ include('footer.twig') }} {% endblock %}
+
+{% block script %}
+	<script defer>
+		$(`.add-to-wishlist .share-wishlist`).remove();
+	</script>
+{% endblock %}

@@ -619,3 +619,43 @@
     border-width: 0 0.5rem 0.5rem;
     border-bottom-color: #fff;
 }
+
+.btn-product-card-out-of-stock {
+  width: max-content;
+}
+
+.add-to-wishlist {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  width: 40px;
+  height: 35px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.rtl .add-to-wishlist {
+  right: unset;
+  left: 0;
+}
+
+.icon-heart-mask {
+  display: inline-block;
+  width: 25px;
+  height: 20px;
+  mask-size: 100%;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-image: url('./heart-outlined.svg');
+  background-color: var(--secondary, #A1A0A9);
+}
+
+.icon-heart-mask.filled {
+  mask-image: url('./heart-filled.svg');
+  background-color: var(--primary_color, #D86F6F);
+}

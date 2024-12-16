@@ -1,5 +1,17 @@
 {% if product %}
-<div class="product-item {% if product.is_infinite == false and product.quantity <= 0 %}product-item-out-of-stock{% endif %}">
+
+<div class="product-item position-relative {% if product.is_infinite == false and product.quantity <= 0 %}product-item-out-of-stock{% endif %}">
+    {% if store.is_wishlist_enabled == true %}
+      <span class="add-to-wishlist" data-wishlist-id="{{ product.id }}">
+        <span zid-visible-customer="true">
+            <a zid-visible-wishlist="{{ product.id }}" class="icon-heart-mask filled" onclick="addToWishlist(this, '{{ product.id }}')"></a>
+            <a zid-hidden-wishlist="{{ product.id }}" class="icon-heart-mask" onclick="addToWishlist(this, '{{ product.id }}')"></a>
+        </span>
+        <a zid-visible-guest="true" class="icon-heart-mask" href="/auth/login?redirect_to={{ requestUri() }}"></a>
+        <img class="loader d-none" src="{{ asset_url }}spinner.gif" width="20" height="20"/>
+      </span>
+    {% endif %}
+    
     <a href="/products/{{ product.slug }}" class="d-flex flex-column justify-content-start">
 
 

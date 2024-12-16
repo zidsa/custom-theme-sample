@@ -200,11 +200,20 @@
                                     {{ locals.cart_continue_to_purchase }}
                                 </a>
                             {% else %}
-                                <a href="{% if customer %}/checkout/choose-address-and-shipping{% else %}/auth/login?redirect_to=/checkout/choose-address-and-shipping{% endif %}"
-                                   class="btn btn-primary btn-lg btn-block"
+                                
+                                <a zid-visible-customer="true" href="/checkout/choose-address-and-shipping"
+                                class="btn btn-primary btn-lg btn-block"
                                 >
                                     {{ locals.cart_continue_to_purchase }}
                                 </a>
+                                
+                                
+                                <a zid-visible-guest="true" href="/auth/login?redirect_to=/checkout/choose-address-and-shipping"
+                                class="btn btn-primary btn-lg btn-block"
+                                >
+                                    {{ locals.cart_continue_to_purchase }}
+                                </a>
+                               
                                 <div style="margin-top: 1rem">
                                     {{ template_for_cart_apple_pay_button }}
                                 </div>

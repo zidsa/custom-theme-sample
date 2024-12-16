@@ -17,9 +17,9 @@
                                             {% for menu_sub in menu.items %}
                                                 <div class="col-md-4 col-lg-4 col-sm-4">
                                                     {% if menu_sub.items | length > 0 %}
-                                                        <h2 class="sub-menu-head">
+                                                        <h5 class="sub-menu-head">
                                                             <a style="font-size: 1.16rem; color: inherit" href="{{ menu_sub.url }}">{{ menu_sub.name }}</a>
-                                                        </h2>
+                                                        </h5>
                                                         <ul class="sub-menu-lists">
                                                             {% for menu_sub_sub in menu_sub.items %}
                                                                 <li><a href="{{ menu_sub_sub.url }}">{{ menu_sub_sub.name }}</a></li>

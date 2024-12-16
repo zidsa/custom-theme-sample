@@ -40,7 +40,8 @@
 }
 .icon-badge_black,
 .icon-import_contacts,
-.icon-local_mall{
+.icon-local_mall,
+.icon-heart-secondary{
     font-size: 40px;
     margin-top: 5px;
     color:var(--white-color)

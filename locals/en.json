@@ -137,9 +137,13 @@
         "addresses": "Addresses",
         "addresses_description":"Through the address book, you can add and edit your favorite addresses",
         "orders": "Orders",
-        "orders_description":"Through the list of orders, you can view previous and current orders"
+        "orders_description":"Through the list of orders, you can view previous and current orders",
+        "wishlist": "Wishlist",
+        "wishlist_description": "Through the wish list you can browse products and delete favorite products"
     },
 
+    "wishlist_no_items": "No Items added to the wishlist",
+    "shareLabel": "Share",
     "add_new_address": "Add new Address",
 
     "location_on_map":"location on map",
