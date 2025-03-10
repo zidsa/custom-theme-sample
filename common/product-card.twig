@@ -30,6 +30,9 @@
                             {% endif %}
                          alt="{{ product.name }}">
                     <span class="product-card-bundle-offer" data-bundle-offer-product-id="{{ product.id }}"></span>
+                    {% if product.product_badge %}
+                        <span class="product-card-bundle-offer badge-product-tag" >({{ product.product_badge }})</span>
+                    {% endif %}
                 </div>
             </div>
         </div>
