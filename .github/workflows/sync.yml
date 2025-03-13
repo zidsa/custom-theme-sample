@@ -3,10 +3,10 @@ name: Sync Fork with Upstream
 on:
   schedule:
     - cron: "0 0 * * *"  # يتم التحديث يوميًا عند منتصف الليل UTC
-  workflow_dispatch:  # يتيح تشغيل الـ Action يدويًا عند الحاجة
+  workflow_dispatch:  # لتشغيل المزامنة يدويًا
   push:
     branches:
-      - main  # تشغيل المزامنة عند أي تعديل على الفرع الرئيسي
+      - main
 
 jobs:
   sync:
@@ -34,4 +34,4 @@ jobs:
 
       - name: Push Changes to Fork
         run: |
-          git push origin main
+          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/themiify/custom-theme-zid-fork.git main
