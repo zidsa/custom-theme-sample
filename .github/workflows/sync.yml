@@ -1,18 +1,14 @@
 name: Universal Branch Sync
 
 on:
-  # Run on push to any branch
   push:
     branches:
       - '**'
-  # Run on pull requests
   pull_request:
     branches:
       - '**'
-  # Run daily
   schedule:
-    - cron: "0 0 * * *"  # Daily at midnight UTC
-  # Manual trigger
+    - cron: "0 0 * * *"  # يوميًا في منتصف الليل UTC
   workflow_dispatch:
     inputs:
       branch:
@@ -24,18 +20,29 @@ jobs:
   sync-branches:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: ✅ Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Get full history
+          fetch-depth: 0  # جلب كل التاريخ
           token: ${{ secrets.GH_PAT }}
-      
-      - name: Configure Git
+
+      - name: 🔧 Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      
-      - name: Determine Current Branch
+
+      - name: 🔗 Add Upstream Repository
+        run: |
+          git remote add upstream https://github.com/themify/simple_project_zid.git || true
+          git fetch upstream
+          
+      - name: 🔄 Sync Main with Upstream (Zid)
+        run: |
+          git checkout main
+          git merge upstream/main --no-edit || git merge --abort
+          git push origin main
+
+      - name: 🔍 Determine Current Branch
         id: branch
         run: |
           if [[ "${{ github.event.inputs.branch }}" != "" ]]; then
@@ -46,49 +53,22 @@ jobs:
             BRANCH=${GITHUB_REF#refs/heads/}
             echo "BRANCH=$BRANCH" >> $GITHUB_ENV
           fi
-      
-      - name: Sync with Main (if not on main)
-        if: env.BRANCH != 'main'
+
+      - name: 🔄 Sync Feature Branches with Main
         run: |
-          echo "Working on branch: $BRANCH"
-          # Make sure we have the latest from both branches
-          git fetch origin main:main
-          git fetch origin $BRANCH:$BRANCH
-          
-          # If we're not on main, sync changes from main to current branch
-          git checkout $BRANCH
-          
-          # Try to merge main into current branch
-          if ! git merge main --no-edit; then
-            echo "⚠️ Automatic merge failed. There might be conflicts to resolve manually."
-            # Reset to pre-merge state
-            git merge --abort
-            exit 0  # Don't fail the workflow
-          fi
-          
-          # Push the updated branch back to origin
-          git push origin $BRANCH
-      
-      - name: Update Feature Branch with Latest Main (for all branches)
-        if: always() # Run even if previous step failed
-        run: |
-          # List all remote branches except main
           for branch in $(git branch -r | grep -v 'origin/main' | grep -v 'HEAD' | sed 's/origin\///'); do
             echo "Checking branch: $branch"
             if [[ "$branch" != "main" && "$branch" != "HEAD" ]]; then
-              # Try to update the branch with latest main, only if possible without conflicts
               git checkout $branch || continue
               git pull origin $branch || continue
               
-              if git merge origin/main --no-commit --no-ff > /dev/null 2>&1; then
-                # If merge is clean, commit and push
+              if git merge main --no-commit --no-ff > /dev/null 2>&1; then
                 git commit -m "Merge main into $branch [automated]"
                 git push origin $branch
-                echo "✅ Successfully updated $branch with latest main"
+                echo "✅ Updated $branch with latest main"
               else
-                # If there would be conflicts, abort
                 git merge --abort
-                echo "⚠️ Cannot automatically update $branch - would create conflicts"
+                echo "⚠️ Merge conflict in $branch - manual resolution required"
               fi
             fi
           done
