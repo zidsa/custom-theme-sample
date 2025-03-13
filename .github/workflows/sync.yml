@@ -1,0 +1,30 @@
+name: Sync with Custom Theme Sample Repo
+
+on:
+  push:
+    branches:
+      - main  # يتم التحديث عند الدفع إلى الفرع الرئيسي
+  schedule:
+    - cron: "0 0 * * *"  # تحديث يومي
+
+jobs:
+  sync-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Target Repo
+        uses: actions/checkout@v3
+        with:
+          repository: 'themiify/simple_project_zid'
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 0  # لجلب كل الـ commit history
+
+      - name: Add Source Repo as Remote and Fetch Updates
+        run: |
+          git remote add source https://github.com/zidsa/custom-theme-sample.git || true
+          git fetch source main
+
+      - name: Merge Updates from Source Repo
+        run: |
+          git checkout main
+          git merge source/main --allow-unrelated-histories --strategy-option theirs
+          git push origin main
