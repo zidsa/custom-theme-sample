@@ -33,7 +33,7 @@ jobs:
 
       - name: 🔗 Add Upstream Repository
         run: |
-          git remote add upstream https://github.com/themify/simple_project_zid.git || true
+          git remote add upstream https://github.com/zidsa/custom-theme-sample.git || true
           git fetch upstream
           
       - name: 🔄 Sync Main with Upstream (Zid)
