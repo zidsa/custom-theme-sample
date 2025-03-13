@@ -16,7 +16,7 @@ jobs:
 
       - name: Add upstream repository (Zid)
         run: |
-          git remote add upstream https://github.com/zidsa/custom-theme-sample.git
+          git remote add upstream https://github.com/Zid-Original-Repo.git
           git fetch upstream
 
       - name: Merge upstream changes
@@ -28,18 +28,4 @@ jobs:
         run: |
           git push origin main
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
