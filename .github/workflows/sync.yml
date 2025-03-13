@@ -18,7 +18,7 @@ jobs:
       
       - name: Add upstream remote
         run: |
-          git remote add upstream https://github.com/themiify/custom-theme-zid-fork.git
+          git remote add upstream https://github.com/themiify/custom-theme-sample.git
       
       - name: Fetch upstream
         run: |
