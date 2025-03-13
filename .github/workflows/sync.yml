@@ -1,37 +1,94 @@
-name: Sync Fork with Upstream
+name: Universal Branch Sync
 
 on:
-  schedule:
-    - cron: "0 0 * * *"  # يتم التحديث يوميًا عند منتصف الليل UTC
-  workflow_dispatch:  # لتشغيل المزامنة يدويًا
+  # Run on push to any branch
   push:
     branches:
-      - main
+      - '**'
+  # Run on pull requests
+  pull_request:
+    branches:
+      - '**'
+  # Run daily
+  schedule:
+    - cron: "0 0 * * *"  # Daily at midnight UTC
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to sync (leave empty for current)'
+        required: false
+        default: ''
 
 jobs:
-  sync:
+  sync-branches:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Fork Repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: false
-
+          fetch-depth: 0  # Get full history
+          token: ${{ secrets.GH_PAT }}
+      
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Add Upstream Repository
-        run: git remote add upstream https://github.com/zidsa/custom-theme-sample.git
-
-      - name: Fetch and Merge Upstream Changes
+      
+      - name: Determine Current Branch
+        id: branch
         run: |
-          git fetch upstream
-          git checkout main
-          git merge --no-edit upstream/main || echo "No new changes to merge"
-
-      - name: Push Changes to Fork
+          if [[ "${{ github.event.inputs.branch }}" != "" ]]; then
+            echo "BRANCH=${{ github.event.inputs.branch }}" >> $GITHUB_ENV
+          elif [[ "${{ github.head_ref }}" != "" ]]; then
+            echo "BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
+          else
+            BRANCH=${GITHUB_REF#refs/heads/}
+            echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+          fi
+      
+      - name: Sync with Main (if not on main)
+        if: env.BRANCH != 'main'
         run: |
-          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/themiify/custom-theme-zid-fork.git main
+          echo "Working on branch: $BRANCH"
+          # Make sure we have the latest from both branches
+          git fetch origin main:main
+          git fetch origin $BRANCH:$BRANCH
+          
+          # If we're not on main, sync changes from main to current branch
+          git checkout $BRANCH
+          
+          # Try to merge main into current branch
+          if ! git merge main --no-edit; then
+            echo "⚠️ Automatic merge failed. There might be conflicts to resolve manually."
+            # Reset to pre-merge state
+            git merge --abort
+            exit 0  # Don't fail the workflow
+          fi
+          
+          # Push the updated branch back to origin
+          git push origin $BRANCH
+      
+      - name: Update Feature Branch with Latest Main (for all branches)
+        if: always() # Run even if previous step failed
+        run: |
+          # List all remote branches except main
+          for branch in $(git branch -r | grep -v 'origin/main' | grep -v 'HEAD' | sed 's/origin\///'); do
+            echo "Checking branch: $branch"
+            if [[ "$branch" != "main" && "$branch" != "HEAD" ]]; then
+              # Try to update the branch with latest main, only if possible without conflicts
+              git checkout $branch || continue
+              git pull origin $branch || continue
+              
+              if git merge origin/main --no-commit --no-ff > /dev/null 2>&1; then
+                # If merge is clean, commit and push
+                git commit -m "Merge main into $branch [automated]"
+                git push origin $branch
+                echo "✅ Successfully updated $branch with latest main"
+              else
+                # If there would be conflicts, abort
+                git merge --abort
+                echo "⚠️ Cannot automatically update $branch - would create conflicts"
+              fi
+            fi
+          done
