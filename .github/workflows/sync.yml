@@ -1,40 +1,34 @@
-name: Sync Fork with Upstream
- 
- on:
-   schedule:
-     - cron: "0 0 * * *"  # يتم التحديث يوميًا عند منتصف الليل UTC
-   workflow_dispatch:  # يتيح تشغيل الـ Action يدويًا عند الحاجة
-   workflow_dispatch:  # لتشغيل المزامنة يدويًا
-   push:
-     branches:
-       - main  # تشغيل المزامنة عند أي تعديل على الفرع الرئيسي
-       - main
- 
- jobs:
-   sync:
-     runs-on: ubuntu-latest
- 
-     steps:
-       - name: Checkout Fork Repository
-         uses: actions/checkout@v4
-         with:
-           persist-credentials: false
- 
-       - name: Configure Git
-         run: |
-           git config --global user.name "github-actions[bot]"
-           git config --global user.email "github-actions[bot]@users.noreply.github.com"
- 
-       - name: Add Upstream Repository
-         run: git remote add upstream https://github.com/zidsa/custom-theme-sample.git
- 
-       - name: Fetch and Merge Upstream Changes
-         run: |
-           git fetch upstream
-           git checkout main
-           git merge --no-edit upstream/main || echo "No new changes to merge"
- 
-       - name: Push Changes to Fork
-         run: |
-           git push origin main
-           git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/themiify/custom-theme-zid-fork.git main
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Run daily at midnight UTC
+  workflow_dispatch:     # Allow manual triggering
+
+jobs:
+  sync-fork:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
+      
+      - name: Add upstream remote
+        run: |
+          git remote add upstream https://github.com/themiify/custom-theme-zid-fork.git
+      
+      - name: Fetch upstream
+        run: |
+          git fetch upstream
+      
+      - name: Sync fork
+        run: |
+          git checkout main
+          git merge upstream/main
+      
+      - name: Push changes
+        run: |
+          git push origin main
