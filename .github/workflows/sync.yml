@@ -2,11 +2,8 @@ name: Sync Fork with Upstream
 
 on:
   schedule:
-    - cron: "0 0 * * *"  # يتم التحديث يوميًا عند منتصف الليل UTC
-  workflow_dispatch:  # لتشغيل المزامنة يدويًا
-  push:
-    branches:
-      - main
+    - cron: '0 0 * * *' # يقوم بالمزامنة يوميًا
+  workflow_dispatch: # يتيح التشغيل اليدوي
 
 jobs:
   sync:
@@ -20,18 +17,19 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
 
       - name: Add Upstream Repository
-        run: git remote add upstream https://github.com/zidsa/custom-theme-sample.git
+        run: |
+          git remote add upstream https://github.com/zidsa/custom-theme-sample.git
+          git fetch upstream
 
       - name: Fetch and Merge Upstream Changes
         run: |
-          git fetch upstream
           git checkout main
-          git merge --no-edit upstream/main || echo "No new changes to merge"
+          git merge --allow-unrelated-histories upstream/main -m "Sync with upstream"
 
       - name: Push Changes to Fork
         run: |
-          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/themiify/custom-theme-zid-fork.git main
+          git push origin main
