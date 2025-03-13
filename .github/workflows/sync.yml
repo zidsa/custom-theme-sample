@@ -1,31 +1,36 @@
-name: Sync with Zid Repo
+name: Sync Fork with Upstream
 
 on:
   schedule:
-    - cron: '0 * * * *'  # يعمل كل ساعة
-  workflow_dispatch:      # يسمح بتشغيله يدويًا
+    - cron: '0 0 * * *'  # تشغيل المزامنة يوميًا عند منتصف الليل
+  workflow_dispatch:  # السماح بتشغيل المزامنة يدويًا من واجهة GitHub Actions
 
 jobs:
   sync:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout forked repository
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: false
 
-      - name: Add upstream repository (Zid)
+    steps:
+      - name: Checkout Fork Repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 0  # جلب كل التاريخ لتجنب مشاكل الدمج
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add Upstream Repository
         run: |
           git remote add upstream https://github.com/zidsa/custom-theme-sample.git
           git fetch upstream
 
-      - name: Merge upstream changes
+      - name: Merge Upstream Changes
         run: |
           git checkout main
-          git merge --allow-unrelated-histories upstream/main || echo "No new changes"
+          git merge --no-edit upstream/main || echo "No new changes to merge"
 
-      - name: Push changes to forked repository
+      - name: Push Changes to Fork
         run: |
           git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
