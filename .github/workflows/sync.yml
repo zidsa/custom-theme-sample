@@ -2,33 +2,35 @@ name: Sync Fork
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Run daily at midnight UTC
-  workflow_dispatch:     # Allow manual triggering
+    - cron: '0 0 * * *'  # تشغيل المزامنة يوميًا
+  workflow_dispatch:  # السماح بتشغيله يدويًا من Actions
 
 jobs:
-  sync-fork:
+  sync:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout repository
+      - name: Checkout Fork Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
           token: ${{ secrets.GH_PAT }}
-      
-      - name: Add upstream remote
+          fetch-depth: 0  # جلب جميع التعديلات لتجنب مشاكل الدمج
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add Upstream Repository
         run: |
           git remote add upstream https://github.com/zidsa/custom-theme-sample.git
-      
-      - name: Fetch upstream
-        run: |
           git fetch upstream
-      
-      - name: Sync fork
+
+      - name: Fetch and Merge Upstream Changes
         run: |
           git checkout main
-          git merge upstream/main
-      
-      - name: Push changes
+          git merge upstream/main --allow-unrelated-histories || echo "No new changes to merge"
+
+      - name: Push Changes to Fork
         run: |
           git push origin main
