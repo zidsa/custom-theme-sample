@@ -1,9 +1,9 @@
-name: Sync Fork with Upstream
+name: Sync Fork
 
 on:
   schedule:
-    - cron: '0 0 * * *' # يقوم بالمزامنة يوميًا
-  workflow_dispatch: # يتيح التشغيل اليدوي
+    - cron: '0 0 * * *'  # تشغيل المزامنة يوميًا
+  workflow_dispatch:  # السماح بتشغيله يدويًا من Actions
 
 jobs:
   sync:
@@ -11,14 +11,15 @@ jobs:
 
     steps:
       - name: Checkout Fork Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
-          persist-credentials: false
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 0  # جلب جميع التعديلات لتجنب مشاكل الدمج
 
       - name: Configure Git
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Add Upstream Repository
         run: |
@@ -28,7 +29,7 @@ jobs:
       - name: Fetch and Merge Upstream Changes
         run: |
           git checkout main
-          git merge --allow-unrelated-histories upstream/main -m "Sync with upstream"
+          git merge upstream/main --allow-unrelated-histories || echo "No new changes to merge"
 
       - name: Push Changes to Fork
         run: |
