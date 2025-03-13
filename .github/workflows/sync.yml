@@ -1,30 +1,45 @@
-name: Sync with Custom Theme Sample Repo
+name: Sync with Zid Repo
 
 on:
-  push:
-    branches:
-      - main  # يتم التحديث عند الدفع إلى الفرع الرئيسي
   schedule:
-    - cron: "0 0 * * *"  # تحديث يومي
+    - cron: '0 * * * *'  # يعمل كل ساعة
+  workflow_dispatch:      # يسمح بتشغيله يدويًا
 
 jobs:
-  sync-repo:
+  sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Target Repo
-        uses: actions/checkout@v3
+      - name: Checkout forked repository
+        uses: actions/checkout@v4
         with:
-          repository: 'themiify/custom-theme-zid-fork.git'
-          token: ${{ secrets.GH_PAT }}
-          fetch-depth: 0  # لجلب كل الـ commit history
+          persist-credentials: false
 
-      - name: Add Source Repo as Remote and Fetch Updates
+      - name: Add upstream repository (Zid)
         run: |
-          git remote add source https://github.com/zidsa/custom-theme-sample.git || true
-          git fetch source main
+          git remote add upstream https://github.com/zidsa/custom-theme-sample.git
+          git fetch upstream
 
-      - name: Merge Updates from Source Repo
+      - name: Merge upstream changes
         run: |
           git checkout main
-          git merge source/main --allow-unrelated-histories --strategy-option theirs
+          git merge --allow-unrelated-histories upstream/main || echo "No new changes"
+
+      - name: Push changes to forked repository
+        run: |
           git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
