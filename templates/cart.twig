@@ -201,18 +201,12 @@
                                 </a>
                             {% else %}
                                 
-                                <a zid-visible-customer="true" href="/checkout/choose-address-and-shipping"
+                                <a id="redirectAddress" href="/checkout/choose-address-and-shipping"
                                 class="btn btn-primary btn-lg btn-block"
                                 >
                                     {{ locals.cart_continue_to_purchase }}
                                 </a>
-                                
-                                
-                                <a zid-visible-guest="true" href="/auth/login?redirect_to=/checkout/choose-address-and-shipping"
-                                class="btn btn-primary btn-lg btn-block"
-                                >
-                                    {{ locals.cart_continue_to_purchase }}
-                                </a>
+
                                
                                 <div style="margin-top: 1rem">
                                     {{ template_for_cart_apple_pay_button }}
@@ -326,6 +320,14 @@
             })
         }
 
+        document.addEventListener('zid-customer-fetched', function(event) {
+            var customer = event.detail.customer;
+            if(customer) {
+                $('#redirectAddress').attr('href', "/checkout/choose-address-and-shipping");
+            } else {
+                $('#redirectAddress').attr('href', "/auth/login?redirect_to=/checkout/choose-address-and-shipping");
+            }
+        });
 
         function cartProductsHtmlChanged(html, cart){
             if(cart.products_count <= 0){

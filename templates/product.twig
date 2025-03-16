@@ -26,18 +26,49 @@
                                     <div class="col-12 col-product-image-wrapper">
 
                                         <!-- Carousel -->
-                                        <div class="box-1-1 product-images-carousel product-images-carousel-init {% if product.selected_product.images | length <= 0 %}d-none{% endif %}">
+                                        <div class="box-1-1 product-images-carousel product-images-carousel-init {% if product.selected_product.media | length <= 0 %}d-none{% endif %}">
                                             <div class="content">
                                                 <div id="product-images" class="product-images slide gallery">
                                                     <div id="product-images-slick">
-                                                        {% for key, image in product.selected_product.images %}
+                                                        {% for key, image in product.selected_product.media %}
                                                             <div>
                                                                 <div class="box-1-1">
                                                                     <div class="content">
                                                                         <a class="image-link"
                                                                            style="display:block; width: 100%; height: 100%;">
                                                                             <img src="{{ image.image.full_size }}" class="carousel-img" alt="{{ image.alt_text }}">
+                                                                            {% if image.provider and image.link %}
+                                                                                <img id="main-video-icon"
+                                                                                  class="play-icon"
+                                                                                  src="{{ assetUrl('video-play.svg') }}"
+                                                                                  alt="play"
+                                                                                  width="25"
+                                                                                  onClick="showIframe(this, '{{ image.link }}')"
+                                                                                />
+                                                                            {% endif %}
                                                                         </a>
+                                                                        {% if image.provider and image.link %}
+                                                                            <div class="iframe-video pt-1 d-none">
+                                                                                <a
+                                                                                  id="iframe-close-btn"
+                                                                                  type="button"
+                                                                                  class="text-white btn btn-none grow"
+                                                                                  onClick="hideIframe(this)"
+                                                                                >
+                                                                                  X
+                                                                                </a>
+                                                                                <iframe
+                                                                                  width="100%"
+                                                                                  height="100%"
+                                                                                  src=""
+                                                                                  frameborder="0"
+                                                                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                                                  allowfullscreen
+                                                                                  style="max-width: 100%"
+                                                                                >
+                                                                                </iframe>
+                                                                            </div>
+                                                                        {% endif %}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -47,14 +78,20 @@
                                             </div>
                                         </div>
 
-                                        <div class="row lg-thumbs d-lg-flex product-images-carousel-thumbs {% if product.selected_product.images | length <= 1 %}d-none-important{% endif %}">
-                                            {% for key, image in product.selected_product.images %}
+                                        <div class="row lg-thumbs d-lg-flex product-images-carousel-thumbs {% if product.selected_product.media | length <= 1 %}d-none-important{% endif %}">
+                                            {% for key, image in product.selected_product.media %}
                                                 <div class="col-3">
                                                     <div class="box-1-1">
                                                         <div class="content">
                                                             <a class="d-flex align-items-center justify-content-center thumb-image-a" data-index="{{ key }}"
                                                                style="width: 100%; height: 100%;" >
                                                                 <img src="{{ image.image.medium }}" data-index="{{ key }}">
+                                                                {% if image.provider and image.link %}
+                                                                  <img id="video-play-icon" class="play-icon"
+                                                                    src="{{ assetUrl('video-play.svg') }}" alt="play"
+                                                                    data-index="{{ key }}"
+                                                                  />
+                                                                {% endif %}
                                                             </a>
                                                         </div>
                                                     </div>
@@ -63,7 +100,7 @@
                                         </div>
 
                                         <!-- No image -->
-                                        <div class="box-1-1 product-images-empty {% if product.selected_product.images | length > 0 %}d-none{% endif %}">
+                                        <div class="box-1-1 product-images-empty {% if product.selected_product.media | length > 0 %}d-none{% endif %}">
                                             <div class="content">
                                                 <div class="d-flex" style="width: 100%; height: 100%;">
                                                     <img src="{{ asset_url ~ 'product-img.svg' }}" width="100%" height="auto" />
@@ -77,7 +114,7 @@
 
                         </div>
 
-                        <div class="col-lg-6  col-product-info {% if product.selected_product.images | length <= 1 %}col-product-info-single-image{% endif %}">
+                        <div class="col-lg-6  col-product-info {% if product.selected_product.media | length <= 1 %}col-product-info-single-image{% endif %}">
 
 
 
@@ -629,7 +666,7 @@
     {{ product_view_scripts|raw }}
 
     <script>
-        var productImages = {{  product.selected_product.images | json_encode() | raw }};
+        var productImages = {{  product.selected_product.media | json_encode() | raw }};
         var customerWishlistIds = {{  customer.wishlist | json_encode() | raw }};
 
         function productAddToCart() {
@@ -780,14 +817,14 @@
         }
 
         function updateProductImages(selected_product) {
-            if(selected_product && selected_product.images && selected_product.images.length > 0){
+            if(selected_product && selected_product.media && selected_product.media.length > 0){
                 $('.product-images-carousel').removeClass('d-none');
                 $('.product-images-carousel-thumbs').removeClass('d-none-important');
                 $('.product-images-empty').addClass('d-none');
                 $('#product-images-slick').slick('unslick');
                 $('.product-images-carousel').addClass('product-images-carousel-init');
 
-                productImages = selected_product.images;
+                productImages = selected_product.media;
 
                 $('#product-images-slick').html('');
                 $('.product-images-carousel-thumbs').html('');
@@ -801,7 +838,17 @@
                         '                                                                            <a class="image-link"\n' +
                         '                                                                               style="display:block; width: 100%; height: 100%;">\n' +
                         '                                                                                <img src="'+ prImage.image.full_size +'" class="carousel-img" alt="'+ selected_product.name +'">\n' +
+                        (prImage.provider && prImage.link ? '<img id="main-video-icon" class="play-icon" src="{{ assetUrl('video-play.svg') }}" alt="play"'+
+                        '                                   onclick="showIframe(this, \''+ prImage.link +'\')"/>' : '' ) +
                         '                                                                            </a>\n' +
+                        '                                                                          <div class="iframe-video pt-1 d-none">\n' +
+                        '                                                                             <a id="iframe-close-btn" type="button" class="text-white btn btn-none grow"'+
+                        '                                                                                onClick="hideIframe(this)">X</a>\n' +
+                        '                                                                            <iframe width="100%" height="100%" src="" frameborder="0"' +
+                        '                                                                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"' +
+                        '                                                                              allowfullscreen style="max-width: 100%">' +
+                        '                                                                            </iframe>\n' +
+                        '                                                                          </div>\n' +
                         '                                                                        </div>\n' +
                         '                                                                    </div>\n' +
                         '                                                                </div>');
@@ -813,6 +860,9 @@
                         '                                                                    <a class="d-flex align-items-center justify-content-center thumb-image-a" data-index="{{ key }}"\n' +
                         '                                                                       style="width: 100%; height: 100%;" >\n' +
                         '                                                                        <img src="'+ prImage.image.medium +'" data-index="'+ z +'">\n' +
+                        (prImage.provider && prImage.link ?                 '<img id="video-play-icon" class="play-icon"'+
+                        '                                                     src="{{ assetUrl('video-play.svg') }}" alt="play"'+
+                        '                                                     data-index="'+ z +'">\n' : '') +
                         '                                                                    </a>\n' +
                         '                                                                </div>\n' +
                         '                                                            </div>\n' +
@@ -879,7 +929,7 @@
             }
         });
 
-        $(document).on('click','.thumb-image-a',function(event){
+        $(document).on('click','.thumb-image-a, #video-play-icon',function(event){
             var tarr = event.target;
 
             if ($('#product-images-slick')) {
@@ -888,7 +938,7 @@
         });
 
 
-        $(document).on('click','#product-images-slick .image-link',function(event){
+        $(document).on('click','#product-images-slick .image-link :not(#main-video-icon)',function(event){
             $('.pswp').removeClass('d-hide');
             $('.app').addClass('d-hide');
 
@@ -1012,6 +1062,57 @@
             }
         });
 
+        // Product Image Video  
+        const getIframeLink = (videoLink) => {
+          const videoIdMatch = videoLink.match(
+            /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?|.*[?&]v=)|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+          );
+
+          if (videoIdMatch && videoIdMatch[1]) {
+            const videoLinkId = videoIdMatch[1];
+            return `https://www.youtube.com/embed/${videoLinkId}?autoplay=1&enablejsapi=1`;
+          }
+
+          return null;
+        };
+
+        const showIframe = (elm, imageVideoSrc) => {
+          const iframeLink = getIframeLink(imageVideoSrc);
+          const iframeElem = $(elm).parent(".image-link").siblings(".iframe-video").children("iframe");
+          $(elm).parent(".image-link").siblings(".iframe-video").removeClass("d-none");
+          if ($(iframeElem).attr("src") !== iframeLink) {
+            $(iframeElem).attr("src", iframeLink);
+          }
+        };
+
+        const hideIframe = (elm) => {
+          $(elm).parent(".iframe-video").addClass("d-none");
+          $(elm).siblings("iframe").attr("src", "");
+        };
+
+        $('#product-images-slick').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+          const iframeContainers = slick.$slides[currentSlide].querySelector(".iframe-video");
+          $(iframeContainers).addClass("d-none");
+          $(iframeContainers).children("iframe").attr("src", "");
+        });
+
+        $('#product-images-slick').on('afterChange', function(event, slick, currentSlide, nextSlide) {
+          const iframeContainers = slick.$slides[currentSlide].querySelector(".iframe-video");
+          const playIcon = $(iframeContainers).siblings(".image-link").children("#main-video-icon");
+          if (playIcon) {
+            $(playIcon).click();
+          }
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+          setTimeout(() => {
+            const activeSlide = $("#product-images-slick .slick-slide.slick-active .image-link");
+            const playIcon = $(activeSlide).children("#main-video-icon");
+            if (playIcon) {
+              $(playIcon).click();
+            }
+          }, 250);
+        });
     </script>
 
 {% endblock %}
