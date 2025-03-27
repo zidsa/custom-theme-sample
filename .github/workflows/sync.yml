@@ -1,48 +1,32 @@
-name: Sync Main with Upstream (Zid)
+name: Sync from Upstream
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *" # تشغيل تلقائي كل يوم
+    - cron: "0 0 * * *"  # يوميًا في منتصف الليل UTC
+  workflow_dispatch:
 
 jobs:
-  sync:
+  sync-upstream:
     runs-on: ubuntu-latest
-
     steps:
-      - name: 📥 Checkout Repository
+      - name: ✅ Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # جلب كل الفروع
+          fetch-depth: 0  # جلب كل التاريخ
+          token: ${{ secrets.GH_PAT }}
 
       - name: 🔧 Configure Git
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: 🔗 Add Upstream Repository
         run: |
-          git remote add upstream https://github.com/USERNAME/REPO.git || echo "Upstream already exists"
+          git remote add upstream https://github.com/zidsa/custom-theme-sample.git || true
           git fetch upstream
 
-      - name: 🔄 Sync Main with Upstream (Zid)
+      - name: 🔄 Sync Main Branch
         run: |
-          git fetch --all
-          git checkout -B main origin/main 2>/dev/null || git checkout main
-          git reset --hard upstream/main
-          git pull upstream main --rebase --autostash || git rebase --abort
-          git push origin main --force
-
-      - name: 🛠 Determine Current Branch
-        run: git branch --show-current
-
-      - name: 🔄 Sync Feature Branches with Main
-        run: |
-          for branch in $(git branch -r | grep -vE 'main|HEAD' | sed 's/origin\///'); do
-            git checkout $branch
-            git rebase main || git rebase --abort
-            git push origin $branch --force
-          done
-
-      - name: ✅ Complete job
-        run: echo "Sync completed successfully!"
+          git checkout main
+          git merge upstream/main --no-edit  # دمج التحديثات من upstream/main إلى main
+          git push origin main  # تحديث الفرع main في المستودع الشخصي
