@@ -23,8 +23,8 @@
                      {% include 'template_for_products_badge' ignore missing %}
                   {% endif %}
                     <img id="product-card-img-{{ product.id }}"
-                            {% if product.images %}
-                                    src="{{ product.images[0]['image']['large'] }}"
+                            {% if product.images or product.videos %}
+                                    src="{{ product.images[0]['image']['large'] ?? product.videos[0]['image']['large'] }}"
                              {% else %}
                                  src="{{ imageUrl(asset_url ~ 'product-img.svg',{ w: 235, q: 100, f:'auto' }) }}"
                             {% endif %}
