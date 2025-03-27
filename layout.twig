@@ -1,537 +1,610 @@
 <!doctype html>
 <html class="no-js" lang="{{ session.lang.code }}" dir="{% if session.lang.code == 'ar' %}rtl{% else %}ltr{% endif %}">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    {{ header_meta_tags | raw }}
-
-
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		{{ header_meta_tags | raw }}
 
 
-  <link rel="shortcut icon" type="image/jpg" href={{ store.icon }}/>
-    {#<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Changa">#}
-    <!--jquery UI -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family={% if settings.fonts_name %}{{ settings.fonts_name }}{% else %}Changa{% endif %}:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --primary-color: {{store.colors.primary}};
-            --text-color-primary-bg: {{store.colors.text_of_primary_bg}};
-            --primary-color-op-5: {{store.colors.primary}}0c;
-            --sub-primary-color: #521B25;
-            --white-color: #fff;
-            --warning-color:  #FFCF57;
-            --danger-color:  #EC5550;
-            --sucess-color:  #5AA788;
-            --black-color:  #0000;
-            --secondary-color: #DEDEDE;
-            --secondary-color-alt0:  #6B6B6B;
-            --secondary-color-alt1:  #5A5A5A;
-            --secondary-color-alt2:  #EFEFEF;
-            --secondary-color-alt3:  #494949;
-            --secondary-color-alt4:  #D9D9D9;
-            --secondary-color-alt5:   #E8E8E8;
-            --secondary-color-alt6:   #8B8B8B;
-            --secondary-color-alt7: #ebebeb;
-            --secondary-color-alt8: #484848;
-            --secondary-color-alt9: #A8A8A8;
-            --secondary-color-alt10: #4A4A4A;
-            --secondary-color-alt11: #606060;
-            --secondary-color-alt12: #767676;
-            --secondary-color-alt13: #F8F8F8;
-            /* font-wieght */
-            --font-weight-sizeOne: 400;
-            --font-wieght-sizeTwo: 700;
-            --font-wieght-sizeThree: 600;
-            /* font-size */
-            --font-size-forteen: 1.167;
-            --font-size-sixteen: 1.333;
-            --font-size-eighteen: 1.5;
-
-            --main-slider-height: 471.43px;
-            --main-slider-sm-height: 115px;
-        }
-
-        @font-face {
-          font-family: 'icomoon';
-          src:  url('{{ asset_url }}icomoon.eot?d668y32');
-          src:  url('{{ asset_url }}icomoon.eot?d668y32#iefix') format('embedded-opentype'),
-          url('{{ asset_url }}icomoon.woff2?d668y32') format('woff2'),
-          url('{{ asset_url }}icomoon.ttf?d668y32') format('truetype'),
-          url('{{ asset_url }}icomoon.woff?d668y32') format('woff'),
-          url('{{ asset_url }}icomoon.svg?d668y32#icomoon') format('svg');
-          font-weight: normal;
-          font-style: normal;
-          font-display: block;
-        }
-    </style>
-
-  <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'icomoon.css?v=1.0.2' }}"  />
-
-    {% if session.lang.code == 'ar' %}
-        <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'bootstrap-rtl.css?v=1.05' }}" />
-    {% else %}
-        <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'bootstrap.min.css?v=1.01' }}" />
-    {% endif %}
-
-    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'bootstrap-fixes.css?v=1.11' }}" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 
-    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'jquery-ui.min.css' }}"  />
-    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'jquery-ui.structure.min.css' }}"  />
-    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'jquery-ui.theme.min.css' }}"  />
+		<link rel="shortcut icon" type="image/jpg" href={{ store.icon }}/>
+		{#<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Changa">#}
+		<!--jquery UI -->
+		<link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family={% if settings.fonts_name %}{{ settings.fonts_name }}{% else %}Changa{% endif %}:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'slick.css' }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'slick-theme.css?v=1.08' }}" />
+		<style>:root
+		{
+			--primary-color: {{store.colors.primary}};
+			--text-color-primary-bg: {{store.colors.text_of_primary_bg}};
+			--primary-color-op-5: {{store.colors.primary}}0c;
+			--sub-primary-color: #521B25;
+			--black-color: #000000;
+			--white-color: #fff;
+			--warning-color: #FFCF57;
+			--danger-color: #EC5550;
+			--sucess-color: #5AA788;
+			--secondary-color: #DEDEDE;
+			--secondary-color-alt0: #6B6B6B;
+			--secondary-color-alt1: #5A5A5A;
+			--secondary-color-alt2: #EFEFEF;
+			--secondary-color-alt3: #494949; 
+			--secondary-color-alt4: #D9D9D9;
+			--secondary-color-alt5: #E8E8E8;
+			--secondary-color-alt6: #8B8B8B;
+			--secondary-color-alt7: #ebebeb;
+			--secondary-color-alt8: #484848;
+			--secondary-color-alt9: #A8A8A8;
+			--secondary-color-alt10: #4A4A4A;
+			--secondary-color-alt11: #606060;
+			--secondary-color-alt12: #767676;
+			--secondary-color-alt13: #F8F8F8;
+			/* font-wieght */
+			--font-weight-sizeOne: 400;
+			--font-wieght-sizeTwo: 700;
+			--font-wieght-sizeThree: 600;
+			/* font-size */
+			--font-size-forteen: 1.167;
+			--font-size-sixteen: 1.333;
+			--font-size-eighteen: 1.5;
 
-    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'slide-menu.css' }}" />
+			--main-slider-height: 471.43px;
+			--main-slider-sm-height: 115px;
+		}
 
-    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'slide-menu-style.css?v=1.16' }}" />
+		@font-face
+		{
+			font-family: 'icomoon';
+			src: url('{{ asset_url }}icomoon.eot?d668y32');
+			src: url('{{ asset_url }}icomoon.eot?d668y32#iefix') format('embedded-opentype'), url('{{ asset_url }}icomoon.woff2?d668y32') format('woff2'), url('{{ asset_url }}icomoon.ttf?d668y32') format('truetype'), url('{{ asset_url }}icomoon.woff?d668y32') format('woff'), url('{{ asset_url }}icomoon.svg?d668y32#icomoon') format('svg');
+			font-weight: normal;
+			font-style: normal;
+			font-display: block;
+		}
+	</style>
+  {# swiper css #}
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
-    <link rel="stylesheet" href="{{ asset_url ~ 'main.css?v=1.226' }}" />
+	<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'icomoon.css?v=1.0.2' }}"/>
 
-    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'custom.css?v=1.148' }}" />
+	{% if session.lang.code == 'ar' %}
+		<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'bootstrap-rtl.css?v=1.05' }}"/>
+	{% else %}
+		<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'bootstrap.min.css?v=1.01' }}"/>
+	{% endif %}
 
-    {% if session.lang.code == 'ar' %}
-        <link rel="stylesheet" href="{{ asset_url ~ 'main.rtl.css?v=1.25' }}">
-    {% endif %}
+	<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'bootstrap-fixes.css?v=1.11' }}"/>
 
-    {% block top_links %}{% endblock %}
 
-  {% if user_custom_css %}
-    <link rel="stylesheet" href="{{ user_custom_css }}">
-  {% endif %}
+	<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'jquery-ui.min.css' }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'jquery-ui.structure.min.css' }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'jquery-ui.theme.min.css' }}"/>
+
+	<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'slick.css' }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'slick-theme.css?v=1.08' }}"/>
+
+	<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'slide-menu.css' }}"/>
+
+	<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'slide-menu-style.css?v=1.16' }}"/>
+
+	<link rel="stylesheet" href="{{ asset_url ~ 'main.css?v=1.229' }}"/>
+
+
+	<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'custom.css?v=1.153' }}"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	{% if session.lang.code == 'ar' %}
+		<link rel="stylesheet" href="{{ asset_url ~ 'main.rtl.css?v=1.25' }}">
+	{% endif %}
+
+	{% block top_links %}{% endblock %}
+
+	{% if user_custom_css %}
+		<link rel="stylesheet" href="{{ user_custom_css }}">
+	{% endif %}
 
 </head>
 
-<body class="{% if session.lang.code == 'ar' %}rtl{% else %}ltr{% endif %}"
-      data-template="{{ template }}"
-        {% if template == 'category' and category is not empty %} data-category-id="{{ category.id }}" {% endif %}
->
+<body class="{% if session.lang.code == 'ar' %}rtl{% else %}ltr{% endif %}" data-template="{{ template }}" {% if template == 'category' and category is not empty %} data-category-id="{{ category.id }}" {% endif %}>
 
-{% if store.editing_mode %}
-  <link href="https://fonts.googleapis.com/css2?family={% if settings.fonts_name %}{{ settings.fonts_name }}{% else %}Changa{% endif %}:wght@300;400;500;700&display=swap" rel="stylesheet">
-{% endif %}
+	{% if store.editing_mode %}
+		<link href="https://fonts.googleapis.com/css2?family={% if settings.fonts_name %}{{ settings.fonts_name }}{% else %}Changa{% endif %}:wght@300;400;500;700&display=swap" rel="stylesheet">
+	{% endif %}
 
-<style>
-  body,html {
-    font-family: {% if settings.fonts_name %}{{ strReplace('+', ' ', settings.fonts_name) }}{% else %}'Changa'{% endif %}, sans-serif;
-  }
-  :root {
-    {% if settings.colors_header_background_color %}
-    --header-primary-color: {{settings.colors_header_background_color}};
-    {% endif %}
+	<style>
+		body,
+		html
+		{
+			font-family: {% if settings.fonts_name %}
+				{{strReplace('+', ' ', settings.fonts_name)}}
+			{% else %}
+				'Changa'{% endif %}, sans-serif;
+		}
+		:root
+		{
+			{% if settings.colors_header_background_color %}
+				--header-primary-color: {{settings.colors_header_background_color}}
+				;
+			{% endif %}
 
-    {% if settings.colors_header_menu_background_color %}
-    --menu-header-primary-color: {{settings.colors_header_menu_background_color}};
-    --header-primary-brightness: brightness(100%);
-    {% elseif settings.colors_header_background_color %}
-    --menu-header-primary-color: {{settings.colors_header_background_color}};
-    --header-primary-brightness: brightness(80%);
-    {% endif %}
+			{% if settings.colors_header_menu_background_color %}
+				--menu-header-primary-color: {{settings.colors_header_menu_background_color}}
+				;
+				--header-primary-brightness: brightness(100%);
+			{% elseif settings.colors_header_background_color %}
+				--menu-header-primary-color: {{settings.colors_header_background_color}}
+				;
+				--header-primary-brightness: brightness(80%);
+			{% endif %}
 
-  {% if settings.colors_header_menu_text_color %}
-    --menu-header-text-color-primary-bg: {{settings.colors_header_menu_text_color}};
-  {% elseif settings.colors_header_text_color %}
-    --menu-header-text-color-primary-bg: {{settings.colors_header_text_color}};
-  {% endif %}
+			{% if settings.colors_header_menu_text_color %}
+				--menu-header-text-color-primary-bg: {{settings.colors_header_menu_text_color}}
+				;
+			{% elseif settings.colors_header_text_color %}
+				--menu-header-text-color-primary-bg: {{settings.colors_header_text_color}}
+				;
+			{% endif %}
 
-    {% if settings.colors_header_text_color %}--header-text-color-primary-bg: {{settings.colors_header_text_color}};{% endif %}
-    {% if settings.colors_footer_background_color %}--footer-primary-color: {{settings.colors_footer_background_color}};{% endif %}
-    {% if settings.colors_footer_text_color %}--footer-text-color-primary-bg: {{settings.colors_footer_text_color}};{% endif %}
-  }
-</style>
+			{% if settings.colors_header_text_color %}
+				--header-text-color-primary-bg: {{settings.colors_header_text_color}}
+				;
+			{% endif %}
+			{% if settings.colors_footer_background_color %}
+				--footer-primary-color: {{settings.colors_footer_background_color}}
+				;
+			{% endif %}
+			{% if settings.colors_footer_text_color %}
+				--footer-text-color-primary-bg: {{settings.colors_footer_text_color}}
+				;
+			{% endif %}
+		}
+	</style>
 
-{% block top_body %}{% endblock %}
+	{% block top_body %}{% endblock %}
 
-<div class="app d-flex flex-column visible">
-    <div class="header">
-        {% block header %}{% endblock %}
-    </div>
-    <div class="main flex-grow-1 app-content"
-            {% if settings.colors_background_image %} style="background-repeat: repeat; background-image: url('{{ settings.colors_background_image }}');" {% endif %}>
-        {% block main_content %}{% endblock %}
-    </div>
-    <div class="footer">
-        {% block footer %}{% endblock %}
-    </div>
-    {% block footer_sticky %}{% endblock %}
-</div>
+	<div class="app d-flex flex-column visible">
+		<div class="header"> {% block header %}{% endblock %}
+			</div>
+			<div class="main flex-grow-1 app-content" {% if settings.colors_background_image %} style="background-repeat: repeat; background-image: url('{{ settings.colors_background_image }}');" {% endif %}> {% block main_content %}{% endblock %}
+				</div>
+				<div class="footer"> {% block footer %}{% endblock %}
+					</div>
+					{% block footer_sticky %}{% endblock %}
+				</div>
 
-{{ zidapi_script|raw }}
+				{{ zidapi_script|raw }}
 
-<script>
-    window.appDirection = '{% if session.lang.code == 'ar' %}rtl{% else %}ltr{% endif %}';
+				<div class="popup-product-details"></div>
 
-    window.loadToasterScriptIfNotLoaded = function (onCompleted) {
-        var list = document.getElementsByTagName('script');
-        var i = list.length, flag = false;
-        while (i--) {
-            if (list[i].src === "{{ asset_url ~ 'toastr.min.js' }}") {
-                flag = true;
-                break;
-            }
-        }
+				{# script modes of the categoryes #}
+				<script>
+				// Cache DOM elements
+				const modeOne = document.querySelector('.mode-one');
+				const modeThree = document.querySelector('.mode-three');
+				const contentProducts = document.querySelector('.products-list');
+				const infoCards = document.querySelectorAll(".content-info-card");
+				const items = document.querySelectorAll(".product-item");
+				const cards = document.querySelectorAll(".content-card");
+				const wishlists = document.querySelectorAll(".add-to-wishlist");
+				// Function to reset styles
+				const resetStyles = (elements) => {
+					elements.forEach(element => element.style.cssText = '');
+				};
+				// Function to apply Mode One styles
+				const applyModeOneStyles = () => {
+					contentProducts.style.gridTemplateColumns = 'repeat(4, 1fr)';
+					resetStyles(infoCards);
+					resetStyles(items);
+					resetStyles(cards);
+				};
+				// Function to apply Mode Three styles
+				const applyModeThreeStyles = () => {
+					contentProducts.style.gridTemplateColumns = 'repeat(1, 1fr)';
+					infoCards.forEach(info => info.style.cssText = 'flex-direction: column !important; width: 40%; display: flex;');
+					items.forEach(item => item.style.cssText = 'display: flex; flex-direction: row !important; gap: 45px;');
+					cards.forEach(card => card.style.cssText = 'width: 35%;');
+				};
+				// Function to handle mobile layout
+				const handleMobileLayout = () => {
+					if (window.innerWidth <= 500) {
+						document.querySelector('.products-filter').style.cssText = 'flex-wrap: wrap; margin: 15px; justify-content: flex-end !important;';
 
-        if (!flag) {
-            var script = document.createElement('script');
-            script.src = "{{ asset_url ~ 'toastr.min.js' }}";
-            document.getElementsByTagName('head')[0].appendChild(script);
+						modeOne.onclick = () => {
+						contentProducts.style.gridTemplateColumns = 'repeat(2, 1fr)';
+						resetStyles(infoCards);
+						resetStyles(items);
+						resetStyles(cards);
+						resetStyles(wishlists);
+						};
 
-            var fileref = document.createElement("link");
-            fileref.rel = "stylesheet";
-            fileref.type = "text/css";
-            fileref.href = "{{ asset_url ~ 'toastr.min.css' }}";
-            document.getElementsByTagName("head")[0].appendChild(fileref)
+						modeThree.onclick = () => {
+						infoCards.forEach(info => info.style.cssText = 'flex-direction: column !important; width: 100%; display: flex;');
+						items.forEach(item => item.style.cssText = 'display: flex; flex-direction: row !important; gap: 20px; align-items: center;');
+						cards.forEach(card => card.style.cssText = 'width: 80%;');
+						wishlists.forEach(wish => wish.style.cssText = 'position: absolute; top: 0; left: 0;');
+						};
+					}
+				};
+				// Event Listeners
+				document.addEventListener('DOMContentLoaded', () => {
+					if (modeOne) modeOne.addEventListener('click', applyModeOneStyles);
+					if (modeThree) modeThree.addEventListener('click', applyModeThreeStyles);
+				});
+				window.addEventListener('load', handleMobileLayout);
+				</script>
+				{# End the script #}
+				 <script>
+					window.appDirection = '{% if session.lang.code == 'ar' %}rtl{% else %}ltr{% endif %}';
+				
+					window.loadToasterScriptIfNotLoaded = function (onCompleted) {
+						var list = document.getElementsByTagName('script');
+						var i = list.length, flag = false;
+						while (i--) {
+							if (list[i].src === "{{ asset_url ~ 'toastr.min.js' }}") {
+								flag = true;
+								break;
+							}
+						}
+				
+						if (!flag) {
+							var script = document.createElement('script');
+							script.src = "{{ asset_url ~ 'toastr.min.js' }}";
+							document.getElementsByTagName('head')[0].appendChild(script);
+				
+							var fileref = document.createElement("link");
+							fileref.rel = "stylesheet";
+							fileref.type = "text/css";
+							fileref.href = "{{ asset_url ~ 'toastr.min.css' }}";
+							document.getElementsByTagName("head")[0].appendChild(fileref)
+				
+							script.onload = function () {
+								if(onCompleted)
+									onCompleted();
+							}
+						}else{
+							if(onCompleted)
+								onCompleted();
+						}
+					}
+				</script>
 
-            script.onload = function () {
-                if(onCompleted)
-                    onCompleted();
-            }
-        }else{
-            if(onCompleted)
-                onCompleted();
-        }
-    }
-</script>
+				 <script src="{{ asset_url ~ 'jquery-3.6.0.min.js?v=1.0.0' }}" ></script>
 
-<script src="{{ asset_url ~ 'jquery-3.6.0.min.js?v=1.0.0' }}" ></script>
+				 <script src="{{ asset_url ~ 'jquery-ui.min.js' }}" ></script>
 
-<script src="{{ asset_url ~ 'jquery-ui.min.js' }}" ></script>
+				 <script src="{{ asset_url ~ 'popper.min.js?v=1.0' }}" ></script>
+				 <script src="{{ asset_url ~ 'bootstrap.min.js' }}" ></script>
 
-<script src="{{ asset_url ~ 'popper.min.js?v=1.0' }}" ></script>
-<script src="{{ asset_url ~ 'bootstrap.min.js' }}" ></script>
+				 <script src="{{ asset_url ~ 'slide-menu.ie.js?v=1.06' }}" ></script>
+				 <script src="{{ asset_url ~ 'slick.min.js' }}" ></script>
+          
+          {# swiper js #}
+         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+				 <script type="text/javascript" src="{{ asset_url ~ 'main.js?v=1.110' }}" ></script>{% block footer_scripts %}
+			{% endblock %}
 
-<script src="{{ asset_url ~ 'slide-menu.ie.js?v=1.06' }}" ></script>
-<script src="{{ asset_url ~ 'slick.min.js' }}" ></script>
+		</body>
 
-<script type="text/javascript" src="{{ asset_url ~ 'main.js?v=1.120' }}" ></script>
-
-{% block footer_scripts %}{% endblock %}
-
-</body>
-
-</html>
+		</html>
 
 
-{% schema %}
-{
-  "colors":{
-    "name": {
-      "ar": "الالوان",
-      "en": "Colors"
-    },
-    "icon": "fa fa-paint-brush",
-    "display": true,
-    "settings":{
-      "header": {
-        "type": "fieldset",
-        "label": {
-          "ar": "رأس الصفحة",
-          "en": "Header"
-        },
-        "icon": "font_awesome",
-        "expandable": true,
-        "settings": {
-          "background_color": {
-            "type": "color",
-            "label": {
-              "ar": "لون الخلفية",
-              "en": "Background color"
-            }
-          },
-          "text_color": {
-            "type": "color",
-            "label": {
-              "ar": "لون النص",
-              "en": "Text color"
-            }
-          },
-          "menu_background_color": {
-            "type": "color",
-            "label": {
-              "ar": "لون خلفية القائمة الرئيسية (اختياري)",
-              "en": "Menu color"
-            }
-          },
-          "menu_text_color": {
-            "type": "color",
-            "label": {
-              "ar": "لون نص القائممة الرئيسية (اختياري)",
-              "en": "Text color"
-            }
-          }
-        }
-      },
-      "footer": {
-        "type": "fieldset",
-        "label": {
-          "ar": "اسفل الصفحة",
-          "en": "Header"
-        },
-        "icon": "font_awesome",
-        "expandable": true,
-        "settings": {
-          "background_color": {
-            "type": "color",
-            "label": {
-              "ar": "لون الخلفية",
-              "en": "Text color"
-            }
-          },
-          "text_color": {
-            "type": "color",
-            "label": {
-              "ar": "لون النص",
-              "en": "Text color"
-            }
-          }
-        }
-      },
-      "background": {
-        "type": "fieldset",
-        "label": {
-          "ar": "الخلفية",
-          "en": "Background"
-        },
-        "icon": "font_awesome",
-        "expandable": true,
-        "settings": {
-          "image": {
-            "type": "image",
-            "label": {
-              "ar": "الصورة",
-              "en": "Logo"
-            },
-            "info": {
-              "ar": "ارفع صورة بحجم 150 * 150 ",
-              "en": "This is an info text sample here"
-            }
-          }
-        }
-      }
-    }
-  },
-  "fonts":{
-    "name": {
-      "ar": "الخطوط",
-      "en": "fonts"
-    },
-    "icon": "fa fa-font",
-    "display": true,
-    "settings": {
-      "name": {
-        "type": "select",
-        "label": {
-          "ar": "اسم الخط",
-          "en": "Font name"
-        },
-        "options": [
-          {
-            "value": "Changa",
-            "label": {
-              "ar": "Changa",
-              "en": "Changa"
-            }
-          },
-          {
-            "value": "Cairo",
-            "label": {
-              "ar": "Cairo",
-              "en": "Cairo"
-            }
-          },
-          {
-            "value": "Amiri",
-            "label": {
-              "ar": "Amiri",
-              "en": "Amiri"
-            }
-          },
-          {
-            "value": "Mada",
-            "label": {
-              "ar": "Mada",
-              "en": "Mada"
-            }
-          },
-          {
-            "value": "Tajawal",
-            "label": {
-              "ar": "Tajawal",
-              "en": "Tajawal"
-            }
-          },
-          {
-            "value": "Almarai",
-            "label": {
-              "ar": "Almarai",
-              "en": "Almarai"
-            }
-          },
-          {
-            "value": "El+Messiri",
-            "label": {
-              "ar": "El Messiri",
-              "en": "El Messiri"
-            }
-          },
-          {
-            "value": "Lalezar",
-            "label": {
-              "ar": "Lalezar",
-              "en": "Lalezar"
-            }
-          },
-          {
-            "value": "Scheherazade",
-            "label": {
-              "ar": "Scheherazade",
-              "en": "Scheherazade"
-            }
-          },
-          {
-            "value": "Lemonada",
-            "label": {
-              "ar": "Lemonada",
-              "en": "Lemonada"
-            }
-          },
-          {
-            "value": "Markazi+Text",
-            "label": {
-              "ar": "Markazi",
-              "en": "Markazi"
-            }
-          },
-          {
-            "value": "Lateef",
-            "label": {
-              "ar": "Lateef",
-              "en": "Lateef"
-            }
-          },
-          {
-            "value": "Reem+Kufi",
-            "label": {
-              "ar": "Reem Kufi",
-              "en": "Reem Kufi"
-            }
-          },
-          {
-            "value": "IBM+Plex+Sans+Arabic",
-            "label": {
-              "ar": "IBM Arabic",
-              "en": "IBM Arabic"
-            }
-          },
-          {
-            "value": "Harmattan",
-            "label": {
-              "ar": "Harmattan",
-              "en": "Harmattan"
-            }
-          },
-          {
-            "value": "Mirza",
-            "label": {
-              "ar": "Mirza",
-              "en": "Mirza"
-            }
-          },
-          {
-            "value": "Rakkas",
-            "label": {
-              "ar": "Rakkas",
-              "en": "Rakkas"
-            }
-          },
-          {
-            "value": "Katibeh",
-            "label": {
-              "ar": "Katibeh",
-              "en": "Katibeh"
-            }
-          },
-          {
-            "value": "Scheherazade+New",
-            "label": {
-              "ar": "Scheherazade New",
-              "en": "Scheherazade New"
-            }
-          },
-          {
-            "value": "Aref+Ruqaa",
-            "label": {
-              "ar": "Aref Ruqaa",
-              "en": "Aref Ruqaa"
-            }
-          },
-          {
-            "value": "Qahiri",
-            "label": {
-              "ar": "Qahiri",
-              "en": "Qahiri"
-            }
-          },
-          {
-            "value": "Jomhuria",
-            "label": {
-              "ar": "Jomhuria",
-              "en": "Jomhuria"
-            }
-          },
-          {
-            "value": "Kufam",
-            "label": {
-              "ar": "Kufam",
-              "en": "Kufam"
-            }
-          },
-          {
-            "value": "Vibes",
-            "label": {
-              "ar": "Vibes",
-              "en": "Vibes"
-            }
-          },
-          {
-            "value": "Noto+Kufi+Arabic",
-            "label": {
-              "ar": "Noto Kufi",
-              "en": "Noto Kufi"
-            }
-          },
-          {
-            "value": "Noto+Naskh+Arabic",
-            "label": {
-              "ar": "Noto Naskh",
-              "en": "Noto Naskh"
-            }
-          },
-          {
-            "value": "Noto+Sans+Arabic",
-            "label": {
-              "ar": "Noto Sans",
-              "en": "Noto Sans"
-            }
-          },
-          {
-            "value": "Noto+Nastaliq+Urdu",
-            "label": {
-              "ar": "Noto Nastaliq Urdu",
-              "en": "Noto Nastaliq Urdu"
-            }
-          }
-        ],
-        "default": "Changa"
-      }
-    }
-  }
-}
-{% endschema %}
+		{% schema %}
+		{
+				  "colors":{
+				    "name": {
+				      "ar": "الالوان",
+				      "en": "Colors"
+				    },
+				    "icon": "fa fa-paint-brush",
+				    "display": true,
+				    "settings":{
+				      "header": {
+				        "type": "fieldset",
+				        "label": {
+				          "ar": "رأس الصفحة",
+				          "en": "Header"
+				        },
+				        "icon": "font_awesome",
+				        "expandable": true,
+				        "settings": {
+				          "background_color": {
+				            "type": "color",
+				            "label": {
+				              "ar": "لون الخلفية",
+				              "en": "Background color"
+				            }
+				          },
+				          "text_color": {
+				            "type": "color",
+				            "label": {
+				              "ar": "لون النص",
+				              "en": "Text color"
+				            }
+				          },
+				          "menu_background_color": {
+				            "type": "color",
+				            "label": {
+				              "ar": "لون خلفية القائمة الرئيسية (اختياري)",
+				              "en": "Menu color"
+				            }
+				          },
+				          "menu_text_color": {
+				            "type": "color",
+				            "label": {
+				              "ar": "لون نص القائممة الرئيسية (اختياري)",
+				              "en": "Text color"
+				            }
+				          }
+				        }
+				      },
+				      "footer": {
+				        "type": "fieldset",
+				        "label": {
+				          "ar": "اسفل الصفحة",
+				          "en": "Header"
+				        },
+				        "icon": "font_awesome",
+				        "expandable": true,
+				        "settings": {
+				          "background_color": {
+				            "type": "color",
+				            "label": {
+				              "ar": "لون الخلفية",
+				              "en": "Text color"
+				            }
+				          },
+				          "text_color": {
+				            "type": "color",
+				            "label": {
+				              "ar": "لون النص",
+				              "en": "Text color"
+				            }
+				          }
+				        }
+				      },
+				      "background": {
+				        "type": "fieldset",
+				        "label": {
+				          "ar": "الخلفية",
+				          "en": "Background"
+				        },
+				        "icon": "font_awesome",
+				        "expandable": true,
+				        "settings": {
+				          "image": {
+				            "type": "image",
+				            "label": {
+				              "ar": "الصورة",
+				              "en": "Logo"
+				            },
+				            "info": {
+				              "ar": "ارفع صورة بحجم 150 * 150 ",
+				              "en": "This is an info text sample here"
+				            }
+				          }
+				        }
+				      }
+				    }
+				  },
+				  "fonts":{
+				    "name": {
+				      "ar": "الخطوط",
+				      "en": "fonts"
+				    },
+				    "icon": "fa fa-font",
+				    "display": true,
+				    "settings": {
+				      "name": {
+				        "type": "select",
+				        "label": {
+				          "ar": "اسم الخط",
+				          "en": "Font name"
+				        },
+				        "options": [
+				          {
+				            "value": "Changa",
+				            "label": {
+				              "ar": "Changa",
+				              "en": "Changa"
+				            }
+				          },
+				          {
+				            "value": "Cairo",
+				            "label": {
+				              "ar": "Cairo",
+				              "en": "Cairo"
+				            }
+				          },
+				          {
+				            "value": "Amiri",
+				            "label": {
+				              "ar": "Amiri",
+				              "en": "Amiri"
+				            }
+				          },
+				          {
+				            "value": "Mada",
+				            "label": {
+				              "ar": "Mada",
+				              "en": "Mada"
+				            }
+				          },
+				          {
+				            "value": "Tajawal",
+				            "label": {
+				              "ar": "Tajawal",
+				              "en": "Tajawal"
+				            }
+				          },
+				          {
+				            "value": "Almarai",
+				            "label": {
+				              "ar": "Almarai",
+				              "en": "Almarai"
+				            }
+				          },
+				          {
+				            "value": "El+Messiri",
+				            "label": {
+				              "ar": "El Messiri",
+				              "en": "El Messiri"
+				            }
+				          },
+				          {
+				            "value": "Lalezar",
+				            "label": {
+				              "ar": "Lalezar",
+				              "en": "Lalezar"
+				            }
+				          },
+				          {
+				            "value": "Scheherazade",
+				            "label": {
+				              "ar": "Scheherazade",
+				              "en": "Scheherazade"
+				            }
+				          },
+				          {
+				            "value": "Lemonada",
+				            "label": {
+				              "ar": "Lemonada",
+				              "en": "Lemonada"
+				            }
+				          },
+				          {
+				            "value": "Markazi+Text",
+				            "label": {
+				              "ar": "Markazi",
+				              "en": "Markazi"
+				            }
+				          },
+				          {
+				            "value": "Lateef",
+				            "label": {
+				              "ar": "Lateef",
+				              "en": "Lateef"
+				            }
+				          },
+				          {
+				            "value": "Reem+Kufi",
+				            "label": {
+				              "ar": "Reem Kufi",
+				              "en": "Reem Kufi"
+				            }
+				          },
+				          {
+				            "value": "IBM+Plex+Sans+Arabic",
+				            "label": {
+				              "ar": "IBM Arabic",
+				              "en": "IBM Arabic"
+				            }
+				          },
+				          {
+				            "value": "Harmattan",
+				            "label": {
+				              "ar": "Harmattan",
+				              "en": "Harmattan"
+				            }
+				          },
+				          {
+				            "value": "Mirza",
+				            "label": {
+				              "ar": "Mirza",
+				              "en": "Mirza"
+				            }
+				          },
+				          {
+				            "value": "Rakkas",
+				            "label": {
+				              "ar": "Rakkas",
+				              "en": "Rakkas"
+				            }
+				          },
+				          {
+				            "value": "Katibeh",
+				            "label": {
+				              "ar": "Katibeh",
+				              "en": "Katibeh"
+				            }
+				          },
+				          {
+				            "value": "Scheherazade+New",
+				            "label": {
+				              "ar": "Scheherazade New",
+				              "en": "Scheherazade New"
+				            }
+				          },
+				          {
+				            "value": "Aref+Ruqaa",
+				            "label": {
+				              "ar": "Aref Ruqaa",
+				              "en": "Aref Ruqaa"
+				            }
+				          },
+				          {
+				            "value": "Qahiri",
+				            "label": {
+				              "ar": "Qahiri",
+				              "en": "Qahiri"
+				            }
+				          },
+				          {
+				            "value": "Jomhuria",
+				            "label": {
+				              "ar": "Jomhuria",
+				              "en": "Jomhuria"
+				            }
+				          },
+				          {
+				            "value": "Kufam",
+				            "label": {
+				              "ar": "Kufam",
+				              "en": "Kufam"
+				            }
+				          },
+				          {
+				            "value": "Vibes",
+				            "label": {
+				              "ar": "Vibes",
+				              "en": "Vibes"
+				            }
+				          },
+				          {
+				            "value": "Noto+Kufi+Arabic",
+				            "label": {
+				              "ar": "Noto Kufi",
+				              "en": "Noto Kufi"
+				            }
+				          },
+				          {
+				            "value": "Noto+Naskh+Arabic",
+				            "label": {
+				              "ar": "Noto Naskh",
+				              "en": "Noto Naskh"
+				            }
+				          },
+				          {
+				            "value": "Noto+Sans+Arabic",
+				            "label": {
+				              "ar": "Noto Sans",
+				              "en": "Noto Sans"
+				            }
+				          },
+				          {
+				            "value": "Noto+Nastaliq+Urdu",
+				            "label": {
+				              "ar": "Noto Nastaliq Urdu",
+				              "en": "Noto Nastaliq Urdu"
+				            }
+				          }
+				        ],
+				        "default": "Changa"
+				      }
+				    }
+				  }
+				}
+		{% endschema %}

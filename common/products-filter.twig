@@ -96,6 +96,11 @@
             {% endif %}
         </div>
 
+        <div class="content-modes">
+            <img class="mode mode-one" src="{{ imageUrl('show.png') }}"/> 
+            <img class="mode mode-three" src="{{ imageUrl('show3.png') }}"/>
+        </div>
+
 </div>
 
 <div id="filters-form-collapse-sm" class="collapse mt-3">
@@ -115,4 +120,19 @@
         </div>
     </div>
 </div>
-
+<style>
+    .content-modes {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem; /* Equivalent to Tailwind's gap-2 */
+        justify-content: flex-end;
+        margin-left: 1.25rem; /* Equivalent to ml-5 */
+    }
+    
+    .mode {
+        cursor: pointer;
+        width: 40px;
+        transition: all 0.3s ease-out;
+        filter: brightness(10%);
+    }    
+</style>
