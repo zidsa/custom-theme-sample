@@ -99,9 +99,9 @@
 
 	{% if session.lang.code == 'ar' %}
 		<link rel="stylesheet" href="{{ asset_url ~ 'main.rtl.css?v=1.25' }}">
-	{% endif %}
+	{% endif %}     
 
-	{% block top_links %}{% endblock %}
+	{% block top_links %}{% endblock %}      
  
 	{% if user_custom_css %}
 		<link rel="stylesheet" href="{{ user_custom_css }}">
