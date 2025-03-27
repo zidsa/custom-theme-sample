@@ -1,76 +1,48 @@
-name: Universal Branch Sync
+name: Sync Main with Upstream (Zid)
 
 on:
-  push:
-    branches:
-      - '**'
-  pull_request:
-    branches:
-      - '**'
-  schedule:
-    - cron: "0 0 * * *"  # يوميًا في منتصف الليل UTC
   workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch to sync (leave empty for current)'
-        required: false
-        default: ''
+  schedule:
+    - cron: "0 0 * * *" # تشغيل تلقائي كل يوم
 
 jobs:
-  sync-branches:
+  sync:
     runs-on: ubuntu-latest
+
     steps:
-      - name: ✅ Checkout Repository
+      - name: 📥 Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # جلب كل التاريخ
-          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 0 # جلب كل الفروع
 
       - name: 🔧 Configure Git
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
 
       - name: 🔗 Add Upstream Repository
         run: |
-          git remote add upstream https://github.com/zidsa/custom-theme-sample.git || true
+          git remote add upstream https://github.com/USERNAME/REPO.git || echo "Upstream already exists"
           git fetch upstream
-          
+
       - name: 🔄 Sync Main with Upstream (Zid)
         run: |
-          git checkout main
-          git merge upstream/main --no-edit || git merge --abort
-          git push origin main
+          git fetch --all
+          git checkout -B main origin/main 2>/dev/null || git checkout main
+          git reset --hard upstream/main
+          git pull upstream main --rebase --autostash || git rebase --abort
+          git push origin main --force
 
-      - name: 🔍 Determine Current Branch
-        id: branch
-        run: |
-          if [[ "${{ github.event.inputs.branch }}" != "" ]]; then
-            echo "BRANCH=${{ github.event.inputs.branch }}" >> $GITHUB_ENV
-          elif [[ "${{ github.head_ref }}" != "" ]]; then
-            echo "BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
-          else
-            BRANCH=${GITHUB_REF#refs/heads/}
-            echo "BRANCH=$BRANCH" >> $GITHUB_ENV
-          fi
+      - name: 🛠 Determine Current Branch
+        run: git branch --show-current
 
       - name: 🔄 Sync Feature Branches with Main
         run: |
-          for branch in $(git branch -r | grep -v 'origin/main' | grep -v 'HEAD' | sed 's/origin\///'); do
-            echo "🔹 Checking branch: $branch"
-            if [[ "$branch" != "main" && "$branch" != "HEAD" ]]; then
-              git checkout -B $branch origin/$branch || continue
-              git pull origin $branch || continue
-
-              git merge main --no-commit --no-ff > merge_log.txt 2>&1
-              if grep -q "Already up to date" merge_log.txt; then
-                echo "✅ $branch is already up to date with main. Skipping merge."
-              elif git diff --quiet; then
-                echo "✅ No changes to commit in $branch. Skipping push."
-              else
-                git commit -m "🚀 Merged main into $branch [automated]"
-                git push origin $branch
-                echo "✅ Updated $branch with latest main"
-              fi
-            fi
+          for branch in $(git branch -r | grep -vE 'main|HEAD' | sed 's/origin\///'); do
+            git checkout $branch
+            git rebase main || git rebase --abort
+            git push origin $branch --force
           done
+
+      - name: ✅ Complete job
+        run: echo "Sync completed successfully!"
