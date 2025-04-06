@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 
-		{{ header_meta_tags | raw }}
+		{# {{ header_meta_tags | raw }} #}
 
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -69,7 +69,7 @@
   {# swiper css #}
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
-	<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'icomoon.css?v=1.0.2' }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset_url ~  'icomoon.css?v=1.0.2' }}"/>
 
 	{% if session.lang.code == 'ar' %}
 		<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'bootstrap-rtl.css?v=1.05' }}"/>
@@ -99,12 +99,13 @@
 
 	{% if session.lang.code == 'ar' %}
 		<link rel="stylesheet" href="{{ asset_url ~ 'main.rtl.css?v=1.25' }}">
-	{% endif %}
+	{% endif %}     
 
-	{% block top_links %}{% endblock %}
+	{% block top_links %}{% endblock %}      
  
 	{% if user_custom_css %}
 		<link rel="stylesheet" href="{{ user_custom_css }}">
+		
 	{% endif %}
 </head>
 
@@ -190,7 +191,7 @@
 				const cards = document.querySelectorAll(".content-card");
 				const wishlists = document.querySelectorAll(".add-to-wishlist");
 				// Function to reset styles
-				const resetStyles = (elements) => {
+				const resetStyles = (elements) => { 
 					elements.forEach(element => element.style.cssText = '');
 				};
 				// Function to apply Mode One styles
