@@ -1,4 +1,4 @@
-name: Universal Branch Sync (Safe Merge)
+name: Universal Branch Sync
 
 on:
   push:
@@ -34,26 +34,20 @@ jobs:
       - name: 🔗 Add Upstream Repository
         run: |
           git remote add upstream https://github.com/zidsa/custom-theme-sample.git || true
-          git fetch upstream
+          git fetch --prune upstream
 
-      - name: 🔄 Safe Merge Upstream into Main
+      - name: 🔄 Sync Main Branch Safely
         run: |
-          git checkout main || git checkout -B main origin/main
-          git pull origin main
-          git merge upstream/main || true
+          git checkout main || git checkout -b main
+          git pull upstream main --no-rebase || echo "Main already up to date."
           git push origin main
 
-      - name: 🔍 Determine Current Branch
-        id: branch
+      - name: 🔍 Sync Feature Branches with Main
         run: |
-          echo "branch_name=$(git symbolic-ref --short HEAD)" >> $GITHUB_OUTPUT
-
-      - name: 📢 Notify Success
-        if: success()
-        run: |
-          echo "✅ Branch sync (safe merge) completed successfully on branch: ${{ steps.branch.outputs.branch_name }}."
-
-      - name: ❌ Notify Failure
-        if: failure()
-        run: |
-          echo "❗ Branch sync failed!"
+          for branch in $(git branch -r | grep -v 'origin/main' | grep -v 'HEAD' | sed 's/origin\///'); do
+            echo "⚡ Checking branch: $branch"
+            git checkout $branch
+            git pull origin $branch
+            git merge --no-edit main || echo "Nothing to merge, $branch already up-to-date."
+            git push origin $branch
+          done
