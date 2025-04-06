@@ -39,15 +39,29 @@ jobs:
       - name: 🔄 Sync Main Branch Safely
         run: |
           git checkout main || git checkout -b main
-          git pull upstream main --no-rebase || echo "Main already up to date."
+          git pull upstream main --no-rebase --no-commit || true
           git push origin main
 
-      - name: 🔍 Sync Feature Branches with Main
+      - name: 🔍 Determine Current Branch
+        id: branch
+        run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+
+      - name: 🔄 Sync Feature Branches with Main
         run: |
           for branch in $(git branch -r | grep -v 'origin/main' | grep -v 'HEAD' | sed 's/origin\///'); do
-            echo "⚡ Checking branch: $branch"
-            git checkout $branch
-            git pull origin $branch
-            git merge --no-edit main || echo "Nothing to merge, $branch already up-to-date."
-            git push origin $branch
+            echo "➡️ Checking branch: $branch"
+            git checkout "$branch" || continue
+            git merge origin/main --no-commit --no-ff || true
+
+            if git diff-index --quiet HEAD; then
+              echo "✅ Branch '$branch' is already up-to-date."
+            else
+              echo "🚀 Updating branch '$branch'..."
+              git commit -m "Sync with upstream main"
+              git push origin "$branch"
+            fi
           done
+
+      - name: 🧹 Post Checkout Repository
+        if: always()
+        run: echo "Post-job steps finished."
