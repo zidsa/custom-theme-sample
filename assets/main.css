@@ -229,10 +229,10 @@ button.more-button , a.more-button {
 
 .account-lang-currency .account-btn {
     background-color: transparent;
-    border: 1px solid var(--menu-header-text-color-primary-bg, var(--text-color-primary-bg));
+    border: 1px solid var(--header-text-color-primary-bg, var(--text-color-primary-bg));
     box-sizing: border-box;
     border-radius: 5px;
-    color: var(--menu-header-text-color-primary-bg, var(--text-color-primary-bg));
+    color: var(--header-text-color-primary-bg, var(--text-color-primary-bg));
     min-width: 124px;
     padding: 3px 5px;
 }
@@ -805,61 +805,6 @@ button.more-button , a.more-button {
     font-size: 18px;
 }
 
-/* 
-.cat-col, .prod-col {
-    flex: 0 0 20%;
-    max-width: 20%;
-
-    position: relative;
-    width: 100%;
-    min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
-}
-
-.prod-col-tb {
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
-.slider-arrow {
-    height: 50px;
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    cursor: pointer;
-}
-
-.slider-arrow span {
-    color: #ffffff;
-    font-size: 40px;
-}
-
-.slider-arrow.right {
-    right: -40px;
-}
-
-.slider-arrow.left {
-    left: -40px;
-}
-
-@media only screen and (max-width: 768px) { 
-
-    .home-categories-section .categories {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
-
-}
-
-@media only screen and (max-width: 414px) { 
-
-    .home-categories-section .categories {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    }
-
-} */
 /* products-section */
 
 .products-section {
@@ -968,7 +913,6 @@ button.more-button , a.more-button {
 
 .product-item {
     width: 100%;
-    max-width: 200px;
 }
 
 .product-item .product-title {
@@ -1012,7 +956,7 @@ button.more-button , a.more-button {
 .product-item img {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .products-title-section {
@@ -1747,6 +1691,14 @@ hr {
 
 }
 
+.btns-card .btn-primary {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
 .btn-primary {
     color: var(--text-color-primary-bg);
     background-color: var(--primary-color);
@@ -1763,6 +1715,7 @@ hr {
     background-color: #cccccc;
     border-color: #cccccc;
 }
+
 
 .form-control:focus {
     box-shadow: none !important;

@@ -1,0 +1,67 @@
+name: Universal Branch Sync
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to sync (leave empty for current)'
+        required: false
+        default: ''
+
+jobs:
+  sync-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ✅ Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
+
+      - name: 🔧 Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: 🔗 Add Upstream Repository
+        run: |
+          git remote add upstream https://github.com/zidsa/custom-theme-sample.git || true
+          git fetch --prune upstream
+
+      - name: 🔄 Sync Main Branch Safely
+        run: |
+          git checkout main || git checkout -b main
+          git pull upstream main --no-rebase --no-commit || true
+          git push origin main
+
+      - name: 🔍 Determine Current Branch
+        id: branch
+        run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+
+      - name: 🔄 Sync Feature Branches with Main
+        run: |
+          for branch in $(git branch -r | grep -v 'origin/main' | grep -v 'HEAD' | sed 's/origin\///'); do
+            echo "➡️ Checking branch: $branch"
+            git checkout "$branch" || continue
+            git merge origin/main --no-commit --no-ff || true
+
+            if git diff-index --quiet HEAD; then
+              echo "✅ Branch '$branch' is already up-to-date."
+            else
+              echo "🚀 Updating branch '$branch'..."
+              git commit -m "Sync with upstream main"
+              git push origin "$branch"
+            fi
+          done
+
+      - name: 🧹 Post Checkout Repository
+        if: always()
+        run: echo "Post-job steps finished."
