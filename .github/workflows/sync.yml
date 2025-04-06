@@ -1,12 +1,23 @@
-name: Sync from Upstream
+name: Universal Branch Sync
 
 on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
   schedule:
-    - cron: "0 0 * * *"  # تشغيل يوميًا في منتصف الليل UTC
+    - cron: "0 0 * * *"  # يوميًا في منتصف الليل UTC
   workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to sync (leave empty for current)'
+        required: false
+        default: ''
 
 jobs:
-  sync-upstream:
+  sync-branches:
     runs-on: ubuntu-latest
     steps:
       - name: ✅ Checkout Repository
@@ -23,28 +34,25 @@ jobs:
       - name: 🔗 Add Upstream Repository
         run: |
           git remote add upstream https://github.com/zidsa/custom-theme-sample.git || true
-          git fetch upstream
+          git fetch --prune upstream
 
-      - name: 🔄 Sync Main Branch
+      - name: 🔄 Sync Main Branch with Upstream
         run: |
-          git checkout main
-          git merge upstream/main --no-edit || true
-          git push origin main || true
+          git checkout -B main origin/main || git checkout main
+          git reset --hard upstream/main
+          git push origin main --force
 
-      - name: 🔄 Sync Feature Branches with Main
+      - name: 🔍 Determine Current Branch
+        id: branch
         run: |
-          for branch in $(git branch -r | grep -v 'origin/main' | grep -v 'HEAD' | sed 's/origin\///'); do
-            echo "🔹 Checking branch: $branch"
-            if [[ "$branch" != "main" ]]; then
-              git checkout -B $branch origin/$branch || continue
-              git pull origin $branch || continue
-              git merge main --no-commit --no-ff > /dev/null 2>&1 || {
-                echo "⚠️ No changes to merge in $branch - skipping"
-                git merge --abort || true
-                continue
-              }
-              git commit -m "🚀 Merged main into $branch [automated]" || true
-              git push origin $branch || true
-              echo "✅ Updated $branch with latest main"
-            fi
-          done || true
+          echo "branch_name=$(git symbolic-ref --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: 📢 Notify Success
+        if: success()
+        run: |
+          echo "✅ Branch sync completed successfully on branch: ${{ steps.branch.outputs.branch_name }}."
+
+      - name: ❌ Notify Failure
+        if: failure()
+        run: |
+          echo "❗ Branch sync failed!"
