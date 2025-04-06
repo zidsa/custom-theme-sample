@@ -8,7 +8,7 @@ on:
     branches:
       - '**'
   schedule:
-    - cron: "0 0 * * *"  # يوميًا في منتصف الليل UTC
+    - cron: "0 0 * * *"
   workflow_dispatch:
     inputs:
       branch:
@@ -23,7 +23,7 @@ jobs:
       - name: ✅ Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # جلب كل التاريخ
+          fetch-depth: 0
           token: ${{ secrets.GH_PAT }}
 
       - name: 🔧 Configure Git
@@ -36,39 +36,32 @@ jobs:
           git remote add upstream https://github.com/zidsa/custom-theme-sample.git || true
           git fetch --prune upstream
 
-      - name: 🔄 Fix & Sync Main Branch
+      - name: 🔄 Sync Main Branch Safely
         run: |
-          git checkout -B main origin/main || git checkout main
-          git reset --hard upstream/main  # يضمن أن الفرع متطابق تمامًا مع upstream/main
-          git push origin main --force  # يجبر التحديث ليعكس التعديلات الجديدة
+          git checkout main || git checkout -b main
+          git pull upstream main --no-rebase --no-commit || true
+          git push origin main
 
       - name: 🔍 Determine Current Branch
         id: branch
-        run: |
-          if [[ "${{ github.event.inputs.branch }}" != "" ]]; then
-            echo "BRANCH=${{ github.event.inputs.branch }}" >> $GITHUB_ENV
-          elif [[ "${{ github.head_ref }}" != "" ]]; then
-            echo "BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
-          else
-            BRANCH=${GITHUB_REF#refs/heads/}
-            echo "BRANCH=$BRANCH" >> $GITHUB_ENV
-          fi
+        run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
 
       - name: 🔄 Sync Feature Branches with Main
         run: |
           for branch in $(git branch -r | grep -v 'origin/main' | grep -v 'HEAD' | sed 's/origin\///'); do
-            echo "🔹 Checking branch: $branch"
-            if [[ "$branch" != "main" && "$branch" != "HEAD" ]]; then
-              git checkout -B $branch origin/$branch || continue
-              git pull origin $branch || continue
+            echo "➡️ Checking branch: $branch"
+            git checkout "$branch" || continue
+            git merge origin/main --no-commit --no-ff || true
 
-              if git merge main --no-commit --no-ff > /dev/null 2>&1; then
-                git commit -m "🚀 Merged main into $branch [automated]"
-                git push origin $branch
-                echo "✅ Updated $branch with latest main"
-              else
-                git merge --abort
-                echo "⚠️ Merge conflict in $branch - manual resolution required"
-              fi
+            if git diff-index --quiet HEAD; then
+              echo "✅ Branch '$branch' is already up-to-date."
+            else
+              echo "🚀 Updating branch '$branch'..."
+              git commit -m "Sync with upstream main"
+              git push origin "$branch"
             fi
           done
+
+      - name: 🧹 Post Checkout Repository
+        if: always()
+        run: echo "Post-job steps finished."

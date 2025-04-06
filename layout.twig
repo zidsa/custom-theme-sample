@@ -107,7 +107,6 @@
 		<link rel="stylesheet" href="{{ user_custom_css }}">
 		
 	{% endif %}
-
 </head>
 
 <body class="{% if session.lang.code == 'ar' %}rtl{% else %}ltr{% endif %}" data-template="{{ template }}" {% if template == 'category' and category is not empty %} data-category-id="{{ category.id }}" {% endif %}>
