@@ -76,7 +76,7 @@
         </div>
         <div style="text-align: center">
             {% if product.is_infinite == false and product.quantity <= 0 %}
-            <a class="btn btn-primary btn-product-card-out-of-stock" disabled>
+            <a class="btn btn-primary btn-product-card-out-of-stock" href="/products/{{ product.slug }}">
                 <img src="{{ assetUrl('u_bell.svg') }}" alt="" width="18" height="18" class="d-inline">
                 <span>{{ locals.btn_error_product_out_of_stock }}</span>
              </a>

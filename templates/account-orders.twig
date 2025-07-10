@@ -40,7 +40,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col"><a class="theme-text-primary" style="text-decoration: underline" href="/orders/{{ order.code }}/invoice">#{{ order.id }}</a></div>
-                                                <div class="col">{{ order.order_status.name }}</div>
+                                                <div class="col">{{ session.lang.code == 'ar' ? order.order_status.name : order.order_status.code }}</div>
                                                 <div class="col">{{ datetimeFormat(order.created_at, 'd-m-Y g:i:s A', session.lang.code) }}</div>
                                                 <div class="col">{{ order.order_total_string }}</div>
                                             </div>

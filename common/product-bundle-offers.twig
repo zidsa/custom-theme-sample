@@ -1,0 +1,63 @@
+{% if product.bundle_offer %}
+<section class="bundle-offer-details-section mt-5">
+    <div class="d-flex align-items-center">
+        <div class="description-icon">
+            <span class="icon-gift"></span>
+        </div>
+        <div class="description-title">
+            <div class="bundle-offer-title">{{ product.bundle_offer.name }}</div>
+            <div class="bundle-offer-title-description">{{ product.bundle_offer.description }}</div>
+        </div>
+    </div>
+    <div class="description-paragrah">
+        <div class="bundle-offer-products">
+            <div class="row bundle-offer-details-products">
+                {% for key, product in product.bundle_offer.products.results | slice(0, 5) %}
+                    <div class="prod-col prod-col-tb">
+                        {% include 'product-card.twig' with {'product' : product, 'index': key} %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% if product.bundle_offer.products.results | length > 5 %}
+        <div class="bundle-offer-more">
+            <a href="{{ product.bundle_offer.link }}">{{ locals.bundle_offer_all_products }}</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+
+{% if product.extra_bundle_offers %}
+
+    {% for key, bundle_offer in product.extra_bundle_offers %}
+    <section class="bundle-offer-details-section mt-5">
+            <div class="d-flex align-items-center">
+                <div class="description-icon">
+                    <span class="icon-gift"></span>
+                </div>
+                <div class="description-title">
+                    <div class="bundle-offer-title">{{ bundle_offer.name }}</div>
+                    <div class="bundle-offer-title-description">{{ bundle_offer.description }}</div>
+                </div>
+            </div>
+            <div class="description-paragrah">
+                <div class="bundle-offer-products">
+                    <div class="row bundle-offer-details-products">
+                        {% for key, product in bundle_offer.products.results | slice(0, 5) %}
+                            <div class="prod-col prod-col-tb">
+                                {% include 'product-card.twig' with {'product' : product, 'index': key} %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% if product.bundle_offer.products.results | length > 5 %}
+                <div class="bundle-offer-more">
+                    <a href="{{ bundle_offer.link }}" >{{ locals.bundle_offer_all_products }}</a>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+    {% endfor %}
+
+{% endif %}

@@ -435,6 +435,10 @@ button.more-button , a.more-button {
 
 .search-header .image-logo {
     padding: 0px;
+    width: auto;
+    max-height: 100%;
+    position: relative;
+    z-index: 1;
 }
 
 .input-group-text{
@@ -2008,6 +2012,10 @@ hr {
 
     .search-header .image-logo {
         padding: 10px 0px;
+        width: auto;
+        max-height: 100%;
+        position: relative;
+        z-index: 1;
     }
 
     .page-item-n-last {

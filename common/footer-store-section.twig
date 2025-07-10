@@ -176,10 +176,10 @@
                 {% endif %}
 
                 {% if store.social_media.items.business_center %}
-                    <div class="maroof-icon" style="text-align: center;">
+                    <a href="https://eauthenticate.saudibusiness.gov.sa/certificate-details/{{store.social_media.items.business_center}}" target="_blank"  class="maroof-icon" style="text-align: center; color: inherit;">
                         <img src="{{ asset_url ~ 'business_center.png' }}" loading="lazy" alt="" width="auto" height="30">
                         <div>{{ store.social_media.items.business_center }}</div>
-                    </div>
+                    </a>
                 {% endif %}
 
                 {% if store.vat_settings.vat_number %}

@@ -157,8 +157,15 @@
                                         <span class="bundle-offer-title">{{ product.bundle_offer.name }}</span>
                                     </div>
                                     {% endif %}
-
-
+                                    
+                                    {% if product.extra_bundle_offers %}
+                                        {% for key, bundle_offer in product.extra_bundle_offers %}
+                                            <div class="bundle-offer-section">
+                                                <span class="icon-gift" style="color: red; font-size: 14px"></span>&nbsp;
+                                                <span class="bundle-offer-title">{{ bundle_offer.name }}</span>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
                                 </div>
 
                                 {% if product.short_description is not empty %}
@@ -318,36 +325,7 @@
                 </div>
             </section>
 
-
-            {% if product.bundle_offer %}
-            <section class="bundle-offer-details-section mt-5">
-                <div class="d-flex align-items-center">
-                    <div class="description-icon">
-                        <span class="icon-gift"></span>
-                    </div>
-                    <div class="description-title">
-                        <div class="bundle-offer-title">{{ product.bundle_offer.name }}</div>
-                        <div class="bundle-offer-title-description">{{ product.bundle_offer.description }}</div>
-                    </div>
-                </div>
-                <div class="description-paragrah">
-                    <div class="bundle-offer-products">
-                        <div class="row bundle-offer-details-products">
-                            {% for key, product in product.bundle_offer.products.results | slice(0, 5) %}
-                                <div class="prod-col prod-col-tb">
-                                    {% include 'product-card.twig' with {'product' : product, 'index': key} %}
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    {% if product.bundle_offer.products.results | length > 5 %}
-                    <div class="bundle-offer-more">
-                        <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg">{{ locals.bundle_offer_all_products }}</a>
-                    </div>
-                    {% endif %}
-                </div>
-            </section>
-            {% endif %}
+            {% include 'product-bundle-offers.twig' %}
 
             {{ template_for_product_grouped }}
 
@@ -884,7 +862,14 @@
                 return;
 
             $('.send-notify-progress').removeClass('d-none');
-            const countryCode = '+'+ ($('.send-notify-country-key').val() || '966');
+            let inputVal = $('.send-notify-country-key').val() || '966';
+
+            if (inputVal.startsWith('00')) {
+                inputVal = inputVal.replace(/^00+/, ''); // or inputVal = '966' to reset
+            }
+
+            const countryCode = '+' + inputVal;
+
             zid.store.product.setAvailabilityNotificationEmail(
                 $('.send-notify-product-id').val(),
                 $('.send-notify-email').val(),
@@ -1070,7 +1055,7 @@
 
           if (videoIdMatch && videoIdMatch[1]) {
             const videoLinkId = videoIdMatch[1];
-            return `https://www.youtube.com/embed/${videoLinkId}?autoplay=1&enablejsapi=1`;
+            return `https://www.youtube.com/embed/${videoLinkId}?autoplay=1&enablejsapi=1&mute=1&rel=0`;
           }
 
           return null;
